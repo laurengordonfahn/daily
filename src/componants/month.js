@@ -1,33 +1,49 @@
 import React from 'react';
 
+//TODO is this right????
+import * from Date;
 
 class Month extends React.Component {
 
     constructor (){
         super();
         // place methods here to bind 'this' to instance of Month component
-        this.handlePrevMonth = this.handlePrevMonth.bind(this);
-        this.handleNextMonth = this.handleNextMonth.bind(this);
+       
         this.renderDate = this.renderDate.bind(this);
     }
 
+     state = {
+            year: null
+            month: ""
+            date: []
+    };
+
+    renderDate() {
+        var months = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+
+        var d = new Date();
+
+        this.setState({year: })
+
+
+    }
+    componentWillMount() {
+        this.renderDate();
+        
+    }
+        
+    
     render(){
         return(
 
             <div className="month">
 
                 <div className="monthHeader"
-                    <ul>
-                        <li className="prev" onClick={this.handlePrevMonth}>&#10094;</li>
-                        <li className="next" onClick={this.handleNextMonth}>&#10095;</li>
-                        <li>
+                        
+                    {this.state.month}<br>
 
-                            {/* TODO I have to figure out how the month and year will be fed in */}
-                                {this.props.month}<br>
-
-                            <span className="year">{this.props.year}</span>
-                        </li>
-                    </ul>
+                    <span className="year">{this.state.year}</span>
+                       
                 </div>
 
                 <ul className="weekdayNames">
