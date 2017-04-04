@@ -20,8 +20,11 @@ class Calendar extends React.Component{
         // all dates in the database
         dateStore: []; 
 
+        //all date month and years in database month/year 
+        dateRange:[]
+
         //on sign in auto to today's month can change from 'present' to a month/year setting that user requests
-        view : "present";  
+        view : [];  
     };
 
     componentWillMount(){
@@ -30,25 +33,67 @@ class Calendar extends React.Component{
 
     }
 
-    renderDate() {
-        var today = new Date();
+    ////// componentWillMount ///////
+    renderMonth() {
+        const today = new Date();
 
         this.setState({ today })
-        this.setState({ month: today.Month() })
-        this.setState({year: today.Year()  })
+        const this.setState({ month: today.Month() })
+        const this.setState({year: today.Year()  })
+        this.setState({view: [this.state.month, this.state.year]})
+
+        $.ajax({
+            url: "/month",
+            dataType: 'json', 
+            cache: false,
+            data: {month: this.state.month, year: this.state.year},
+            success: function(response) {
+                //TODO date: {adj: [adj,adj, adj], color:#hex}
+                // TODO check what happens when no response content
+                this.setState({dateStore: response.date.keys() });
+
+            }.bind(this)
+
+        });
+
     }
+
+    fillDateStore() {
+
+        $.ajax({
+            url: "/calendar",
+            dataType: 'json', 
+            cache: false,
+            success: function(response) {
+                //TODO dateHistory: [month/year, month, year]
+                // TODO check what happens when no response content
+
+                this.setState({dateRange: response.dateHistory });
+
+            }.bind(this)
+
+        });
+
+    }
+
+    /// SelectView ////
+
+    handleDateSelection(){
+        ///TODO How to select and change view of what is being seen and re reneder month
+    }
+    
+
 
     render(){
         return(
 
             <div>
 
-                < signIn />
-                < signOut />
-            {/*should i pass the entire dateStore to selectView?*/}
-                < selectView dateOptions={this.state.dateStore} />
-                < month monthName={this.state.monthName} yearName={this.state.yearName} today={this.state.today} />
-
+                < SignIn />
+                < SignOut />
+                < Profile />
+                < SelectView onDateSelection={this.handleDateSelection} />
+                < Month />
 
             </div>
 
