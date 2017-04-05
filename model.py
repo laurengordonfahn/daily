@@ -49,4 +49,4 @@ class Colorset(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     emotion = db.Column(db.String(50), nullable=False)
-    color = db.Column(db.Integer, nullable=False)
+    color = db.Column(db.String(7), nullable=False)
