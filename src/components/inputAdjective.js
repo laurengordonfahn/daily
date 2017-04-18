@@ -18,7 +18,7 @@ class InputAdjective extends React.Component {
     render(){
         return(
 
-            <input type="text" name={this.props.key} placeholder="A Daily Adjective" onChange={(e) =>this.handleChange(e)} />
+            <input type="text" name={this.props.name} placeholder="A Daily Adjective" onChange={(e) =>this.handleChange(e)} />
             
             )
     }

@@ -11,10 +11,13 @@ class DayBox extends React.Component {
     }
 
     render() {
+        const dayDate = {this.props.detail};
+
         return (
             <div>
-                <h3> {this.state.today} </h3>
-                <AdjectiveForm />
+                <h3> {dayDate} </h3>
+           
+                <AdjectiveForm dayDate={dayDate} />
                 <ColorSelect />
             </div>
     )}

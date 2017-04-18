@@ -30,14 +30,21 @@ class AdjectiveForm extends React.Component{
     }
 
     render(){
+
+        const dayDate= {this.props.dayDate};
+        const info = {this.state.dateStore[dayDate]};
+        const adjectiveArray = {Object.keys(info).filter((elem) => {return elem !== 'color';})};
+        
+
         return (
             <form className="adjectiveForm" onSubmit={(event)=> this.handleForm}>
 
                 <label> Add Your Daily Adjectives: </label>
-                
-                    <InputAdjective value={this.state.adj1} onChange={(val) => this.updateAdj('adj1', val)} />
-                    <InputAdjective value={this.state.adj2 } onChange={(val) => this.updateAdj('adj2', val)} />
-                    <InputAdjective value={this.state.adj3} onChange={(val) => this.updateAdj('adj3', val)} />
+                    {/* Remember to create Props for adjectes*/}
+                    {adjectiveArray.forEach((elem) =>{
+                        <InputAdjective name={elem} value={this.state.dateStore[dayDate][elem]} onChange={(val) => this.updateAdj({elem}, val)} />
+                    } )}
+                    
 
                 <button type="submit"> Add Adjectives </button>
             </form>

@@ -24,7 +24,7 @@ class Calendar extends React.Component{
         month : null,
         year : null,
 
-        // all dates in the database
+        // all dates in the database ["d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}]
         dateStore: [], 
 
         //all date month and years in database month/year 
@@ -55,8 +55,7 @@ class Calendar extends React.Component{
             cache: false,
             data: {month: this.state.month, year: this.state.year},
             success: function(response) {
-                //TODO date: {adj: [adj,adj, adj], color:#hex}
-                // TODO check what happens when no response content
+                //Complete setState below 
                 this.setState({dateStore: response.date.keys() });
 
             }.bind(this)
