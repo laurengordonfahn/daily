@@ -6,6 +6,7 @@ class Month extends React.Component {
 
     constructor (){
         super();
+        
        
     }
 
@@ -39,7 +40,7 @@ class Month extends React.Component {
                     {(this.state.dateStore).map(elem => 
                       const dayDate = {this.props.detail};
                       const colorHex = {this.state.dateStore[dayDate][color]};
-                      <DayBox key = {elem}, detail = {elem} style=`background-color=${colorHex}` />
+                      <DayBox key={elem}, detail={elem} style={`background-color=${colorHex}`} handleColorChange={this.props.handleColorChange(e, dayDate)} />
                     )}
                    
                 </ul>

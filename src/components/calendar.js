@@ -24,8 +24,11 @@ class Calendar extends React.Component{
         month : null,
         year : null,
 
-        // all dates in the database ["d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}]
-        dateStore: [], 
+        // all dates in the database "d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}
+        dayContent: {},
+        // ["d/m/y ", "d/m/y"]
+
+        dateArray: [], 
 
         //all date month and years in database month/year 
         dateRange:[],
@@ -88,6 +91,11 @@ class Calendar extends React.Component{
         ///TODO How to select and change view of what is being seen and re reneder month reset states after database call
     }
     
+    handleColorChange(event, dayDate){
+        const dayState = {...this.state.dayContent};
+        dayState.dayDate.color = event.target.value;
+        this.setState({dayContent : dayState});
+    }
 
 
     render(){
@@ -99,7 +107,7 @@ class Calendar extends React.Component{
                 < SignOut />
                 < Profile />
                 < SelectView onDateSelection={this.handleDateSelection} />
-                < Month />
+                < Month handleColorChange={this.handleColorChange(e, dayDate)} />
 
             </div>
 

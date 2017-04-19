@@ -8,6 +8,7 @@ import ColorSelect from './colorSelect';
 class DayBox extends React.Component {
     constructor (){
         super();
+        
     }
 
     render() {
@@ -18,7 +19,7 @@ class DayBox extends React.Component {
                 <h3> {dayDate} </h3>
            
                 <AdjectiveForm dayDate={dayDate} />
-                <ColorSelect />
+                <ColorSelect  dayDate={dayDate} handleChange={this.props.handleColorChange(e, dayDate)} />
             </div>
     )}
 }
