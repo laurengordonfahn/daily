@@ -94,6 +94,25 @@ class Calendar extends React.Component{
         // Is this copy necessary since I am over writing the entier thig
         const viewCopy = this.state.view.slice();
         this.setState({view: dateSelected})
+
+        $.ajax({
+            url: "/view",
+            dataType: 'json', 
+            cache: false,
+            data: {dateRequest: this.state.view},
+            success: function(response) {
+                //TODO dateHistory: [month/year, month, year]
+                // TODO check what happens when no response content
+
+                this.setState({dateArray: response.dateArray});
+                this.setState({dayContent: response.dayContent});
+                this.setState({month: response.month});
+                this.setState({year: response.year});
+
+            }.bind(this)
+
+        });
+
         
     }
     
