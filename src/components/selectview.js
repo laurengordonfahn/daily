@@ -9,15 +9,20 @@ class SelectView extends React.Component {
 
 
     render(){
+
+        const dateOptions = this.state.dateRange;
+
         return(
 
-            <select>
+            <select onChange={this.props.handleDateSelection} >
 
-                <option value="fillindates"> Fill This In </option>
+                {dateOptions.forEach((date) => 
+                <option value={date}> {date} </option>
+                )}
         
             </select>
             
-            )
+        )
     }
 }
 

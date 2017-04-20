@@ -15,6 +15,8 @@ class Calendar extends React.Component{
         super();
         this.renderDate = this.renderDate.bind(this);
         this.fillDateStore = this.fillDateStore.bind(this);
+        this.handleDateSelection = this.handleDateSelection.bind(this);
+        this.handleColorChange = this.handleColorChange.bind(this);
         
     }
 
@@ -87,8 +89,12 @@ class Calendar extends React.Component{
 
     /// SelectView ////
 
-    handleDateSelection(){
-        ///TODO How to select and change view of what is being seen and re reneder month reset states after database call
+    handleDateSelection(event){
+        const dateSelected = [event.target.value];
+        // Is this copy necessary since I am over writing the entier thig
+        const viewCopy = this.state.view.slice();
+        this.setState({view: dateSelected})
+        
     }
     
     handleColorChange(event, dayDate){
