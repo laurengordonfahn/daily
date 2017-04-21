@@ -37,7 +37,7 @@ class Day(db.Model):
     __tablename__ = "days"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Ingeter, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     date = db.Column(db.Date, nullable=False)
     adj1 = db.Column(db.String(100), nullable=True)
     adj2 = db.Column(db.String(100), nullable=True)

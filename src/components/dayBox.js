@@ -12,7 +12,7 @@ class DayBox extends React.Component {
     }
 
     render() {
-        const dayDate = {this.props.detail};
+        const dayDate = this.props.detail;
 
         return (
             <div>

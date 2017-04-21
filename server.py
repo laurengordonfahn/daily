@@ -9,7 +9,7 @@ from sqlalchemy import (asc, desc)
 
 from model import *
 
-from helper_functions import *
+# from helper_functions import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -23,7 +23,7 @@ import os
 import datetime
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./public/')
 #for marshmellow searliazer to work
 ma = Marshmallow(app)
 
@@ -34,7 +34,7 @@ app.secret_key = "pouring monday"
 def index():
     """ Render index.html"""
 
-    return render_template("./public/index.html")
+    return render_template("index.html")
 
 @app.route('/month')
 def month():
@@ -51,3 +51,14 @@ def calendar():
     """
 
     pass
+
+
+if __name__ == "__main__":
+
+    app.debug = True
+
+    connect_to_db(app)
+
+    DebugToolbarExtension(app)
+
+    app.run(host="0.0.0.0", port=5000)

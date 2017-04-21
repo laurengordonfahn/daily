@@ -18,13 +18,14 @@ class ColorSelect extends React.Component {
 
 
   render() {
+
+    const dayDate = this.props.dayDate;
+    const colorChosen=this.state.dayContent.dayDate.color;
+    
     return (
-      const dayDate = {this.props.dayDate}
-      const colorChosen={this.state.dayContent.dayDate.color};
-
-      <form onSubmit= {this.handleSubmit}>
-        <select value={colorChosen} onChange={(e) = > this.props.handleChange(e, dayDate)}>
-
+      
+      <form onSubmit={this.handleSubmit}>
+        <select value={colorChosen} onChange={(e)=>{this.props.handleChange(e, dayDate)}}>
           <option value="neutral" > Neutral - White </option>
           <option value="angry" > Angry - Red </option>
           <option value="happy" > Happy - Yellow </option>
@@ -36,9 +37,9 @@ class ColorSelect extends React.Component {
           <option value="confussed" > Confussed - Vibrant Green  </option>
           <option value="anxious" > Anxious - Magenta </option>
           <option value="trapped" > Trapped - Orange </option>
-          
         </select>
       </form>
+      
     )
   }
 }

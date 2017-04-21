@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import $ from 'jquery';
 
@@ -6,6 +7,7 @@ import $ from 'jquery';
 import SignIn from './signIn';
 import SignOut from './signOut';
 import Month from './month';
+import SelectView from './selectView';
 import Profile from './profile';
 
 
@@ -39,11 +41,11 @@ class Calendar extends React.Component{
         view : []  
     };
 
-    componentWillMount(){
-        this.renderDate();
-        this.fillDateStore();
+    // componentWillMount(){
+    //     this.renderDate();
+    //     this.fillDateStore();
 
-    }
+    // }
 
     ////// componentWillMount ///////
     renderDate() {
@@ -92,7 +94,7 @@ class Calendar extends React.Component{
     handleDateSelection(event){
         const dateSelected = [event.target.value];
         // Is this copy necessary since I am over writing the entier thig
-        const viewCopy = this.state.view.slice();
+        // const viewCopy = this.state.view.slice();
         this.setState({view: dateSelected})
 
         $.ajax({
@@ -127,12 +129,12 @@ class Calendar extends React.Component{
         return(
 
             <div>
-
+                <h2> Hello </h2>
                 < SignIn />
                 < SignOut />
                 < Profile />
                 < SelectView onDateSelection={this.handleDateSelection} />
-                < Month handleColorChange={this.handleColorChange(e, dayDate)} />
+                < Month handleColorChange={this.handleColorChange} />
 
             </div>
 
@@ -140,5 +142,7 @@ class Calendar extends React.Component{
     }
 
 }
+
+ReactDOM.render(<Calendar />, document.getElementById('main'));
 
 export default Calendar 
