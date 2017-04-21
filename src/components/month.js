@@ -4,14 +4,12 @@ import DayBox from './dayBox';
 
 class Month extends React.Component {
 
-    constructor (){
-        super();
-        
-       
-    }
-
      
     render(){
+
+        const dayDate = this.props.detail;
+        const colorHex = this.state.dateStore[dayDate]['color'];
+
         return(
 
             <div className="month">
@@ -37,9 +35,8 @@ class Month extends React.Component {
                 <ul> 
                     
                     {(this.state.dateStore).map((elem) => {
-                      const dayDate = this.props.detail;
-                      const colorHex = this.state.dateStore[dayDate][color];
-                      <DayBox key={elem} detail={elem} style={`background-color=${colorHex}`} handleColorChange={this.props.handleColorChange(e, dayDate)} />
+                      
+                      return <DayBox key={elem} detail={elem} style={`background-color=${colorHex}`} handleColorChange={this.handleColorChange} />
                     })}
                    
                 </ul>

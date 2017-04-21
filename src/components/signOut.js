@@ -2,12 +2,6 @@ import React from 'react';
 
 class SignOut extends React.Component {
     
-    constructor(){
-        super();
-
-    }
-
-
 
     render(){
         return(

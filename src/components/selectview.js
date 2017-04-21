@@ -4,9 +4,15 @@ class SelectView extends React.Component {
     
     constructor(){
         super();
+
+        this.handleDateSelection = this.handleDateSelection.bind(this);
         
     }
 
+    handleDateSelection(event) {
+        const dateChosen = event.target.value;
+        this.props.handleDateSelection(dateChosen);
+    }
 
     render(){
 
@@ -14,7 +20,7 @@ class SelectView extends React.Component {
 
         return(
 
-            <select onChange={this.props.handleDateSelection} >
+            <select onChange={(e) => {this.handleDateSelection(e)}} >
 
                 {dateOptions.forEach((date) => 
                 <option value={date}> {date} </option>

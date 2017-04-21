@@ -8,25 +8,19 @@ class AdjectiveForm extends React.Component{
         super();
         this.handleForm = this.handleForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.state = {
-            adj1: null,
-            adj2: null,
-            adj3: null,
-        }
+        
     }
 
-    //TODO FIX handleForm
+    
     handleForm(event) {
         event.preventDefault();
-        const { adj1, adj2, adj3 } = this.state;
-        const date = this.props.date;
-        this.context.updateDay(date, { adj1, adj2, adj3 })
+        
     }
 
-    udpdateAdj(adjIndex, value) {
+    updateAdj(adjIndex, value) {
         const newState = {};
         newState[adjIndex] = value;
-        this.setState(newState)
+        this.setState(newState);
     }
 
     render(){
@@ -40,9 +34,9 @@ class AdjectiveForm extends React.Component{
             <form className="adjectiveForm" onSubmit={(event)=> this.handleForm}>
 
                 <label> Add Your Daily Adjectives: </label>
-                    {/* Remember to create Props for adjectes*/}
-                    {adjectiveArray.forEach((elem) =>{
-                        <InputAdjective name={elem} value={this.state.dateStore[dayDate][elem]} onChange={(val) => this.updateAdj({elem}, val)} />
+                    
+                    {adjectiveArray.forEach((elem) => {
+                        return <InputAdjective name={elem} value={this.state.dateStore[dayDate][elem]} onChange={(val) => this.updateAdj({elem}, val)} />
                     } )}
                     
 
@@ -52,3 +46,5 @@ class AdjectiveForm extends React.Component{
             )
     }
 }
+
+export default AdjectiveForm;

@@ -14,6 +14,12 @@ class ColorSelect extends React.Component {
 
   }
 
+  handleChange(event, dayDate){
+
+    const colorChosen = event.target.value;
+
+    this.props.handleColorChange(colorChosen, dayDate);
+  }
   
 
 
@@ -25,7 +31,7 @@ class ColorSelect extends React.Component {
     return (
       
       <form onSubmit={this.handleSubmit}>
-        <select value={colorChosen} onChange={(e)=>{this.props.handleChange(e, dayDate)}}>
+        <select value={colorChosen} onChange={(e)=>{this.handleChange(e, dayDate)}}>
           <option value="neutral" > Neutral - White </option>
           <option value="angry" > Angry - Red </option>
           <option value="happy" > Happy - Yellow </option>

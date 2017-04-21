@@ -7,7 +7,7 @@ import $ from 'jquery';
 import SignIn from './signIn';
 import SignOut from './signOut';
 import Month from './month';
-import SelectView from './selectView';
+import SelectView from './selectview';
 import Profile from './profile';
 
 
@@ -93,8 +93,6 @@ class Calendar extends React.Component{
 
     handleDateSelection(event){
         const dateSelected = [event.target.value];
-        // Is this copy necessary since I am over writing the entier thig
-        // const viewCopy = this.state.view.slice();
         this.setState({view: dateSelected})
 
         $.ajax({
