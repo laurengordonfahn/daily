@@ -38,7 +38,9 @@ class Day(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    date = db.Column(db.Date, nullable=False)
+    day = db.Column(db.Integer, nullable=False)
+    month = db.Column(db.Integer, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
     adj1 = db.Column(db.String(100), nullable=True)
     adj2 = db.Column(db.String(100), nullable=True)
     adj3 = db.Column(db.String(100), nullable=True)
