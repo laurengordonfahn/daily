@@ -41,26 +41,28 @@ class Calendar extends React.Component{
         view : []  
     };
 
-    // componentWillMount(){
-    //     this.renderDate();
-    //     this.fillDateStore();
+    componentWillMount(){
+        this.renderDate();
+        this.fillDateStore();
 
-    // }
+    }
 
     ////// componentWillMount ///////
     renderDate() {
         const today = new Date();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
 
         this.setState({ today })
-        this.setState({ month: today.Month() })
-        this.setState({year: today.Year()  })
-        this.setState({view: [this.state.month, this.state.year]})
+        this.setState({ month })
+        this.setState({ year })
+        this.setState({view: [ month, year]})
 
         $.ajax({
             url: "/month",
             dataType: 'json', 
             cache: false,
-            data: {month: this.state.month, year: this.state.year},
+            data: {month: month, year: year},
             success: function(response) {
                 //Complete setState below 
                 this.setState({dateStore: response.date.keys() });
