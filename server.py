@@ -36,7 +36,7 @@ def index():
 
     return render_template("index.html")
 
-@app.route('/month/<month>/<year>', methods=['POST'])
+@app.route('/month/')
 def month(month, year):
     """ Retrieve DB Info for today's month/year for intial load
         Return json of date:{adj1: adj, adj2: adj, adj3: adj, color: hex}

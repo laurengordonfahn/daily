@@ -127,7 +127,7 @@ def format_dayArray(month, year, user_id):
     days_array = gather_all_month_content(month, year, user_id)
     dayArray = []
 
-    for obj in days_array
+    for obj in days_array:
         dayArray.append(format_date_string(obj))
     return dayArray
 
@@ -149,5 +149,5 @@ def format_dateRange():
     for obj in dateRange_array:
         dateRange.append(str(obj.month) + "/" + str(obj.year))
     return dateRange
-    
+
 

@@ -9,6 +9,7 @@ def load_colorset():
 
     Colorset.query.delete()
 
+    neutral = Colorset(emotion='neutral', color='#ffffff')
     angry = Colorset(emotion='angry', color='#ff0000')
     happy = Colorset(emotion='happy', color='#ffff00')
     joyful = Colorset(emotion='joyful', color='#ff9999')

@@ -7,7 +7,11 @@ class SignIn extends React.Component {
         return(
 
             <div> 
-                <h3>  SignIn Using Google  </h3>
+                <h3> email: </h3>
+                <input type="text"> 
+                <h3> password: </h3>
+                <input type="password"> </input>
+                <input type="submit">  SignIn  </input>
             </div>
         )
     }
