@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactTimeout from 'react-timeout'
 
 import $ from 'jquery';
 
@@ -7,7 +7,7 @@ import SignOut from './notices';
 import Month from './month';
 import SelectView from './selectview';
 import Profile from './profile';
-import Notice from './notice';
+import Notices from './notices';
 
 
 
@@ -96,7 +96,7 @@ class Calendar extends React.Component{
     clearStatus(){
         const statusMsgState = {...this.state.statusMsg};
         if (statusMsgState) {
-            setTimeOut(() => {this.setState({statusMsg: {}})}, 10000);
+            this.props.setTimeout(() => {this.setState({statusMsg: {}})}, 10000);
         }
 
     }
@@ -110,9 +110,9 @@ class Calendar extends React.Component{
             type: "DELETE",
             cache: false,
             success: function(response) {
-                this.setState.({isLoggedIn: false});
+                this.setState({isLoggedIn: false});
 
-            };
+            }.bind(this)
         });
 
     }
@@ -138,11 +138,10 @@ class Calendar extends React.Component{
 
             }.bind(this)
 
-        });
-
-        
+        });  
     }
     
+
     handleColorChange(event, dayDate){
         const dayState = {...this.state.dayContent};
         dayState.dayDate.color = event.target.value;
@@ -168,4 +167,4 @@ class Calendar extends React.Component{
 }
 
 
-export default Calendar;
+export default ReactTimeout(Calendar);

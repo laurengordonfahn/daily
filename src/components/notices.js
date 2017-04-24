@@ -1,21 +1,22 @@
 import React from 'react';
 
-class Notices extends React.Component {
+function Notices(props) {
     
+        const msg = props.msg;
 
-    render(){
-        const msg = {this.props.msg};
+        if (msg){
 
-        return(
+            return(
 
-            <div> 
-                { Object.keys(msg).filter((elem) => {elem !== "status";}).forEach((message) => {
-                        return <h3 id="notices"> {msg[message]}  </h3>
+                <div> 
+                    { Object.keys(msg).filter((elem) => {elem !== "status";}).forEach((message) => {
+                            return <h3 id="notices"> {msg[message]} </h3>
+                        })
                     }
-                }
-            </div>
-        )
-    }
+                </div>
+            )
+        }
+    
 }
 
 export default Notices;

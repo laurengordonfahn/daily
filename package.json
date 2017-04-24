@@ -2,7 +2,7 @@
   "name": "cotd",
   "version": "0.0.1",
   "private": true,
-  "proxy" : "http://localhost:5000",
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "autoprefixer-stylus": "0.10.0",
     "concurrently": "3.0.0",
@@ -16,7 +16,8 @@
     "react": "15.3.2",
     "react-addons-css-transition-group": "15.3.2",
     "react-dom": "15.3.2",
-    "react-router": "4.0.0-alpha.3"
+    "react-router": "4.0.0-alpha.3",
+    "react-timeout": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

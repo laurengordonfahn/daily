@@ -1,10 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 
 import './css/style.css';
 
-import Calendar from './components/calendar';
+import App from './components/app';
 
-
-
-render(<Calendar/>, document.querySelector('main'));
+ReactDOM.render(<App />, document.getElementById('main'));

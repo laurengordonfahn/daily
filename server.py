@@ -12,7 +12,8 @@ from flask_bcrypt import Bcrypt
 from model import *
 
 from month_func import *
-from signin_func import *
+from signIn_func import *
+from signUp_func import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -64,7 +65,7 @@ def signUp():
     if not check_matching(password1, password2):
         status["password match"] = "Your passwords do not match"
     if not email_valid(email1):
-        status["email invalid"]: "Your email is not valid" 
+        status["email invalid"] = "Your email is not valid" 
     if not email_in_db(email):
         status["email unavailable"] = "Please try a differnt email"
     if not check_password(password1).keys()[0]:

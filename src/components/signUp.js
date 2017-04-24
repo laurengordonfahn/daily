@@ -24,14 +24,14 @@ class SignUp extends React.Component {
             <div> 
                 <form> 
                     <h3> email: </h3>
-                    <input type="text" ref={(input) =>{this.email1 = input; }} />
+                    <input type="text" ref={(input) =>{this.email1 = input; }}/>
                     <h3> retype your email: </h3>
-                    <input type="text" ref={(input) =>{this.email2 = input; }} />
+                    <input type="text" ref={(input) =>{this.email2 = input; }}/>
                     <h3> password: </h3>
                     <input type="password" ref={(input) =>{this.password1 = input; }}/>
                     <h3> retype your password: </h3>
                     <input type="password" ref={(input) =>{this.password2 = input; }}/>
-                    <input type="submit" value="SignUp" onClick={(e)=>{this.handleClick(e)}}>  
+                    <input type="submit" value="SignUp" onClick={(e)=>{this.handleClick(e)}}/>  
                 </form>
             </div>
         )

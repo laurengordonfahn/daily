@@ -1,7 +1,12 @@
 import React from 'react';
+import ReactTimeout from 'react-timeout'
+
+import $ from 'jquery';
+
 import SignIn from './signIn';
 import SignUp from './signUp';
-import Notice from './notice';
+import Notices from './notices';
+import Welcome from './welcome';
 
 
 class Homepage extends React.Component {
@@ -17,9 +22,8 @@ class Homepage extends React.Component {
     clearStatus(){
         const statusMsgState = {...this.state.statusMsg};
         if (statusMsgState) {
-            setTimeOut(() => {this.setState({statusMsg: {}})}, 10000);
+             this.props.setTimeout(() => {this.setState({statusMsg: {}})}, 10000);
         }
-
     }
 
     /// SignUp ////
@@ -41,7 +45,7 @@ class Homepage extends React.Component {
                     this.setState.isLoggedIn({isLoggedIn: response["isLoggedIn"]});
                 }
 
-            };
+            }.bind(this)
         });
 
     }
@@ -61,29 +65,27 @@ class Homepage extends React.Component {
                     this.setState({statusMsg: response});
                     this.clearStatus();
                 
-                } else{
-                    this.setState.isLoggedIn({isLoggedIn: response["isLoggedIn");
+                } else {
+                    this.setState({isLoggedIn: response["isLoggedIn"]});
                 }
 
-            };
+            }.bind(this)
         });
 
     }
 
     render(){
-        const statusMsg = this.state.statusMsg;
+
         return(
             <div>
-
-                <Notices msg={statusMsg} clearStatus={this.clearStatus}/>
+                <Notices msg={this.props.msg} clearStatus={this.clearStatus}/>
                 <SignUp onSignUp={this.onSignUp} />
                 <SignIn onSignIn={this.onSignIn} />
                 <Welcome />
-
             </div>
             )
     }
 
 }
 
-export default HomePage;
+export default ReactTimeout(Homepage);
