@@ -7,7 +7,7 @@ class SignOut extends React.Component {
         return(
 
             <div> 
-                <h3>  SignOut  </h3>
+                <button onClick={this.props.onSignOut}>  SignOut  </button>
             </div>
         )
     }

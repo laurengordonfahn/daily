@@ -7,6 +7,8 @@ import SignOut from './notices';
 import Month from './month';
 import SelectView from './selectview';
 import Profile from './profile';
+import Notice from './notice';
+
 
 
 class Calendar extends React.Component{
@@ -16,14 +18,12 @@ class Calendar extends React.Component{
         this.renderDate = this.renderDate.bind(this);
         this.fillDateStore = this.fillDateStore.bind(this);
         this.clearStatus = this.clearStatus.bind(this);
-        this.onSignUp = this.onSignUp.bind(this);
         this.handleDateSelection = this.handleDateSelection.bind(this);
         this.handleColorChange = this.handleColorChange.bind(this);
         
     }
 
     state = {
-        isLoggedIn : false,
         today : null,
         month : null,
         year : null,
@@ -100,53 +100,7 @@ class Calendar extends React.Component{
         }
 
     }
-    /// SignUp ////
-
-    onSignUp(email1, email2, password1, password2){
-        $.ajax({
-            url: "/signUp",
-            type: "POST",
-            dataType: 'json',
-            cache: false,
-            data: {'email1': email1, 'email2': email2,'password1': password1, 'password2': password2 },
-            success: function(response) {
-                const status = response["status"];
-                if( status !== 'ok'){
-                    this.setState({statusMsg: response});
-                    this.clearStatus();
-                
-                } else{
-                    this.setState.isLoggedIn({isLoggedIn: response["isLoggedIn"]});
-                }
-
-            }
-        })
-
-    }
-
-     /// SignIn ////
-
-    onSignIn(email, password){
-        $.ajax({
-            url: "/signIn",
-            type: "POST",
-            dataType: 'json',
-            cache: false,
-            data: {'email': email, 'password': password},
-            success: function(response) {
-                const status = response.status;
-                if( status !== 'ok'){
-                    this.setState({statusMsg: response});
-                    this.clearStatus();
-                
-                } else{
-                    this.setState.isLoggedIn({isLoggedIn: response["isLoggedIn");
-                }
-
-            }
-        })
-
-    }
+    
 
      /// SignOut ////
 
@@ -156,17 +110,10 @@ class Calendar extends React.Component{
             type: "DELETE",
             cache: false,
             success: function(response) {
-                const status = response.status;
-                if( status !== 'ok'){
-                    this.setState({statusMsg: response.status});
-                    this.clearStatus();
-                
-                } else{
-                    this.setState.isLoggedIn({isLoggedIn: false});
-                }
+                this.setState.({isLoggedIn: false});
 
-            }
-        })
+            };
+        });
 
     }
     /// SelectView ////
@@ -204,25 +151,21 @@ class Calendar extends React.Component{
 
 
     render(){
-        const isLoggedIn = this.state.isLoggedIn;
         const statusMsg = this.state.statusMsg;
         return(
 
             <div>
-                <h2> Hello </h2>
                 < Notices msg={statusMsg} clearStatus={this.clearStatus} />
-                < LogInState isLoggedIn={isLoggedIn} onSignUp={this.onSignUp}onSignIn={this.onSignIn} onSignOut={this.onSignOut}/>
+                < SignOut onSignOut={this.onSignOut} />
                 < Profile />
                 < SelectView onDateSelection={this.handleDateSelection} />
                 < Month handleColorChange={this.handleColorChange} />
-
             </div>
 
-            )
+        )
     }
 
 }
 
-ReactDOM.render(<Calendar />, document.getElementById('main'));
 
-export default Calendar 
+export default Calendar;
