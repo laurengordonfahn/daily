@@ -17,11 +17,10 @@ class SignIn extends React.Component {
     render(){
         return(
              <div> 
+                <h3> SignIn: </h3>
                 <form> 
-                    <h3> email: </h3>
-                    <input type="text" ref={(input) =>{this.email = input; }} /> 
-                    <h3> password: </h3>
-                    <input type="password" ref={(input) =>{this.password = input; }}/>
+                    <input type="text" ref={(input) =>{this.email = input; }} placeholder="email"/> 
+                    <input type="password" ref={(input) =>{this.password = input; }} placeholder="password"/>
                     <input type="submit" value="SignIn" onClick={(e)=>{this.handleClick(e)}} />  
                 </form>
             </div>

@@ -17,6 +17,7 @@ def email_in_db(email):
     """
 
     checkEmail = User.query.filter(User.email == email).first() 
+    print checkEmail, "Checkemail"
 
     if checkEmail:
         return True
@@ -34,16 +35,16 @@ def check_password(password):
         Return status: "ok" or appropriate error message
     """
 
-    elem_check = re.search("^[0-9a-zA-Z]{6,}$", email)
-    num_check = re.search("^[\d]$", email)
-    len_check = re.search("^{6,}$")
+    elem_check = re.search("^[0-9a-zA-Z]{6,}$", password)
+    num_check = re.search("[\d]", password)
+    len_check = (len(password) >= 6)
 
     if not elem_check:
-        msg_dict = {False: "must contain at least one number and can only contain numbers and letters"}
+        msg_dict = {False: "Password must contain at least one number and can only contain numbers and letters"}
     elif not num_check:
-        msg_dict = {False: "must contain at least one number"}
+        msg_dict = {False: "Password must contain at least one number"}
     elif not len_check:
-        msg_dict = {False: "must be at least 6 characters long"}
+        msg_dict = {False: "Password must be at least 6 characters long"}
     else:
         msg_dict = {True : "ok"}
     return msg_dict
@@ -57,17 +58,17 @@ def check_matching(value1, value2):
         return True
     return False
 
-def hash_password(password):
+def hash_password(password, app):
     """ Take valid passwords and hash them
         Return None
     """
     return Bcrypt(app).generate_password_hash(password)
 
-def add_user_db(email, password):
+def add_user_db(email, password, app):
     """ Add valid email/password combo to DB
         Return user_id
     """
-    hash_pass = hash_password(password)
+    hash_pass = hash_password(password, app)
 
     user = User(email = email, password=hash_pass)
     db.session.add(user)
@@ -75,12 +76,12 @@ def add_user_db(email, password):
 
     return User.query.filter_by(email = email).first().id
 
-def signup_db_session(email, password):
+def signup_db_session(email, password, app):
     """ Create session and add user_id
         Return None
     """
     
-    user_id = add_user_db(email, password)
+    user_id = add_user_db(email, password, app)
 
     session.setdefault('current_user', user_id)
 

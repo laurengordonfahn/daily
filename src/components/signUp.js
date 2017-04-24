@@ -13,6 +13,7 @@ class SignUp extends React.Component {
         const email2 = this.email2.value;
         const password1 = this.password1.value;
         const password2 = this.password2.value;
+        console.log(email1,password1);
         this.props.onSignUp(email1, email2, password1, password2);
     }
 
@@ -23,14 +24,15 @@ class SignUp extends React.Component {
 
             <div> 
                 <form> 
-                    <h3> email: </h3>
-                    <input type="text" ref={(input) =>{this.email1 = input; }}/>
-                    <h3> retype your email: </h3>
-                    <input type="text" ref={(input) =>{this.email2 = input; }}/>
-                    <h3> password: </h3>
-                    <input type="password" ref={(input) =>{this.password1 = input; }}/>
-                    <h3> retype your password: </h3>
-                    <input type="password" ref={(input) =>{this.password2 = input; }}/>
+                    <h3> SignUp for Daily: </h3>
+                    <input type="text" ref={(input) =>{this.email1 = input; }} placeholder="email"/>
+                    <br/>
+                    <input type="text" ref={(input) =>{this.email2 = input; }} placeholder="retype your email"/>
+                    <br/>
+                    <input type="password" ref={(input) =>{this.password1 = input; }} placeholder="password"/>
+                    <br/>
+                    <input type="password" ref={(input) =>{this.password2 = input; }} placeholder="retype your password" />
+                    <br/>
                     <input type="submit" value="SignUp" onClick={(e)=>{this.handleClick(e)}}/>  
                 </form>
             </div>

@@ -53,10 +53,10 @@ def signUp():
 
     clear_old_session()
 
-    email1 = requests.args.get("email1")
-    email2 = requests.args.get("email2")
-    password1 = requests.args.get("password1")
-    password2 = request.args.get("password2")
+    email1 = request.form.get("email1")
+    email2 = request.form.get("email2")
+    password1 = request.form.get("password1")
+    password2 = request.form.get("password2")
 
     status = {"status": "error"}
 
@@ -66,16 +66,18 @@ def signUp():
         status["password match"] = "Your passwords do not match"
     if not email_valid(email1):
         status["email invalid"] = "Your email is not valid" 
-    if not email_in_db(email):
+    if email_in_db(email1):
         status["email unavailable"] = "Please try a differnt email"
     if not check_password(password1).keys()[0]:
+        print "Help", check_password(password1).keys()[0]
         status["password invalid"] = check_password(password1).values()[0]
+        print "Help", check_password(password1).values()[0]
 
     if len(status.keys()) == 1:
-        signup_db_session(email1, password1)
+        signup_db_session(email1, password1, app)
         status["status"] = "ok"
         status["isLoggedIn"] = True
-    
+    print status
     return jsonify(status)
 
 
