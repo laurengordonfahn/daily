@@ -58,8 +58,14 @@ class Calendar extends React.Component {
             cache: false,
             data: { month: month, year: year },
             success: function(response) {
-                //Complete setState below
-                this.setState({ dateContent: response.date.keys() });
+                let dContent = { ...this.state.dateContent };
+                Object.keys(dContent).forEach(elem => {
+                    return delete dContent.elem;
+                });
+                Object.keys(response).forEach(date => {
+                    dContent[date] = response[date];
+                });
+                this.setState({ dateContent: dContent });
             }.bind(this)
         });
     }
