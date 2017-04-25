@@ -16,7 +16,7 @@ def email_in_db(email):
         Return Boolean
     """
 
-    checkEmail = User.query.filter(User.email == email).first() 
+    checkEmail = User.query.filter_by(email=email).first() 
     print checkEmail, "Checkemail"
 
     if checkEmail:

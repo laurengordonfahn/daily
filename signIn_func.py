@@ -8,12 +8,13 @@ import re
 
 
 
-def confirm_password(email, password):
+def confirm_password(email, password, app):
     """ Check if password matches hash
         Return Boolean
     """
-    user = User.query.filter_by(email=email).first()
-    return bcrypt.check_password_hash(user.password, password)
+    user = User.query.filter(User.email==email).first()
+    
+    return Bcrypt(app).check_password_hash(user.password, password)
 
 def add_to_session(email):
     """ Add user to session

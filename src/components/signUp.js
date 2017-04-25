@@ -13,6 +13,7 @@ class SignUp extends React.Component {
         const email2 = this.email2.value;
         const password1 = this.password1.value;
         const password2 = this.password2.value;
+        document.getElementById('signUpForm').reset();
         console.log(email1,password1);
         this.props.onSignUp(email1, email2, password1, password2);
     }
@@ -23,7 +24,7 @@ class SignUp extends React.Component {
         return(
 
             <div> 
-                <form> 
+                <form id="signUpForm"> 
                     <h3> SignUp for Daily: </h3>
                     <input type="text" ref={(input) =>{this.email1 = input; }} placeholder="email"/>
                     <br/>

@@ -69,9 +69,8 @@ def signUp():
     if email_in_db(email1):
         status["email unavailable"] = "Please try a differnt email"
     if not check_password(password1).keys()[0]:
-        print "Help", check_password(password1).keys()[0]
         status["password invalid"] = check_password(password1).values()[0]
-        print "Help", check_password(password1).values()[0]
+        
 
     if len(status.keys()) == 1:
         signup_db_session(email1, password1, app)
@@ -93,14 +92,14 @@ def signIn():
 
     clear_old_session()
 
-    email = requests.args.get("email")
-    password = requests.args.get("password")
+    email = request.form.get("email")
+    password = request.form.get("password")
     
     status = {"status": "error"}
 
     if not email_in_db(email):
         status["email"] = "Your email does not match our records"
-    elif not confirm_password(email, password):
+    elif not confirm_password(email, password, app):
         status["password"] = "Your password does not match our records"
     else:
         add_to_session(email)
