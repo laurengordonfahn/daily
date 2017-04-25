@@ -1,4 +1,5 @@
 import React from "react";
+import ReactTimeout from "react-timeout";
 
 import $ from "jquery";
 
@@ -11,6 +12,7 @@ class App extends React.Component {
         this.clearStatus = this.clearStatus.bind(this);
         this.onSignUp = this.onSignUp.bind(this);
         this.onSignIn = this.onSignIn.bind(this);
+        this.onSignOut = this.onSignOut.bind(this);
     }
 
     state = {
@@ -89,6 +91,19 @@ class App extends React.Component {
         });
     }
 
+    /// SignOut ////
+
+    onSignOut() {
+        $.ajax({
+            url: "/signOut",
+            type: "DELETE",
+            cache: false,
+            success: function(response) {
+                this.setState({ isLoggedIn: false });
+            }.bind(this)
+        });
+    }
+
     render() {
         const isLoggedIn = this.state.isLoggedIn;
         console.log("App.js running", this.state.isLoggedIn);
@@ -104,8 +119,13 @@ class App extends React.Component {
             );
         }
 
-        return <Calendar clearStatus={this.clearStatus} />;
+        return (
+            <Calendar
+                clearStatus={this.clearStatus}
+                onSignOut={this.onSignOut}
+            />
+        );
     }
 }
 
-export default App;
+export default ReactTimeout(App);

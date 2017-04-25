@@ -1,5 +1,4 @@
 import React from "react";
-import ReactTimeout from "react-timeout";
 
 import $ from "jquery";
 
@@ -14,7 +13,6 @@ class Calendar extends React.Component {
         super();
         this.renderDate = this.renderDate.bind(this);
         this.fillDateStore = this.fillDateStore.bind(this);
-        this.clearStatus = this.clearStatus.bind(this);
         this.handleDateSelection = this.handleDateSelection.bind(this);
         this.handleColorChange = this.handleColorChange.bind(this);
     }
@@ -23,7 +21,6 @@ class Calendar extends React.Component {
         today: null,
         month: null,
         year: null,
-        statusMsg: {},
 
         // all dates in the database "d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}
         dayContent: {},
@@ -56,12 +53,13 @@ class Calendar extends React.Component {
 
         $.ajax({
             url: "/month",
+            type: "post",
             dataType: "json",
             cache: false,
             data: { month: month, year: year },
             success: function(response) {
                 //Complete setState below
-                this.setState({ dateStore: response.date.keys() });
+                this.setState({ dateContent: response.date.keys() });
             }.bind(this)
         });
     }
@@ -80,28 +78,6 @@ class Calendar extends React.Component {
         });
     }
 
-    /// Notices ///
-    clearStatus() {
-        const statusMsgState = { ...this.state.statusMsg };
-        if (statusMsgState) {
-            this.props.setTimeout(() => {
-                this.setState({ statusMsg: {} });
-            }, 10000);
-        }
-    }
-
-    /// SignOut ////
-
-    onSignOut() {
-        $.ajax({
-            url: "/signOut",
-            type: "DELETE",
-            cache: false,
-            success: function(response) {
-                this.setState({ isLoggedIn: false });
-            }.bind(this)
-        });
-    }
     /// SelectView ////
 
     handleDateSelection(event) {
@@ -135,8 +111,8 @@ class Calendar extends React.Component {
         const statusMsg = this.state.statusMsg;
         return (
             <div>
-                <Notices msg={statusMsg} clearStatus={this.clearStatus} />
-                <SignOut onSignOut={this.onSignOut} />
+                <Notices msg={statusMsg} clearStatus={this.props.clearStatus} />
+                <SignOut onSignOut={this.props.onSignOut} />
                 <Profile />
                 <SelectView onDateSelection={this.handleDateSelection} />
                 <Month handleColorChange={this.handleColorChange} />
@@ -145,4 +121,4 @@ class Calendar extends React.Component {
     }
 }
 
-export default ReactTimeout(Calendar);
+export default Calendar;

@@ -122,19 +122,28 @@ def signOut():
 
     return jsonify({"status" : "ok"})
 
-@app.route('/month')
-def month(month, year):
+@app.route('/month', methods=["POST", "GET"])
+def month():
     """ Retrieve DB Info for today's month/year for intial load
         Return json of date:{adj1: adj, adj2: adj, adj3: adj, color: hex}
     """
+    print ("Current user", session['current_user'])
+    if session['current_user']:
 
-    month = request.args.get("month")
-    year = request.args.get("year")
-    
+        month = request.form.get("month")
+        year = request.form.get("year")
+        user_id = session['current_user']
 
-    if not is_month(month, year):
-        establish_month(month, year)
-    gather_all_month(month, year)
+        if not is_month(month, year, user_id):
+            establish_month(month, year, user_id)
+
+        dayContentDict=format_dayContent(month, year, user_id)
+        print (dayContentDict, "DayContentDict")
+        
+    return jsonify(dayContentDict)
+
+     # TODO: I need to be able to control isLoggedIn from here as well and return a notice message saying something went wrong!
+  
 
 
 @app.route('/calendar')

@@ -9,28 +9,29 @@ import os
 import facebook
 
 
-def is_month(month, year):
+def is_month(month, year, user_id):
     """ Query Month and Year established in DB
         Returns True or False 
     """
-
-    if Day.query.all():
-
+    
+    if Day.query.filter_by(month=month, year=year, user_id=user_id).first():
+        
         return True
 
 def create_days_month(month, year):
     """ Create and Return array of string days in a given month
         ['dd-mm-yyyy', etc ... ]
     """
+    
     day = timedelta(days=1)
-    date1 = datetime(year, month, 1)
-    d = date1
+    d = datetime(int(year), int(month), 1)
     dates = []
 
-    while d.month == month:
+    while d.month == int(month):
         dates.append(d.strftime('%d-%m-%Y'))
         d += day
-
+    
+    print("dates, dates, dates, dates", dates)
     return dates
 
 def parse_day(dateString):
@@ -71,6 +72,8 @@ def establish_month(month, year, user_id):
     """
     dates = create_days_month(month, year)
 
+    print dates
+
     for date in dates:
 
         day = parse_day(date)
@@ -106,7 +109,7 @@ def format_date_content_dict(obj):
 
     return content
 
-def format_dayContent(month,year, user_id):
+def format_dayContent(month, year, user_id):
     """ Return formated month content in state formated
         {"day-month-year": {"adj1": "adj", "adj2": "adj", "adj3": "adj", "colorSet": "#hex"}, etc..}
     """
@@ -136,6 +139,7 @@ def query_month_year(month, year, user_id):
         Return array of month and year group by  """
 
     dateRange = Day.query.filter_by(user_id=user_id).group_by(Day.month, Day.year).all()
+    return dateRange
 
 def format_dateRange():
     """ Return all possible month/year combo in array for state format dateRange

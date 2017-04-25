@@ -1,5 +1,4 @@
 import React from "react";
-import ReactTimeout from "react-timeout";
 
 import SignIn from "./signIn";
 import SignUp from "./signUp";
@@ -37,4 +36,4 @@ class Homepage extends React.Component {
     }
 }
 
-export default ReactTimeout(Homepage);
+export default Homepage;
