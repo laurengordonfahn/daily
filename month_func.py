@@ -134,13 +134,6 @@ def format_dayArray(month, year, user_id):
         dayArray.append(format_date_string(obj))
     return dayArray
 
-def query_month_year(month, year, user_id):
-    """Gather all month and year  from db
-        Return array of month and year group by  """
-
-    dateRange = Day.query.filter_by(user_id=user_id).group_by(Day.month, Day.year).all()
-    return dateRange
-
 def format_dateRange():
     """ Return all possible month/year combo in array for state format dateRange
         ["month/year", "month/year", etc ...]

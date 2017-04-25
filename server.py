@@ -12,6 +12,7 @@ from flask_bcrypt import Bcrypt
 from model import *
 
 from month_func import *
+from calendar_func import *
 from signIn_func import *
 from signUp_func import *
 
@@ -151,8 +152,19 @@ def calendar():
     """ Retrieve all date history from DB
         Return json of dateHistory:[month-year, month-year, etc]
     """
+    user_id = session['current_user']
 
-    pass
+    if user_id:
+        possibleMonths = {}
+        possibleDateArr= query_month_year(user_id)
+        print ("PossibelDateArr", possibleDateArr)
+        if not possibleDateArr:
+            return jsonify({"status" : "nodates"})
+        possibleMonths["dateRange"]= query_month_year(user_id)
+        
+
+        print ("possibleMonths", possibleMonths)
+        return jsonify(possibleMonths)
 
 
 

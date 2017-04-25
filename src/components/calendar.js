@@ -76,10 +76,16 @@ class Calendar extends React.Component {
             dataType: "json",
             cache: false,
             success: function(response) {
-                //TODO dateHistory: [month/year, month, year]
                 // TODO check what happens when no response content
-
-                this.setState({ dateRange: response.dateHistory });
+                console.log({ response });
+                if (!response["status"]) {
+                    let dRange = [];
+                    response["dateRange"].forEach(date => {
+                        dRange.push(date);
+                    });
+                    console.log({ dRange });
+                    this.setState({ dateRange: dRange });
+                }
             }.bind(this)
         });
     }
