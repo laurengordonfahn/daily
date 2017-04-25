@@ -1,51 +1,46 @@
-import React from 'react';
-import ReactTimeout from 'react-timeout'
+import React from "react";
+import ReactTimeout from "react-timeout";
 
-import $ from 'jquery';
+import $ from "jquery";
 
-import SignOut from './notices';
-import Month from './month';
-import SelectView from './selectview';
-import Profile from './profile';
-import Notices from './notices';
+import SignOut from "./notices";
+import Month from "./month";
+import SelectView from "./selectview";
+import Profile from "./profile";
+import Notices from "./notices";
 
-
-
-class Calendar extends React.Component{
-
-    constructor(){
+class Calendar extends React.Component {
+    constructor() {
         super();
         this.renderDate = this.renderDate.bind(this);
         this.fillDateStore = this.fillDateStore.bind(this);
         this.clearStatus = this.clearStatus.bind(this);
         this.handleDateSelection = this.handleDateSelection.bind(this);
         this.handleColorChange = this.handleColorChange.bind(this);
-        
     }
 
     state = {
-        today : null,
-        month : null,
-        year : null,
+        today: null,
+        month: null,
+        year: null,
         statusMsg: {},
 
         // all dates in the database "d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}
         dayContent: {},
         // ["d/m/y ", "d/m/y"]
 
-        dateArray: [], 
+        dateArray: [],
 
-        //all date month and years in database month/year 
-        dateRange:[],
+        //all date month and years in database month/year
+        dateRange: [],
 
         //on sign in auto to today's month can change from 'present' to a month/year setting that user requests
-        view : []  
+        view: []
     };
 
-    componentWillMount(){
+    componentWillMount() {
         this.renderDate();
         this.fillDateStore();
-
     }
 
     ////// componentWillMount ///////
@@ -54,117 +49,100 @@ class Calendar extends React.Component{
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
 
-        this.setState({ today })
-        this.setState({ month })
-        this.setState({ year })
-        this.setState({view: [ month, year]})
+        this.setState({ today });
+        this.setState({ month });
+        this.setState({ year });
+        this.setState({ view: [month, year] });
 
         $.ajax({
             url: "/month",
-            dataType: 'json', 
+            dataType: "json",
             cache: false,
-            data: {month: month, year: year},
+            data: { month: month, year: year },
             success: function(response) {
-                //Complete setState below 
-                this.setState({dateStore: response.date.keys() });
-
+                //Complete setState below
+                this.setState({ dateStore: response.date.keys() });
             }.bind(this)
-
         });
-
     }
 
     fillDateStore() {
-
         $.ajax({
             url: "/calendar",
-            dataType: 'json', 
+            dataType: "json",
             cache: false,
             success: function(response) {
                 //TODO dateHistory: [month/year, month, year]
                 // TODO check what happens when no response content
 
-                this.setState({dateRange: response.dateHistory });
-
+                this.setState({ dateRange: response.dateHistory });
             }.bind(this)
-
         });
-
     }
 
     /// Notices ///
-    clearStatus(){
-        const statusMsgState = {...this.state.statusMsg};
+    clearStatus() {
+        const statusMsgState = { ...this.state.statusMsg };
         if (statusMsgState) {
-            this.props.setTimeout(() => {this.setState({statusMsg: {}})}, 10000);
+            this.props.setTimeout(() => {
+                this.setState({ statusMsg: {} });
+            }, 10000);
         }
-
     }
-    
 
-     /// SignOut ////
+    /// SignOut ////
 
-    onSignOut(){
+    onSignOut() {
         $.ajax({
             url: "/signOut",
             type: "DELETE",
             cache: false,
             success: function(response) {
-                this.setState({isLoggedIn: false});
-
+                this.setState({ isLoggedIn: false });
             }.bind(this)
         });
-
     }
     /// SelectView ////
 
-    handleDateSelection(event){
+    handleDateSelection(event) {
         const dateSelected = [event.target.value];
-        this.setState({view: dateSelected})
+        this.setState({ view: dateSelected });
 
         $.ajax({
             url: "/view",
-            dataType: 'json', 
+            dataType: "json",
             cache: false,
-            data: {dateRequest: this.state.view},
+            data: { dateRequest: this.state.view },
             success: function(response) {
                 //TODO dateHistory: [month/year, month, year]
                 // TODO check what happens when no response content
 
-                this.setState({dateArray: response.dateArray});
-                this.setState({dayContent: response.dayContent});
-                this.setState({month: response.month});
-                this.setState({year: response.year});
-
+                this.setState({ dateArray: response.dateArray });
+                this.setState({ dayContent: response.dayContent });
+                this.setState({ month: response.month });
+                this.setState({ year: response.year });
             }.bind(this)
-
-        });  
+        });
     }
-    
 
-    handleColorChange(event, dayDate){
-        const dayState = {...this.state.dayContent};
+    handleColorChange(event, dayDate) {
+        const dayState = { ...this.state.dayContent };
         dayState.dayDate.color = event.target.value;
-        this.setState({dayContent : dayState});
+        this.setState({ dayContent: dayState });
     }
 
-
-    render(){
+    render() {
         const statusMsg = this.state.statusMsg;
-        return(
-
+        return (
             <div>
-                < Notices msg={statusMsg} clearStatus={this.clearStatus} />
-                < SignOut onSignOut={this.onSignOut} />
-                < Profile />
-                < SelectView onDateSelection={this.handleDateSelection} />
-                < Month handleColorChange={this.handleColorChange} />
+                <Notices msg={statusMsg} clearStatus={this.clearStatus} />
+                <SignOut onSignOut={this.onSignOut} />
+                <Profile />
+                <SelectView onDateSelection={this.handleDateSelection} />
+                <Month handleColorChange={this.handleColorChange} />
             </div>
-
-        )
+        );
     }
-
 }
-
 
 export default ReactTimeout(Calendar);

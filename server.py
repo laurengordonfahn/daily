@@ -106,6 +106,8 @@ def signIn():
         status["status"] = "ok"
         status["isLoggedIn"] = True
 
+        print (status["isLoggedIn"], "signIn sending")
+
 
     return jsonify(status)
 
