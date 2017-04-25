@@ -14,15 +14,18 @@ class Homepage extends React.Component {
         super();
         this.clearStatus = this.clearStatus.bind(this);
         this.onSignUp = this.onSignUp.bind(this);
-        this.onSingIn = this.onSignIn.bind(this);
+        this.onSignIn = this.onSignIn.bind(this);
+        
     }
 
 
-    /// Notices ///
+
+
     clearStatus(){
-        const statusMsgState = {...this.state.statusMsg};
+        const statusMsgState = {...this.state.statusMsg}
         if (statusMsgState) {
-             this.props.setTimeout(() => {this.setState({statusMsg: {}})}, 10000);
+            this.props.setTimeout(function(){this.setState({statusMsg:{}})}.bind(this), 10000)
+
         }
     }
 

@@ -104,6 +104,8 @@ def signIn():
     else:
         add_to_session(email)
         status["status"] = "ok"
+        status["isLoggedIn"] = True
+
 
     return jsonify(status)
 
