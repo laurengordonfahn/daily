@@ -48,7 +48,7 @@ def parse_month(date):
     """ Return month integer """
 
     try:
-        month = int(dateString.split("-")[1])
+        month = int(date.split("-")[1])
         if month:
             return month  
     except TypeError:
@@ -59,7 +59,7 @@ def parse_year(date):
     """ Return year integer """
 
     try:
-        year = int(dateString.split("-")[2])
+        year = int(date.split("-")[2])
         if year:
             return year  
     except TypeError:
@@ -105,7 +105,7 @@ def format_date_content_dict(obj):
     content["adj1"] = obj.adj1
     content["adj2"] = obj.adj2
     content["adj3"] = obj.adj3
-    content["color"] = obj.colorSet
+    content["color"] = obj.colorset_id
 
     return content
 
