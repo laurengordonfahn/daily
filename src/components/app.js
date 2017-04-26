@@ -121,6 +121,7 @@ class App extends React.Component {
 
         return (
             <Calendar
+                msg={this.state.statusMsg}
                 clearStatus={this.clearStatus}
                 onSignOut={this.onSignOut}
             />

@@ -120,16 +120,32 @@ class Calendar extends React.Component {
     }
 
     render() {
-        const statusMsg = this.state.statusMsg;
-        return (
-            <div>
-                <Notices msg={statusMsg} clearStatus={this.props.clearStatus} />
-                <SignOut onSignOut={this.props.onSignOut} />
-                <Profile />
-                <SelectView onDateSelection={this.handleDateSelection} />
-                <Month handleColorChange={this.handleColorChange} />
-            </div>
-        );
+        const msg = this.props.msg;
+        console.log(Object.keys(msg).length);
+
+        if (Object.keys(msg).length > 1) {
+            return (
+                <div>
+                    <Notices
+                        msg={this.props.msg}
+                        clearStatus={this.props.clearStatus}
+                    />
+                    <SignOut onSignOut={this.props.onSignOut} />
+                    <Profile />
+                    <SelectView onDateSelection={this.handleDateSelection} />
+                    <Month handleColorChange={this.handleColorChange} />
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <SignOut onSignOut={this.props.onSignOut} />
+                    <Profile />
+                    <SelectView onDateSelection={this.handleDateSelection} />
+                    <Month handleColorChange={this.handleColorChange} />
+                </div>
+            );
+        }
     }
 }
 

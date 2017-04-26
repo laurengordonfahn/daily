@@ -33,8 +33,18 @@ bcrypt = Bcrypt(app)
 #for marshmellow searliazer to work
 ma = Marshmallow(app)
 
-
 app.secret_key = "pouring monday"
+
+###################### class for Marshmellow #############################
+class UserSchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        fields = ('month', 'year')
+
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)
+#####################################################
+
 
 @app.route('/')
 def index():
@@ -156,15 +166,15 @@ def calendar():
 
     if user_id:
         possibleMonths = {}
-        possibleDateArr= query_month_year(user_id)
-        print ("PossibelDateArr", possibleDateArr)
+        possibleDateArr = query_month_year(user_id)
+
         if not possibleDateArr:
             return jsonify({"status" : "nodates"})
-        possibleMonths["dateRange"]= query_month_year(user_id)
-        
 
-        print ("possibleMonths", possibleMonths)
+        possibleMonths["dateRange"]= format_dateRange(possibleDateArr)
+        
         return jsonify(possibleMonths)
+    #TODO How handle if no user- id send to homepage but notices?
 
 
 
