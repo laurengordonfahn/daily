@@ -215,9 +215,11 @@ def month_days():
         Return json of dateArray:[day-month-year, day-month-year, etc]
     """
     user_id = session['current_user']
-    month = request.form.get("month")
-    year = request.form.get("year")
-        
+    month = request.args.get("month")
+    year = request.args.get("year")
+            
+    print("month/day running")
+    print (month, year)
     if user_id:
         
         response = {
@@ -232,7 +234,7 @@ def month_days():
         response["dateArray"] = possibleDateArr
         #Todo: Add dateArray infor to response
         response["status"] = "ok"
-        print ("response calendar", response)
+        print ("response month/day", response)
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 

@@ -11,8 +11,8 @@ import Notices from "./notices";
 class Calendar extends React.Component {
     constructor() {
         super();
-        this.renderDate = this.renderDate.bind(this);
-        this.fillDateStore = this.fillDateStore.bind(this);
+        this.renderDateContent = this.renderDateContent.bind(this);
+        this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
         this.handleDateSelection = this.handleDateSelection.bind(this);
         // month componenet
@@ -67,6 +67,11 @@ class Calendar extends React.Component {
             data: { month: month, year: year },
             success: function(response) {
                 if (response.status === "ok") {
+                    //debug zone:
+                    console.log("renderDateContent Response Running", {
+                        response
+                    });
+                    ///
                     let dContent = { ...this.state.dateContent };
                     let dayContent = response["dayContent"];
                     Object.keys(dContent).forEach(elem => {
@@ -87,7 +92,9 @@ class Calendar extends React.Component {
             cache: false,
             success: function(response) {
                 // TODO check what happens when no response content
-                console.log({ response });
+                //debug zone:
+                console.log("fillDateRange Response Running", { response });
+                ///
                 if (response["status"] === "ok") {
                     let dRange = this.state.dateRange.slice();
                     for (var i = 0; i < dRange.length; i++) {
@@ -107,15 +114,19 @@ class Calendar extends React.Component {
         const today = new Date();
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
+        //debug zone:
+        console.log("renderDateContent month, year", month, year);
+        ///
         $.ajax({
             url: "/month/days",
             dataType: "json",
-            type: "post",
             data: { month: month, year: year },
             cache: false,
             success: function(response) {
                 // TODO check what happens when no response content
-                console.log({ response });
+                //debug zone:
+                console.log("fillDateArray Response Running", { response });
+                ///
                 if (response["status"] === "ok") {
                     let days = this.state.dateArray.slice();
                     for (var i = 0; i < days.length; i++) {
@@ -125,7 +136,11 @@ class Calendar extends React.Component {
                         days.push(date);
                     });
                     console.log({ days });
-                    this.setState({ dateRange: days });
+                    this.setState({ dateArray: days });
+                    console.log(
+                        " dateArray at end of fillDateArray ",
+                        this.state.dateArray
+                    );
                 }
             }.bind(this)
         });
@@ -183,6 +198,8 @@ class Calendar extends React.Component {
                     onDateSelection={this.handleDateSelection}
                 />
                 <Month
+                    month={this.state.month}
+                    year={this.state.year}
                     updateAdj={this.updateAdj}
                     handleColorChange={this.handleColorChange}
                 />

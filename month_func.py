@@ -87,7 +87,7 @@ def establish_month(month, year, user_id):
 
 def gather_all_month_content(month, year, user_id):
     """ Return all information form a particular Month """
-
+    
     return Day.query.filter_by(user_id=user_id, month=month, year=year).order_by(Day.day).all()
 
 def format_date_string(obj):
@@ -128,10 +128,14 @@ def format_dayArray(month, year, user_id):
     """ Return array of day-month-year strings """
 
     days_array = gather_all_month_content(month, year, user_id)
+    print ("days_array", days_array);
     dayArray = []
 
     for obj in days_array:
-        dayArray.append(format_date_string(obj))
+        formated = format_date_string(obj)
+        print ("formated value in format_dayArray", formated)
+        dayArray.append(formated)
+    print("month_func format_dayArray output", dayArray)
     return dayArray
 
 def format_dateRange():

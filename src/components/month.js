@@ -11,6 +11,8 @@ class Month extends React.Component {
   renderDayBox(dayDate) {
     // const colorHex = {this.state.dateContent[dayDate]['color']};
     // style=`background-color=${colorHex}`
+
+    console.log("state of month in month.js", this.state.month);
     return (
       <DayBox
         key={dayDate}
@@ -26,9 +28,9 @@ class Month extends React.Component {
 
         <div className="monthHeader">
 
-          {this.state.month} <br />
+          {this.props.month} <br />
 
-          <span className="year">{this.state.year}</span>
+          <span className="year">{this.props.year}</span>
 
         </div>
 
