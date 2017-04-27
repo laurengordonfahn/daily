@@ -59,7 +59,7 @@ class App extends React.Component {
                 const status = response["status"];
                 const notices = response.notices;
                 if (status === "ok") {
-                    if (notices) {
+                    if (response["isLoggedIn"] === false) {
                         let presentStatusMsg = { ...this.state.statusMsg };
                         Object.keys(presentStatusMsg).forEach(elem => {
                             return delete presentStatusMsg.elem;
@@ -97,7 +97,7 @@ class App extends React.Component {
                 console.log("onSignIn Response Running", { response });
                 console.log({ notices });
 
-                if (status === "ok" && !notices["welcome"]) {
+                if (status === "ok" && response["isLoggedIn"] === false) {
                     let msgState = { ...this.state.statusMsg };
                     Object.keys(msgState).forEach(elem => {
                         return delete msgState.elem;
@@ -109,7 +109,7 @@ class App extends React.Component {
 
                     this.setState({ statusMsg: response["notices"] });
                     this.clearStatus();
-                } else if (status === "ok" && notices["welcome"]) {
+                } else if (status === "ok" && response["isLoggedIn"] === true) {
                     this.setState({ isLoggedIn: response["isLoggedIn"] });
                     console.log(
                         "Homepage is Running is logged in is",
