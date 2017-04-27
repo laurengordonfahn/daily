@@ -21,7 +21,9 @@ class InputAdjective extends React.Component {
                     type="text"
                     name={this.props.name}
                     value={adjValue}
-                    onChange={e => this.handleChange(e, name)}
+                    onChange={e => {
+                        this.handleChange(e, name);
+                    }}
                 />
             );
         } else {
@@ -30,7 +32,9 @@ class InputAdjective extends React.Component {
                     type="text"
                     name={this.props.name}
                     placeholder="A Daily Adjective"
-                    onChange={e => this.handleChange(e, name)}
+                    onChange={e => {
+                        this.handleChange(e, name);
+                    }}
                 />
             );
         }
