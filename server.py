@@ -131,6 +131,7 @@ def signIn():
     else:
         add_to_session(email)
         response["status"] = "ok"
+        response["notices"]["welcome"] = "Welcome to Daily!"
         response["isLoggedIn"] = True
 
         print (response["isLoggedIn"], "signIn sending")
