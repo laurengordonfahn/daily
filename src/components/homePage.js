@@ -7,32 +7,18 @@ import Welcome from "./welcome";
 
 class Homepage extends React.Component {
     render() {
-        const msg = this.props.msg;
-        console.log(Object.keys(msg).length);
+        return (
+            <div>
+                <SignIn onSignIn={this.props.onSignIn} />
+                <Notices
+                    msg={this.props.msg}
+                    clearStatus={this.props.clearStatus}
+                />
+                <SignUp onSignUp={this.props.onSignUp} />
 
-        if (Object.keys(msg).length > 1) {
-            return (
-                <div>
-                    <SignIn onSignIn={this.props.onSignIn} />
-                    <Notices
-                        msg={this.props.msg}
-                        clearStatus={this.props.clearStatus}
-                    />
-                    <SignUp onSignUp={this.props.onSignUp} />
-
-                    <Welcome />
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <SignIn onSignIn={this.props.onSignIn} />
-                    <SignUp onSignUp={this.props.onSignUp} />
-
-                    <Welcome />
-                </div>
-            );
-        }
+                <Welcome />
+            </div>
+        );
     }
 }
 

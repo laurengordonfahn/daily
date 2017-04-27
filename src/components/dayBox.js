@@ -1,24 +1,27 @@
-import React from 'react';
+import React from "react";
 
-
-import AdjectiveForm from './adjectiveForm';
-import ColorSelect from './colorSelect';
-
+import AdjectiveForm from "./adjectiveForm";
+import ColorSelect from "./colorSelect";
 
 class DayBox extends React.Component {
-
-
     render() {
-        const dayDate = this.props.detail;
+        const dayDate = this.props.dayDate;
 
         return (
             <div>
                 <h3> {dayDate} </h3>
-           
-                <AdjectiveForm dayDate={dayDate} />
-                <ColorSelect  dayDate={dayDate} handleColorChange={this.handleColorChange} />
+
+                <AdjectiveForm
+                    dayDate={dayDate}
+                    updateAdj={this.props.updateAdj}
+                />
+                <ColorSelect
+                    dayDate={dayDate}
+                    handleColorChange={this.handleColorChange}
+                />
             </div>
-    )}
+        );
+    }
 }
 
 export default DayBox;

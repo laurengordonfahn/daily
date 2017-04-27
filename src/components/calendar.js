@@ -12,8 +12,10 @@ class Calendar extends React.Component {
     constructor() {
         super();
         this.renderDate = this.renderDate.bind(this);
-        this.fillDateStore = this.fillDateStore.bind(this);
+        // this.fillDateStore = this.fillDateStore.bind(this);
         this.handleDateSelection = this.handleDateSelection.bind(this);
+        // month componenet
+        this.updateAdj = this.updateAdj.bind(this);
         this.handleColorChange = this.handleColorChange.bind(this);
     }
 
@@ -37,7 +39,7 @@ class Calendar extends React.Component {
 
     componentWillMount() {
         this.renderDate();
-        this.fillDateStore();
+        // this.fillDateStore();
     }
 
     ////// componentWillMount ///////
@@ -45,11 +47,15 @@ class Calendar extends React.Component {
         const today = new Date();
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
+        const dateRange = [month.toString() + "/" + year.toString()];
 
         this.setState({ today });
         this.setState({ month });
         this.setState({ year });
+        this.setState({ dateRange });
         this.setState({ view: [month, year] });
+
+        console.log({ dateRange });
 
         $.ajax({
             url: "/month",
@@ -70,25 +76,28 @@ class Calendar extends React.Component {
         });
     }
 
-    fillDateStore() {
-        $.ajax({
-            url: "/calendar",
-            dataType: "json",
-            cache: false,
-            success: function(response) {
-                // TODO check what happens when no response content
-                console.log({ response });
-                if (!response["status"]) {
-                    let dRange = [];
-                    response["dateRange"].forEach(date => {
-                        dRange.push(date);
-                    });
-                    console.log({ dRange });
-                    this.setState({ dateRange: dRange });
-                }
-            }.bind(this)
-        });
-    }
+    // fillDateStore() {
+    //     $.ajax({
+    //         url: "/calendar",
+    //         dataType: "json",
+    //         cache: false,
+    //         success: function(response) {
+    //             // TODO check what happens when no response content
+    //             console.log({ response });
+    //             if (!response["status"]) {
+    //                 let dRange = this.state.dateRange;
+    //                 for (var i = 0; i < dRange.length; i++) {
+    //                     dRange.pop();
+    //                 }
+    //                 response["dateRange"].forEach(date => {
+    //                     dRange.push(date);
+    //                 });
+    //                 console.log({ dRange });
+    //                 this.setState({ dateRange: dRange });
+    //             }
+    //         }.bind(this)
+    //     });
+    // }
 
     /// SelectView ////
 
@@ -113,6 +122,15 @@ class Calendar extends React.Component {
         });
     }
 
+    updateAdj(newVal, ElemName, dayDate) {
+        // need to get only the state for the date working on make copy
+        const dayState = { ...this.state.dayContent };
+        // assign new value
+        dayState.dayDate.ElemName = newVal;
+        // need to update only the state that i am working on
+        this.setState({ dayContent: dayState });
+    }
+
     handleColorChange(event, dayDate) {
         const dayState = { ...this.state.dayContent };
         dayState.dayDate.color = event.target.value;
@@ -120,32 +138,24 @@ class Calendar extends React.Component {
     }
 
     render() {
-        const msg = this.props.msg;
-        console.log(Object.keys(msg).length);
-
-        if (Object.keys(msg).length > 1) {
-            return (
-                <div>
-                    <Notices
-                        msg={this.props.msg}
-                        clearStatus={this.props.clearStatus}
-                    />
-                    <SignOut onSignOut={this.props.onSignOut} />
-                    <Profile />
-                    <SelectView onDateSelection={this.handleDateSelection} />
-                    <Month handleColorChange={this.handleColorChange} />
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <SignOut onSignOut={this.props.onSignOut} />
-                    <Profile />
-                    <SelectView onDateSelection={this.handleDateSelection} />
-                    <Month handleColorChange={this.handleColorChange} />
-                </div>
-            );
-        }
+        return (
+            <div>
+                <Notices
+                    msg={this.props.msg}
+                    clearStatus={this.props.clearStatus}
+                />
+                <SignOut onSignOut={this.props.onSignOut} />
+                <Profile />
+                <SelectView
+                    dateOption={this.state.dateRange}
+                    onDateSelection={this.handleDateSelection}
+                />
+                <Month
+                    updateAdj={this.updateAdj}
+                    handleColorChange={this.handleColorChange}
+                />
+            </div>
+        );
     }
 }
 

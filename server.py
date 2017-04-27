@@ -18,6 +18,8 @@ from signUp_func import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
+# for '/signIn' creating nested dictionaries
+import collections
 
 
 #for facebook sign in
@@ -69,26 +71,34 @@ def signUp():
     password1 = request.form.get("password1")
     password2 = request.form.get("password2")
 
-    status = {"status": "error"}
+    d = collections.defaultdict(dict)
+    response = {
+        "status" : None,
+        "notices" : d,
+        "isLoggedIn" : None
+    }
 
     if not check_matching(email1, email2):
-        status["email match"] = "Your emails do not match"
+        response["notices"]["email match"] = "Your emails do not match"
     if not check_matching(password1, password2):
-        status["password match"] = "Your passwords do not match"
+        response["notices"]["password match"] = "Your passwords do not match"
     if not email_valid(email1):
-        status["email invalid"] = "Your email is not valid" 
+        response["notices"]["email invalid"] = "Your email is not valid" 
     if email_in_db(email1):
-        status["email unavailable"] = "Please try a differnt email"
+        response["notices"]["email unavailable"] = "Please try a differnt email"
     if not check_password(password1).keys()[0]:
-        status["password invalid"] = check_password(password1).values()[0]
+        response["notices"]["password invalid"] = check_password(password1).values()[0]
         
 
-    if len(status.keys()) == 1:
+    if not response["notices"]:
         signup_db_session(email1, password1, app)
-        status["status"] = "ok"
-        status["isLoggedIn"] = True
-    print status
-    return jsonify(status)
+        response["status"] = "ok"
+        response["isLoggedIn"] = True
+    else:
+        response["status"] = "ok"
+        response["isLoggedIn"] = False
+    print ("response signUp", response)
+    return jsonify(response)
 
 
 @app.route('/signIn', methods=["POST"])
@@ -106,21 +116,29 @@ def signIn():
     email = request.form.get("email")
     password = request.form.get("password")
     
-    status = {"status": "error"}
+    d = collections.defaultdict(dict)
+    response = {
+        "status" : None,
+        "notices" : d,
+        "isLoggedIn" : None
+    }
 
+    #TODO: Handle Error Messages status: "error" error: {code/msg}
     if not email_in_db(email):
-        status["email"] = "Your email does not match our records"
+        response["notices"]["email"] = "Your email does not match our records"
     elif not confirm_password(email, password, app):
-        status["password"] = "Your password does not match our records"
+        response["notices"]["password"] = "Your password does not match our records"
     else:
         add_to_session(email)
-        status["status"] = "ok"
-        status["isLoggedIn"] = True
+        response["status"] = "ok"
+        response["isLoggedIn"] = True
 
-        print (status["isLoggedIn"], "signIn sending")
+        print (response["isLoggedIn"], "signIn sending")
 
 
-    return jsonify(status)
+        return jsonify(response)
+    response["isLoggedIn"] = False    
+    return jsonify(response)
 
 
 @app.route('/signOut', methods=["DELETE"])
@@ -149,7 +167,6 @@ def month():
             establish_month(month, year, user_id)
 
         dayContentDict=format_dayContent(month, year, user_id)
-        print (dayContentDict, "DayContentDict")
         
     return jsonify(dayContentDict)
 
@@ -165,15 +182,22 @@ def calendar():
     user_id = session['current_user']
 
     if user_id:
-        possibleMonths = {}
+        d = collections.defaultdict(dict)
+        response = {
+            "status": None,
+            "dateRange" : {},
+            "dateArray" : {}
+        }
         possibleDateArr = query_month_year(user_id)
 
         if not possibleDateArr:
-            return jsonify({"status" : "nodates"})
+            return jsonify({"status" : "error"})
 
-        possibleMonths["dateRange"]= format_dateRange(possibleDateArr)
-        
-        return jsonify(possibleMonths)
+        response["dateRange"] = format_dateRange(possibleDateArr)
+        #Todo: Add dateArray infor to response
+        response["status"] = "ok"
+        print ("response calendar", response)
+        return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
 

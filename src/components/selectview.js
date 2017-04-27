@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react";
 
 class SelectView extends React.Component {
-    
-    constructor(){
+    constructor() {
         super();
 
         this.handleDateSelection = this.handleDateSelection.bind(this);
-        
     }
 
     handleDateSelection(event) {
@@ -14,21 +12,23 @@ class SelectView extends React.Component {
         this.props.handleDateSelection(dateChosen);
     }
 
-    render(){
+    render() {
+        const dateOptions = this.props.dateOption;
+        console.log({ dateOptions });
 
-        const dateOptions = this.state.dateRange;
+        return (
+            <select
+                onChange={e => {
+                    this.handleDateSelection(e);
+                }}
+            >
 
-        return(
+                {dateOptions.forEach(date => {
+                    return <option value={date}> {date} </option>;
+                })}
 
-            <select onChange={(e) => {this.handleDateSelection(e)}} >
-
-                {dateOptions.forEach((date) => 
-                <option value={date}> {date} </option>
-                )}
-        
             </select>
-            
-        )
+        );
     }
 }
 

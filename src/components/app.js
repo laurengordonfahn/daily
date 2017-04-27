@@ -48,9 +48,21 @@ class App extends React.Component {
             },
             success: function(response) {
                 const status = response["status"];
-                if (status !== "ok") {
-                    this.setState({ statusMsg: response });
-                    this.clearStatus();
+                const notices = response.notices;
+                if (status === "ok") {
+                    if (notices) {
+                        let presentStatusMsg = { ...this.state.statusMsg };
+                        Object.keys(presentStatusMsg).forEach(elem => {
+                            return delete presentStatusMsg.elem;
+                        });
+
+                        Object.keys(notices).forEach(notice => {
+                            return (presentStatusMsg[notice] = notices[notice]);
+                        });
+
+                        this.setState({ statusMsg: response["notices"] });
+                        this.clearStatus();
+                    }
                 } else {
                     this.setState.isLoggedIn({
                         isLoggedIn: response["isLoggedIn"]
@@ -71,16 +83,22 @@ class App extends React.Component {
             data: { email: email, password: password },
             success: function(response) {
                 const status = response.status;
-                if (status !== "ok") {
+                const notices = response.notices;
+                console.log({ notices });
+                if (status === "ok" && notices) {
                     let msgState = { ...this.state.statusMsg };
                     Object.keys(msgState).forEach(elem => {
                         return delete msgState.elem;
                     });
                     console.log(response instanceof Object);
-                    msgState = response;
-                    this.setState({ statusMsg: msgState });
+
+                    Object.keys(notices).forEach(notice => {
+                        return (presentStatusMsg[notice] = notices[notice]);
+                    });
+
+                    this.setState({ statusMsg: response["notices"] });
                     this.clearStatus();
-                } else {
+                } else if (status === "ok" && !notices) {
                     this.setState({ isLoggedIn: response["isLoggedIn"] });
                     console.log(
                         "Homepage is Running is logged in is",

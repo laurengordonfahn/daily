@@ -1,57 +1,56 @@
-import React from 'react';
+import React from "react";
 
-import DayBox from './dayBox';
+import DayBox from "./dayBox";
 
 class Month extends React.Component {
+  constructor() {
+    super();
+    this.renderDayBox = this.renderDayBox.bind(this);
+  }
 
-     
-    render(){
+  renderDayBox(dayDate) {
+    // const colorHex = {this.state.dateContent[dayDate]['color']};
+    // style=`background-color=${colorHex}`
+    return (
+      <DayBox
+        key={dayDate}
+        dayDate={dayDate}
+        updateAdj={this.props.updateAdj}
+      />
+    );
+  }
 
-        const dayDate = this.props.detail;
-        const colorHex = this.state.dateStore[dayDate]['color'];
+  render() {
+    return (
+      <div className="month">
 
-        return(
+        <div className="monthHeader">
 
-            <div className="month">
+          {this.state.month} <br />
 
-                <div className="monthHeader">
-                        
-                    {this.state.month} <br />
+          <span className="year">{this.state.year}</span>
 
-                    <span className="year">{this.state.year}</span>
-                       
-                </div>
+        </div>
 
-                <ul className="weekdayNames">
-                  <li>Mo</li>
-                  <li>Tu</li>
-                  <li>We</li>
-                  <li>Th</li>
-                  <li>Fr</li>
-                  <li>Sa</li>
-                  <li>Su</li>
-                </ul>
+        <ul className="weekdayNames">
+          <li>Mo</li>
+          <li>Tu</li>
+          <li>We</li>
+          <li>Th</li>
+          <li>Fr</li>
+          <li>Sa</li>
+          <li>Su</li>
+        </ul>
 
-                <ul> 
-                    
-                    {(this.state.dateStore).map((elem) => {
-                      
-                      return <DayBox key={elem} detail={elem} style={`background-color=${colorHex}`} handleColorChange={this.handleColorChange} />
-                    })}
-                   
-                </ul>
+        <ul>
 
-            </div>
+          {this.state.dateArray.map(this.renderDayBox)}
 
-        )
+        </ul>
 
-    }
-
-
-
-
+      </div>
+    );
+  }
 }
-
-
 
 export default Month;
