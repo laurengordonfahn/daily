@@ -25,7 +25,13 @@ class App extends React.Component {
         if (statusMsgState) {
             this.props.setTimeout(
                 function() {
-                    this.setState({ statusMsg: {} });
+                    //debug zone:
+                    console.log("clearStatus Running", { statusMsgState });
+                    ///
+                    Object.keys(statusMsgState).forEach(elem => {
+                        return delete statusMsgState.elem;
+                    });
+                    this.setState({ statusMsg: statusMsgState });
                 }.bind(this),
                 10000
             );
@@ -47,6 +53,9 @@ class App extends React.Component {
                 password2: password2
             },
             success: function(response) {
+                //debug zone:
+                console.log("onSignup Response Running", { response });
+                ///
                 const status = response["status"];
                 const notices = response.notices;
                 if (status === "ok") {
@@ -84,16 +93,18 @@ class App extends React.Component {
             success: function(response) {
                 const status = response.status;
                 const notices = response.notices;
+                //debug zone:
+                console.log("onSignIn Response Running", { response });
                 console.log({ notices });
+                ///
                 if (status === "ok" && notices) {
                     let msgState = { ...this.state.statusMsg };
                     Object.keys(msgState).forEach(elem => {
                         return delete msgState.elem;
                     });
-                    console.log(response instanceof Object);
 
                     Object.keys(notices).forEach(notice => {
-                        return (presentStatusMsg[notice] = notices[notice]);
+                        return (msgState[notice] = notices[notice]);
                     });
 
                     this.setState({ statusMsg: response["notices"] });
@@ -117,6 +128,9 @@ class App extends React.Component {
             type: "DELETE",
             cache: false,
             success: function(response) {
+                //debug zone:
+                console.log("onSignOut Response Running", { response });
+                ///
                 this.setState({ isLoggedIn: false });
             }.bind(this)
         });
@@ -124,7 +138,9 @@ class App extends React.Component {
 
     render() {
         const isLoggedIn = this.state.isLoggedIn;
-        console.log("App.js running", this.state.isLoggedIn);
+        //debug zone:
+        console.log("App.js running isLoggedIn is", this.state.isLoggedIn);
+        ///
 
         if (!isLoggedIn) {
             return (

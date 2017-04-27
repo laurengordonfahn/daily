@@ -151,8 +151,8 @@ def signOut():
 
     return jsonify({"status" : "ok"})
 
-@app.route('/month', methods=["POST", "GET"])
-def month():
+@app.route('/month/content', methods=["POST", "GET"])
+def month_content():
     """ Retrieve DB Info for today's month/year for intial load
         Return json of date:{adj1: adj, adj2: adj, adj3: adj, color: hex}
     """
@@ -166,27 +166,35 @@ def month():
         if not is_month(month, year, user_id):
             establish_month(month, year, user_id)
 
+        d = collections.defaultdict(dict)
+        response = {
+            "status": None,
+            "dayContent" : d
+        }
+
         dayContentDict=format_dayContent(month, year, user_id)
         
-    return jsonify(dayContentDict)
+        if dayContentDict:
+            response["status"] = "ok"
+            response["dayContent"] = dayContentDict
+        
+    return jsonify(response)
 
      # TODO: I need to be able to control isLoggedIn from here as well and return a notice message saying something went wrong!
-  
 
 
-@app.route('/calendar')
-def calendar():
+@app.route('/calendar/options')
+def calendar_options():
     """ Retrieve all date history from DB
         Return json of dateHistory:[month-year, month-year, etc]
     """
     user_id = session['current_user']
 
     if user_id:
-        d = collections.defaultdict(dict)
+        
         response = {
             "status": None,
-            "dateRange" : {},
-            "dateArray" : {}
+            "dateRange" : []
         }
         possibleDateArr = query_month_year(user_id)
 
@@ -200,7 +208,32 @@ def calendar():
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
+@app.route('/month/days')
+def month_days():
+    """ Retrieve all datys of a given month/year
+        Return json of dateArray:[day-month-year, day-month-year, etc]
+    """
+    user_id = session['current_user']
+    month = request.form.get("month")
+    year = request.form.get("year")
+        
+    if user_id:
+        
+        response = {
+            "status": None,
+            "dateArray" : []
+        }
+        possibleDateArr = format_dayArray(month, year, user_id)
 
+        if not possibleDateArr:
+            return jsonify({"status" : "error"})
+
+        response["dateArray"] = possibleDateArr
+        #Todo: Add dateArray infor to response
+        response["status"] = "ok"
+        print ("response calendar", response)
+        return jsonify(response)
+    #TODO How handle if no user- id send to homepage but notices?
 
 
 if __name__ == "__main__":
