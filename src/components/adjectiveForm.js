@@ -16,15 +16,16 @@ class AdjectiveForm extends React.Component {
         return (
             <InputAdjective
                 name={elem}
-                value={this.props.dateContent[dayDate][elem]}
-                updateAdj={this.updateAdj}
+                dayDate={dayDate}
+                value={this.props.dayContent[dayDate][elem]}
+                updateAdj={this.props.updateAdj}
             />
         );
     }
 
     render() {
         const dayDate = this.props.dayDate;
-        const info = this.props.dateContent[dayDate];
+        const info = this.props.dayContent[dayDate];
         const adjectiveArray = Object.keys(info).filter(elem => {
             return elem !== "color";
         });

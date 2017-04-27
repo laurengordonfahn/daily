@@ -2,7 +2,7 @@ import React from "react";
 
 import $ from "jquery";
 
-import SignOut from "./notices";
+import SignOut from "./signOut";
 import Month from "./month";
 import SelectView from "./selectview";
 import Profile from "./profile";
@@ -80,7 +80,11 @@ class Calendar extends React.Component {
                     Object.keys(dayContent).forEach(date => {
                         dContent[date] = dayContent[date];
                     });
-                    this.setState({ dateContent: dContent });
+                    this.setState({ dayContent: dContent });
+                    console.log(
+                        "dayContent after updated",
+                        this.state.dayContent
+                    );
                 }
             }.bind(this)
         });
@@ -170,10 +174,19 @@ class Calendar extends React.Component {
     }
 
     updateAdj(newVal, ElemName, dayDate) {
+        //debugger zone
+        console.log(
+            "updateAjd in calender.js",
+            { newVal },
+            { ElemName },
+            { dayDate }
+        );
+        ////
         // need to get only the state for the date working on make copy
         const dayState = { ...this.state.dayContent };
+        console.log("dayContent", this.state.dayContent);
         // assign new value
-        dayState.dayDate.ElemName = newVal;
+        dayState[dayDate][ElemName] = newVal;
         // need to update only the state that i am working on
         this.setState({ dayContent: dayState });
     }
@@ -201,7 +214,7 @@ class Calendar extends React.Component {
                     month={this.state.month}
                     year={this.state.year}
                     dateArray={this.state.dateArray}
-                    dateContent={this.state.dateContent}
+                    dayContent={this.state.dayContent}
                     updateAdj={this.updateAdj}
                     handleColorChange={this.handleColorChange}
                 />

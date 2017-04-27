@@ -6,14 +6,24 @@ class InputAdjective extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    //TODO Understand this
     handleChange(event, adjIndex) {
         const newAdj = event.target.value;
+        // debugger zone
+        console.log(
+            "handleChange of input running in inputAjd and the new Adje is...",
+            newAdj
+        );
+        console.log(
+            "this is the props.dayDate in handle Change",
+            this.props.dayDate
+        );
+        ///
         this.props.updateAdj(newAdj, adjIndex, this.props.dayDate);
     }
 
     render() {
         const adjValue = this.props.value;
+        const dayDate = this.props.dayDate;
 
         if (adjValue) {
             return (
@@ -22,7 +32,7 @@ class InputAdjective extends React.Component {
                     name={this.props.name}
                     value={adjValue}
                     onChange={e => {
-                        this.handleChange(e, name);
+                        this.handleChange(e, this.props.name, dayDate);
                     }}
                 />
             );
@@ -33,7 +43,7 @@ class InputAdjective extends React.Component {
                     name={this.props.name}
                     placeholder="A Daily Adjective"
                     onChange={e => {
-                        this.handleChange(e, name);
+                        this.handleChange(e, name, dayDate);
                     }}
                 />
             );

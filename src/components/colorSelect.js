@@ -19,7 +19,7 @@ class ColorSelect extends React.Component {
 
   render() {
     const dayDate = this.props.dayDate;
-    const colorChosen = this.props.dateContent[dayDate]["color"];
+    const colorChosen = this.props.dayContent[dayDate]["color"];
 
     return (
       <form

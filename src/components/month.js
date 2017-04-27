@@ -16,7 +16,7 @@ class Month extends React.Component {
       <DayBox
         key={dayDate}
         dayDate={dayDate}
-        dateContent={this.props.dateContent}
+        dayContent={this.props.dayContent}
         updateAdj={this.props.updateAdj}
       />
     );

@@ -13,12 +13,12 @@ class DayBox extends React.Component {
 
                 <AdjectiveForm
                     dayDate={dayDate}
-                    dateContent={this.props.dateContent}
+                    dayContent={this.props.dayContent}
                     updateAdj={this.props.updateAdj}
                 />
                 <ColorSelect
                     dayDate={dayDate}
-                    dateContent={this.props.dateContent}
+                    dayContent={this.props.dayContent}
                     handleColorChange={this.handleColorChange}
                 />
             </div>
