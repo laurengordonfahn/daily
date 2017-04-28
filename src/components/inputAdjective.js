@@ -17,6 +17,7 @@ class InputAdjective extends React.Component {
             "this is the props.dayDate in handle Change",
             this.props.dayDate
         );
+        console.log({ adjIndex });
         ///
         this.props.updateAdj(newAdj, adjIndex, this.props.dayDate);
     }
@@ -28,6 +29,7 @@ class InputAdjective extends React.Component {
         if (adjValue) {
             return (
                 <input
+                    key={Date.now()}
                     type="text"
                     name={this.props.name}
                     value={adjValue}
@@ -43,7 +45,7 @@ class InputAdjective extends React.Component {
                     name={this.props.name}
                     placeholder="A Daily Adjective"
                     onChange={e => {
-                        this.handleChange(e, name, dayDate);
+                        this.handleChange(e, this.props.name, dayDate);
                     }}
                 />
             );

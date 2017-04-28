@@ -15,6 +15,7 @@ class AdjectiveForm extends React.Component {
     renderInputs(elem, dayDate) {
         return (
             <InputAdjective
+                key={elem}
                 name={elem}
                 dayDate={dayDate}
                 value={this.props.dayContent[dayDate][elem]}
@@ -29,7 +30,7 @@ class AdjectiveForm extends React.Component {
         const adjectiveArray = Object.keys(info).filter(elem => {
             return elem !== "color";
         });
-        console.log({ adjectiveArray });
+        
 
         return (
             <form

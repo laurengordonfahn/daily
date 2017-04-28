@@ -17,17 +17,20 @@ class SelectView extends React.Component {
         console.log({ dateOptions });
 
         return (
-            <select
-                onChange={e => {
-                    this.handleDateSelection(e);
-                }}
-            >
+            <div>
+                <h3> Change Month View </h3>
+                <select
+                    onChange={e => {
+                        this.handleDateSelection(e);
+                    }}
+                >
 
-                {dateOptions.forEach(date => {
-                    return <option value={date}> {date} </option>;
-                })}
+                    {dateOptions.map(date => {
+                        return <option key={date} value={date}> {date} </option>;
+                    })}
 
-            </select>
+                </select>
+            </div>
         );
     }
 }
