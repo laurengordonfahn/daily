@@ -15,6 +15,7 @@ from month_func import *
 from calendar_func import *
 from signIn_func import *
 from signUp_func import *
+from month_adj_func import * 
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -183,6 +184,27 @@ def month_content():
 
      # TODO: I need to be able to control isLoggedIn from here as well and return a notice message saying something went wrong!
 
+@app.route('/month/adj', methods=["POST"])
+def month_adj():
+    """ Update DB with new adjective """
+
+    user_id = session['current_user']
+    dayDate = request.form.get("dayDate")
+    newVal = request.form.get("newVal")
+    elemName = request.form.get("ElemName")
+
+    day = parse_day(dayDate)
+    month = parse_month(dayDate)
+    year = parse_year(dayDate)
+
+    commit_adj_to_db(user_id, day, month, year, newVal, elemName)
+
+    #TODO handle errors from commit_adj_to_db 
+    response = {"status" : "ok"}
+
+    return(response)
+
+
 
 @app.route('/calendar/options')
 def calendar_options():
@@ -217,7 +239,7 @@ def month_days():
     user_id = session['current_user']
     month = request.args.get("month")
     year = request.args.get("year")
-            
+    
     print("month/day running")
     print (month, year)
     if user_id:

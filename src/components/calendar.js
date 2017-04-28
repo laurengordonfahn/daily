@@ -181,14 +181,25 @@ class Calendar extends React.Component {
             { ElemName },
             { dayDate }
         );
-        ////
-        // need to get only the state for the date working on make copy
-        const dayState = { ...this.state.dayContent };
-        console.log("dayContent", this.state.dayContent);
-        // assign new value
-        dayState[dayDate][ElemName] = newVal;
-        // need to update only the state that i am working on
-        this.setState({ dayContent: dayState });
+        ///
+        $.ajax({
+            url: "/month/adj",
+            dataType: "json",
+            type: "post",
+            cache: false,
+            data: { "dayDate": dayDate, "newVal" : newVal, "ElemName" : ElemName },
+            success: function(response) {
+                const dayState = { ...this.state.dayContent };
+
+                console.log("dayContent", this.state.dayContent);
+
+                dayState[dayDate][ElemName] = newVal;
+        
+                this.setState({ dayContent: dayState });
+                
+            }.bind(this)
+        });
+        
     }
 
     handleColorChange(event, dayDate) {

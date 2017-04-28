@@ -32,7 +32,7 @@ class InputAdjective extends React.Component {
                     key={Date.now()}
                     type="text"
                     name={this.props.name}
-                    value={adjValue}
+                    placeholder={adjValue}
                     onChange={e => {
                         this.handleChange(e, this.props.name, dayDate);
                     }}
