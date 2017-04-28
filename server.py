@@ -202,7 +202,7 @@ def month_adj():
     #TODO handle errors from commit_adj_to_db 
     response = {"status" : "ok"}
 
-    return(response)
+    return jsonify(response)
 
 
 

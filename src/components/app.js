@@ -38,6 +38,11 @@ class App extends React.Component {
         }
     }
 
+    // FOR LOCAL TESTING ONLY
+    componentDidMount() {
+        this.onSignIn("b@gmail.com", "b12345");
+    }
+
     /// SignUp ////
 
     onSignUp(email1, email2, password1, password2) {

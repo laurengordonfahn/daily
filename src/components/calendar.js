@@ -11,6 +11,7 @@ import Notices from "./notices";
 class Calendar extends React.Component {
     constructor() {
         super();
+        this.setIntialDate = this.setIntialDate.bind(this);
         this.renderDateContent = this.renderDateContent.bind(this);
         this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
@@ -39,25 +40,49 @@ class Calendar extends React.Component {
     };
 
     componentWillMount() {
-        this.renderDateContent();
+        this.setIntialDate();
         this.fillDateRange();
-        this.fillDateArray();
     }
 
     ////// componentWillMount ///////
-    renderDateContent() {
-        const today = new Date();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
-        const dateRange = [month.toString() + "/" + year.toString()];
+    setIntialDate() {
 
-        this.setState({ today });
-        this.setState({ month });
-        this.setState({ year });
-        this.setState({ dateRange });
-        this.setState({ view: [month, year] });
+        // debug zone
+        console.log("setIntial date is running and I am making a promise!");
+        ///
+        var promise = new Promise(function(resolve, reject){
+            const today = new Date();
+            const month = today.getMonth() + 1;
+            const year = today.getFullYear();
 
-        console.log({ dateRange });
+             const dateRange = [month.toString() + "/" + year.toString()];
+
+            this.setState({ today });
+            this.setState({ month });
+            this.setState({ year });
+            this.setState({ dateRange });
+            this.setState({ view: [month, year] });
+
+            if( this.state.view !==[] & this.state.dateRange !==[]){
+                resolve("Stuff Worked!")
+
+            } else {
+                reject(Error("It broke"));
+            }
+
+        });
+
+        promise.then(function(result) {
+            this.renderDateContent(this.state.month, this.state.year);
+            this.fillDateArray(this.state.month, this.state.year);
+
+        })
+        
+    }
+
+    renderDateContent(month, year) {
+
+        console.log( "renderDateContent month, year",month, year );
 
         $.ajax({
             url: "/month/content",
@@ -114,10 +139,7 @@ class Calendar extends React.Component {
         });
     }
 
-    fillDateArray() {
-        const today = new Date();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
+    fillDateArray(month, year) {
         //debug zone:
         console.log("renderDateContent month, year", month, year);
         ///
@@ -152,25 +174,18 @@ class Calendar extends React.Component {
 
     /// SelectView ////
 
-    handleDateSelection(event) {
-        const dateSelected = [event.target.value];
-        this.setState({ view: dateSelected });
+    handleDateSelection(dateChosen) {
 
-        $.ajax({
-            url: "/view",
-            dataType: "json",
-            cache: false,
-            data: { dateRequest: this.state.view },
-            success: function(response) {
-                //TODO dateHistory: [month/year, month, year]
-                // TODO check what happens when no response content
+        const month = dateChosen.split("-")[0];
+        const year = dateChosen.split("-")[1];
 
-                this.setState({ dateArray: response.dateArray });
-                this.setState({ dayContent: response.dayContent });
-                this.setState({ month: response.month });
-                this.setState({ year: response.year });
-            }.bind(this)
-        });
+        this.setState({ view: [month, year] });
+        this.setState({ month: month });
+        this.setState({ year: year });
+
+        this.renderDateContent(month, year);
+        this.fillDateArray(month, year);
+
     }
 
     updateAdj(newVal, ElemName, dayDate) {
