@@ -4,59 +4,35 @@ from model import *
 from flask_bcrypt import Bcrypt
 import re
 
-def clear_old_session():
-    """ Deletes Session 
-        Returns None
-    """
-    if 'current_user' in session:
-        del session['current_user']
-
-def email_in_db(email):
-    """ Query DB see if email already in DB
+def check_matching(value1, value2):
+    """ Check if two values match for email and password confirmation before accepting
         Return Boolean
     """
-
-    checkEmail = User.query.filter_by(email=email).first() 
-    print checkEmail, "Checkemail"
-
-    if checkEmail:
+    if value1 == value2:
         return True
     return False
+
 
 def email_valid(email):
     """ Regex check if email valid 
         Return Boolean
     """
-
     return re.search("^[a-zA-Z][\w_\-\.]*@\w+\.\w{2,3}$", email)
 
+
 def check_password(password):
-    """ regex check if password valid length 
-        Return status: "ok" or appropriate error message
+    """ regex check if password valid - 6 char min, one num, one letter  
+        Return None string error message
     """
 
     elem_check = re.search("^[0-9a-zA-Z]{6,}$", password)
     num_check = re.search("[\d]", password)
     len_check = (len(password) >= 6)
 
-    if not elem_check:
-        msg_dict = {False: "Password must contain at least one number and can only contain numbers and letters"}
-    elif not num_check:
-        msg_dict = {False: "Password must contain at least one number"}
-    elif not len_check:
-        msg_dict = {False: "Password must be at least 6 characters long"}
-    else:
-        msg_dict = {True : "ok"}
-    return msg_dict
-
-def check_matching(value1, value2):
-    """ Check if two values match for email and password confirmation before accepting
-        Return Boolean
-    """
-
-    if value1 == value2:
-        return True
-    return False
+    
+    if not elem_check or num_check or len_check:
+        return "Passwords must be at least 6 characters long and contain at least one number and at least one letter"
+    
 
 def hash_password(password, app):
     """ Take valid passwords and hash them

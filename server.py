@@ -1,17 +1,22 @@
 from flask import (Flask, request, render_template, redirect, flash, session, jsonify)
 
-import requests
+#To be deleted
+# import requests
+# from sqlalchemy import (asc, desc)
+#for facebook sign in
+# import facebook
+# #for environmental variables for google/facebook API
+# import os
+
 import json
 
 from flask_debugtoolbar import DebugToolbarExtension
-
-from sqlalchemy import (asc, desc) 
-
 from flask_bcrypt import Bcrypt
 
 from model import *
 
-from month_func import *
+from gen_server_func import *
+from month_content_func import *
 from calendar_func import *
 from signIn_func import *
 from signUp_func import *
@@ -22,11 +27,6 @@ from flask_marshmallow import Marshmallow
 # for '/signIn' creating nested dictionaries
 import collections
 
-
-#for facebook sign in
-import facebook
-#for environmental variables for google/facebook API
-import os
 #for state
 import datetime
 
@@ -48,7 +48,6 @@ user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 #####################################################
 
-
 @app.route('/')
 def index():
     """ Render index.html"""
@@ -61,8 +60,9 @@ def signUp():
         Check if password vaild
         Check if Email in DB
         Add to session and DB or and/or send status to JS
-        Return json of status: 'you have successfully signed Up'  or 'email or password not valid' or 'please chose a different email'
-            isLoggedIn: boolean
+        Return {status: 'ok' or 'error',  
+               notices: {},
+               isLoggedIn: boolean }
     """
 
     clear_old_session()
@@ -87,10 +87,9 @@ def signUp():
         response["notices"]["email invalid"] = "Your email is not valid" 
     if email_in_db(email1):
         response["notices"]["email unavailable"] = "Please try a differnt email"
-    if not check_password(password1).keys()[0]:
-        response["notices"]["password invalid"] = check_password(password1).values()[0]
+    if check_password(password1):
+        response["notices"]["password invalid"] = check_password(password1)
         
-
     if not response["notices"]:
         signup_db_session(email1, password1, app)
         response["status"] = "ok"
@@ -107,9 +106,10 @@ def signIn():
     
     """ Check if Email in DB
         Check if password valid
-        Add to Session and/or send status to JS
-        Return json of status: 'ok' or status: 'email or password are not valid'
-        isLoggedIn: boolean
+        Add to Session and/or send notice to JS
+        Return json of {status: 'ok' or error, 
+                        notices: 'email or password are not valid',
+                        isLoggedIn: boolean }
     """
 
     clear_old_session()
@@ -127,19 +127,20 @@ def signIn():
     #TODO: Handle Error Messages status: "error" error: {code/msg}
     if not email_in_db(email):
         response["notices"]["email"] = "Your email does not match our records"
-    elif not confirm_password(email, password, app):
+    if not confirm_password(email, password, app):
         response["notices"]["password"] = "Your password does not match our records"
-    else:
-        add_to_session(email)
+    if response["notices"]: 
         response["status"] = "ok"
-        response["notices"]["welcome"] = "Welcome to Daily!"
-        response["isLoggedIn"] = True
-
-        print (response["isLoggedIn"], "signIn sending")
-
-
+        response["isLoggedIn"] = False  
+        print (response["isLoggedIn"], "signIn sending")  
         return jsonify(response)
-    response["isLoggedIn"] = False    
+
+    add_to_session(email)
+    response["status"] = "ok"
+    response["notices"]["welcome"] = "Welcome to Daily!"
+    response["isLoggedIn"] = True
+
+    print (response["isLoggedIn"], "signIn sending")
     return jsonify(response)
 
 
@@ -205,7 +206,6 @@ def month_adj():
     return jsonify(response)
 
 
-
 @app.route('/calendar/options')
 def calendar_options():
     """ Retrieve all date history from DB
@@ -214,11 +214,11 @@ def calendar_options():
     user_id = session['current_user']
 
     if user_id:
-        
         response = {
             "status": None,
             "dateRange" : []
         }
+        
         possibleDateArr = query_month_year(user_id)
 
         if not possibleDateArr:
@@ -233,7 +233,7 @@ def calendar_options():
 
 @app.route('/month/days')
 def month_days():
-    """ Retrieve all datys of a given month/year
+    """ Retrieve all dates of a given month/year
         Return json of dateArray:[day-month-year, day-month-year, etc]
     """
     user_id = session['current_user']

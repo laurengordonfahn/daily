@@ -46,72 +46,43 @@ class Calendar extends React.Component {
 
     ////// componentWillMount ///////
     setIntialDate() {
-
         // debug zone
         console.log("setIntial date is running and I am making a promise!");
         ///
-        var promise = new Promise(function(resolve, reject){
-            const today = new Date();
-            const month = today.getMonth() + 1;
-            const year = today.getFullYear();
+        const today = new Date();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
 
-             const dateRange = [month.toString() + "/" + year.toString()];
+        const dateRange = [month.toString() + "/" + year.toString()];
 
-            this.setState({ today });
-            this.setState({ month });
-            this.setState({ year });
-            this.setState({ dateRange });
-            this.setState({ view: [month, year] });
-
-            if( this.state.view !==[] & this.state.dateRange !==[]){
-                resolve("Stuff Worked!")
-
-            } else {
-                reject(Error("It broke"));
+        this.setState(
+            { today, month, year, dateRange, view: [month, year] },
+            newState => {
+                this.renderDateContent(this.state.month, this.state.year);
+                this.fillDateArray(this.state.month, this.state.year);
             }
-
-        });
-
-        promise.then(function(result) {
-            this.renderDateContent(this.state.month, this.state.year);
-            this.fillDateArray(this.state.month, this.state.year);
-
-        })
-        
+        );
     }
 
     renderDateContent(month, year) {
-
-        console.log( "renderDateContent month, year",month, year );
+        console.log("renderDateContent month, year", month, year);
 
         $.ajax({
             url: "/month/content",
             type: "post",
             dataType: "json",
             cache: false,
-            data: { month: month, year: year },
-            success: function(response) {
-                if (response.status === "ok") {
-                    //debug zone:
-                    console.log("renderDateContent Response Running", {
-                        response
-                    });
-                    ///
-                    let dContent = { ...this.state.dateContent };
-                    let dayContent = response["dayContent"];
-                    Object.keys(dContent).forEach(elem => {
-                        return delete dContent.elem;
-                    });
-                    Object.keys(dayContent).forEach(date => {
-                        dContent[date] = dayContent[date];
-                    });
-                    this.setState({ dayContent: dContent });
-                    console.log(
-                        "dayContent after updated",
-                        this.state.dayContent
-                    );
-                }
-            }.bind(this)
+            data: { month: month, year: year }
+        }).then(response => {
+            if (response.status === "ok") {
+                //debug zone:
+                console.log("renderDateContent Response Running", {
+                    response
+                });
+                ///
+                this.setState({ dayContent: response["dayContent"] });
+                console.log("dayContent after updated", this.state.dayContent);
+            }
         });
     }
 
@@ -175,7 +146,6 @@ class Calendar extends React.Component {
     /// SelectView ////
 
     handleDateSelection(dateChosen) {
-
         const month = dateChosen.split("-")[0];
         const year = dateChosen.split("-")[1];
 
@@ -185,7 +155,6 @@ class Calendar extends React.Component {
 
         this.renderDateContent(month, year);
         this.fillDateArray(month, year);
-
     }
 
     updateAdj(newVal, ElemName, dayDate) {
@@ -196,31 +165,41 @@ class Calendar extends React.Component {
             { ElemName },
             { dayDate }
         );
+
+        const dayState = { ...this.state.dayContent };
+
+        console.log("dayContent", this.state.dayContent);
+
+        dayState[dayDate][ElemName] = newVal;
+
+        this.setState({ dayContent: dayState });
         ///
         $.ajax({
             url: "/month/adj",
             dataType: "json",
             type: "post",
             cache: false,
-            data: { "dayDate": dayDate, "newVal" : newVal, "ElemName" : ElemName },
-            success: function(response) {
-                const dayState = { ...this.state.dayContent };
-
-                console.log("dayContent", this.state.dayContent);
-
-                dayState[dayDate][ElemName] = newVal;
-        
-                this.setState({ dayContent: dayState });
-                
-            }.bind(this)
-        });
-        
+            data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
+         });
     }
 
-    handleColorChange(event, dayDate) {
+    handleColorChange(colorChosen, dayDate) {
         const dayState = { ...this.state.dayContent };
-        dayState.dayDate.color = event.target.value;
+
+        dayState["dayDate"]["color"] = colorChosen;
         this.setState({ dayContent: dayState });
+
+        $.ajax({
+            url: "/month/color",
+            dataType: "json",
+            type: "post",
+            cache: false,
+            data: { dayDate: dayDate, colorChosen: colorChosen },
+            success: function(response) {
+                console.log(response);
+                // TODO at some point handle if response status is "error"
+            }.bind(this)
+        });
     }
 
     render() {

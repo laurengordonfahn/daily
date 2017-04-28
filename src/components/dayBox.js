@@ -12,13 +12,11 @@ class DayBox extends React.Component {
                 <h3> {dayDate} </h3>
 
                 <AdjectiveForm
-                    key={"form" + Date.now()}
                     dayDate={dayDate}
                     dayContent={this.props.dayContent}
                     updateAdj={this.props.updateAdj}
                 />
                 <ColorSelect
-                    key={"color" + Date.now()}
                     dayDate={dayDate}
                     dayContent={this.props.dayContent}
                     handleColorChange={this.handleColorChange}

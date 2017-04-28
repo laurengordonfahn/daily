@@ -29,7 +29,6 @@ class InputAdjective extends React.Component {
         if (adjValue) {
             return (
                 <input
-                    key={Date.now()}
                     type="text"
                     name={this.props.name}
                     value={adjValue}

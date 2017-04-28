@@ -2,11 +2,8 @@
 from flask import (Flask, request, render_template, flash, session, jsonify, abort)
 from model import *
 from flask_bcrypt import Bcrypt
-import re
 
 # functions clear_old_session and email_in_db taken from signUp_func.def 
-
-
 
 def confirm_password(email, password, app):
     """ Check if password matches hash
@@ -15,6 +12,7 @@ def confirm_password(email, password, app):
     user = User.query.filter(User.email==email).first()
     
     return Bcrypt(app).check_password_hash(user.password, password)
+
 
 def add_to_session(email):
     """ Add user to session
