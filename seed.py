@@ -4,6 +4,7 @@ from model import Colorset
 from model import connect_to_db, db
 from server import app
 
+
 def load_colorset():
     """ Load colors and emotions for colorset table """
 

@@ -8,9 +8,9 @@ class Month extends React.Component {
     this.renderDayBox = this.renderDayBox.bind(this);
   }
 
+
   renderDayBox(dayDate) {
-    // const colorHex = {this.state.dateContent[dayDate]['color']};
-    // style=`background-color=${colorHex}`
+    // const colorHex = this.props.dayContent[dayDate]['color'];
 
     return (
       <DayBox

@@ -21,6 +21,7 @@ from calendar_func import *
 from signIn_func import *
 from signUp_func import *
 from month_adj_func import * 
+from month_days_func import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -260,7 +261,11 @@ def month_days():
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
+@app.route('/month/color', methods=["POST"])
+def month_color():
+    """ Update the DB with a color choice for a given day"""
 
+    pass
 if __name__ == "__main__":
 
     app.debug = True
