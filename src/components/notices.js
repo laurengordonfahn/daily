@@ -1,17 +1,19 @@
 import React from "react";
 
+
 function Notices(props) {
     const msg = props.msg;
     if (msg) {
         return (
             <div>
-                {Object.keys(msg)
+               {Object.keys(msg)
                     .filter(elem => {
                         return elem !== "status";
                     })
-                    .forEach(message => {
-                        return <h3 class="notices"> {msg[message]} </h3>;
+                    .map(message => {
+                        return <h3 className="notices"> {msg[message]} </h3>;
                     })}
+                
             </div>
         );
     } else {

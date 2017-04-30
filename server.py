@@ -22,6 +22,7 @@ from signIn_func import *
 from signUp_func import *
 from month_adj_func import * 
 from month_days_func import *
+from month_color_func import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -128,7 +129,7 @@ def signIn():
     #TODO: Handle Error Messages status: "error" error: {code/msg}
     if not email_in_db(email):
         response["notices"]["email"] = "Your email does not match our records"
-    if not confirm_password(email, password, app):
+    elif not confirm_password(email, password, app):
         response["notices"]["password"] = "Your password does not match our records"
     if response["notices"]: 
         response["status"] = "ok"
@@ -265,7 +266,14 @@ def month_days():
 def month_color():
     """ Update the DB with a color choice for a given day"""
 
-    pass
+    user_id = session['current_user']
+    colorEmot = request.form.get("colorEmot")
+    dayDate = request.form.get("dayDate")
+
+    if user_id:
+        updateColor(user_id, dayDate, colorEmot)
+        return jsonify({"status" : "ok"})
+
 if __name__ == "__main__":
 
     app.debug = True

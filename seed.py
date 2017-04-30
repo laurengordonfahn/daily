@@ -22,7 +22,7 @@ def load_colorset():
     anxious = Colorset(emotion='anxious', color='#cc0099')
     trapped = Colorset(emotion='trapped', color='#ff6600')
     
-    
+    db.session.add(neutral)
     db.session.add(angry)
     db.session.add(happy)
     db.session.add(joyful)

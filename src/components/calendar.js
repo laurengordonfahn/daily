@@ -183,10 +183,10 @@ class Calendar extends React.Component {
          });
     }
 
-    handleColorChange(colorChosen, dayDate) {
+    handleColorChange(colorEmot, dayDate) {
         const dayState = { ...this.state.dayContent };
 
-        dayState["dayDate"]["color"] = colorChosen;
+        dayState["dayDate"]["colorEmot"] = colorEmot;
         this.setState({ dayContent: dayState });
 
         $.ajax({
@@ -194,7 +194,7 @@ class Calendar extends React.Component {
             dataType: "json",
             type: "post",
             cache: false,
-            data: { dayDate: dayDate, colorChosen: colorChosen },
+            data: { dayDate: dayDate, colorEmot: colorEmot },
             success: function(response) {
                 console.log(response);
                 // TODO at some point handle if response status is "error"

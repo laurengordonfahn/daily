@@ -113,7 +113,8 @@ class App extends React.Component {
                     });
 
                     this.setState({ statusMsg: response["notices"] });
-                    this.clearStatus();
+                    console.log(this.state.statusMsg);
+                    // this.clearStatus();
                 } else if (status === "ok" && response["isLoggedIn"] === true) {
                     this.setState({ isLoggedIn: response["isLoggedIn"] });
                     console.log(
