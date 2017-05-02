@@ -38,7 +38,7 @@ class App extends React.Component {
         }
     }
 
-    // FOR LOCAL TESTING ONLY
+    // // FOR LOCAL TESTING ONLY
     componentDidMount() {
         this.onSignIn("b@gmail.com", "b12345");
     }
@@ -62,9 +62,14 @@ class App extends React.Component {
                 console.log("onSignup Response Running", { response });
                 ///
                 const status = response["status"];
+                console.log(status);
                 const notices = response.notices;
+                console.log(notices);
+                console.log(response["isLoggedIn"]);
                 if (status === "ok") {
+                    console.log("status is ok signUp");
                     if (response["isLoggedIn"] === false) {
+                        console.log("isLoggedIn is false");
                         let presentStatusMsg = { ...this.state.statusMsg };
                         Object.keys(presentStatusMsg).forEach(elem => {
                             return delete presentStatusMsg.elem;
@@ -76,11 +81,14 @@ class App extends React.Component {
 
                         this.setState({ statusMsg: response["notices"] });
                         this.clearStatus();
+                        console.log("isLoggedIn after signUp should be false", this.state.isLoggedIn);
                     }
                 } else {
+                    console.log("isLoggedIn is true");
                     this.setState.isLoggedIn({
                         isLoggedIn: response["isLoggedIn"]
                     });
+                    console.log("isLoggedIn after signUp should be true", this.state.isLoggedIn);
                 }
             }.bind(this)
         });
@@ -114,7 +122,7 @@ class App extends React.Component {
 
                     this.setState({ statusMsg: response["notices"] });
                     console.log(this.state.statusMsg);
-                    // this.clearStatus();
+                    this.clearStatus();
                 } else if (status === "ok" && response["isLoggedIn"] === true) {
                     this.setState({ isLoggedIn: response["isLoggedIn"] });
                     console.log(

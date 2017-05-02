@@ -5,6 +5,7 @@ class ColorSelect extends React.Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.renderColorOptions = this.renderColorOptions.bind(this);
   }
 
   handleSubmit(event) {
@@ -12,14 +13,28 @@ class ColorSelect extends React.Component {
   }
 
   handleChange(event, dayDate) {
-    const colorEmot = event.target.value;
+    const colorId = event.target.value;
 
-    this.props.handleColorChange(colorEmot, dayDate);
+    this.props.handleColorChange(colorId, dayDate);
   }
+
+  renderColorOptions(elem) {
+        const emotion = elem["emotion"];
+        // const colorHex = elem["colorHex"];
+        const id = elem["colorId"];
+        const colorName = elem["colorName"];
+        // const basic = elem["basic"];
+        const text = emotion.toUpperCase() + " - " + colorName.toUpperCase();
+
+        return (
+          <option key={id} value={id}> {text} </option>
+        );
+    }
 
   render() {
     const dayDate = this.props.dayDate;
-    const colorEmot= this.props.dayContent[dayDate]["colorEmot"];
+    const colorArr=this.props.colorArr;
+    const colorId= this.props.dayContent[dayDate]["colorId"];
 
     return (
       <form
@@ -28,22 +43,17 @@ class ColorSelect extends React.Component {
         }}
       >
         <select
-          value={colorEmot}
+          value={colorId}
           onChange={e => {
             this.handleChange(e, dayDate);
           }}
         >
-          <option value="neutral"> Neutral - White </option>
-          <option value="angry"> Angry - Red </option>
-          <option value="happy"> Happy - Yellow </option>
-          <option value="joyful"> Joyful - Soft Pink </option>
-          <option value="calm"> Calm - Light Blue </option>
-          <option value="sad"> Sad - Blue/Grey </option>
-          <option value="quite"> Quite - Light Green </option>
-          <option value="lonely"> Lonely - Light Purple </option>
-          <option value="confussed"> Confussed - Vibrant Green </option>
-          <option value="anxious"> Anxious - Magenta </option>
-          <option value="trapped"> Trapped - Orange </option>
+
+        {colorArr.map(elem => {
+                    return this.renderColorOptions(elem);
+                })}
+
+          
         </select>
       </form>
     );

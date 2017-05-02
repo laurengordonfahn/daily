@@ -23,6 +23,7 @@ from signUp_func import *
 from month_adj_func import * 
 from month_days_func import *
 from month_color_func import *
+from calendar_color_func import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -233,6 +234,25 @@ def calendar_options():
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
+@app.route('/calendar/color')
+def calendar_color():
+    """ Retrieve all color info from DB
+        Return [{id: id, color:color, emoiton:emotion}, etc]
+    """
+
+    user_id = session['current_user']
+    response = {
+        "status" : None,
+        "colorResponse" : []  
+    }
+    if user_id:
+        arr = format_color_response(user_id)
+        if arr:
+            response["status"] = "ok"
+            response["colorResponse"] = arr
+
+    return jsonify(response)
+
 @app.route('/month/days')
 def month_days():
     """ Retrieve all dates of a given month/year
@@ -267,11 +287,11 @@ def month_color():
     """ Update the DB with a color choice for a given day"""
 
     user_id = session['current_user']
-    colorEmot = request.form.get("colorEmot")
+    colorId = request.form.get("colorId")
     dayDate = request.form.get("dayDate")
 
     if user_id:
-        updateColor(user_id, dayDate, colorEmot)
+        updateColor(user_id, dayDate, colorId)
         return jsonify({"status" : "ok"})
 
 if __name__ == "__main__":

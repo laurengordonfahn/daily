@@ -15,6 +15,7 @@ class Calendar extends React.Component {
         this.renderDateContent = this.renderDateContent.bind(this);
         this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
+        this.fillColorArr = this.fillColorArr.bind(this);
         this.handleDateSelection = this.handleDateSelection.bind(this);
         // month componenet
         this.updateAdj = this.updateAdj.bind(this);
@@ -28,8 +29,11 @@ class Calendar extends React.Component {
 
         // all dates in the database "d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}
         dayContent: {},
-        // ["d/m/y ", "d/m/y"]
+        
+        // [{id: int, colorHex: hex, colorName: color, emotion: emotion, basic: 0 or user_id }]
+        colorArr: [],
 
+        // ["d/m/y ", "d/m/y"]
         dateArray: [],
 
         //all date month and years in database month/year
@@ -42,6 +46,7 @@ class Calendar extends React.Component {
     componentWillMount() {
         this.setIntialDate();
         this.fillDateRange();
+        this.fillColorArr();
     }
 
     ////// componentWillMount ///////
@@ -143,6 +148,24 @@ class Calendar extends React.Component {
         });
     }
 
+    fillColorArr(){
+        $.ajax({
+            url: "/calendar/color",
+            cache: false,
+        }).then(response => {
+            if (response.status === "ok") {
+                //debug zone:
+                console.log("fillColorDict Response Running", {
+                    response
+                });
+                ///
+                this.setState({ colorArr: response["colorResponse"] });
+                console.log("colorArr after updated", this.state.colorArr);
+            }
+        });
+
+    }
+
     /// SelectView ////
 
     handleDateSelection(dateChosen) {
@@ -182,11 +205,11 @@ class Calendar extends React.Component {
             data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
          });
     }
-
-    handleColorChange(colorEmot, dayDate) {
+    //IN midst of chanign colorEmot to colorId
+    handleColorChange(colorId, dayDate) {
         const dayState = { ...this.state.dayContent };
 
-        dayState["dayDate"]["colorEmot"] = colorEmot;
+        dayState[dayDate]["colorId"] = colorId;
         this.setState({ dayContent: dayState });
 
         $.ajax({
@@ -194,7 +217,7 @@ class Calendar extends React.Component {
             dataType: "json",
             type: "post",
             cache: false,
-            data: { dayDate: dayDate, colorEmot: colorEmot },
+            data: { dayDate: dayDate, colorId: colorId },
             success: function(response) {
                 console.log(response);
                 // TODO at some point handle if response status is "error"
@@ -220,8 +243,10 @@ class Calendar extends React.Component {
                     year={this.state.year}
                     dateArray={this.state.dateArray}
                     dayContent={this.state.dayContent}
+                    colorArr={this.state.colorArr}
                     updateAdj={this.updateAdj}
                     handleColorChange={this.handleColorChange}
+                    colorArr={this.state.colorArr}
                 />
             </div>
         );

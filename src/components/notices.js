@@ -11,7 +11,7 @@ function Notices(props) {
                         return elem !== "status";
                     })
                     .map(message => {
-                        return <h3 className="notices"> {msg[message]} </h3>;
+                        return <h3 className="notices" key={message}> {msg[message]} </h3>;
                     })}
                 
             </div>

@@ -29,8 +29,8 @@ def check_password(password):
     num_check = re.search("[\d]", password)
     len_check = (len(password) >= 6)
 
-    
-    if not elem_check or num_check or len_check:
+    print("elem_check, num_check, len_check", elem_check, num_check, len_check)
+    if not elem_check or not num_check or not len_check:
         return "Passwords must be at least 6 characters long and contain at least one number and at least one letter"
     
 

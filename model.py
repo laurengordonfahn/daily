@@ -44,11 +44,13 @@ class Day(db.Model):
     adj1 = db.Column(db.String(100), nullable=True)
     adj2 = db.Column(db.String(100), nullable=True)
     adj3 = db.Column(db.String(100), nullable=True)
-    colorset_id = db.Column(db.Integer, nullable=True)
+    colorset_id = db.Column(db.Integer, db.ForeignKey('colorsets.id'))
 
 class Colorset(db.Model):
     __tablename__ = "colorsets"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    basic = db.Column(db.Integer, nullable=False)
     emotion = db.Column(db.String(50), nullable=False)
-    color = db.Column(db.String(7), nullable=False)
+    colorHex = db.Column(db.String(7), nullable=False)
+    colorName = db.Column(db.String(50), nullable=False)

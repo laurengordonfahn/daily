@@ -17,7 +17,10 @@ class Month extends React.Component {
         key={dayDate}
         dayDate={dayDate}
         dayContent={this.props.dayContent}
+        colorArr={this.props.colorArr}
         updateAdj={this.props.updateAdj}
+        handleColorChange={this.props.handleColorChange}
+        colorArr={this.props.colorArr}
       />
     );
   }

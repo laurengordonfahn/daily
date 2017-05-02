@@ -19,7 +19,8 @@ class DayBox extends React.Component {
                 <ColorSelect
                     dayDate={dayDate}
                     dayContent={this.props.dayContent}
-                    handleColorChange={this.handleColorChange}
+                    colorArr={this.props.colorArr}
+                    handleColorChange={this.props.handleColorChange}
                 />
             </div>
         );
