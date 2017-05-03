@@ -37,21 +37,21 @@ class Month extends React.Component {
 
         </div>
 
-        <ul className="weekdayNames">
-          <li>Mo</li>
-          <li>Tu</li>
-          <li>We</li>
-          <li>Th</li>
-          <li>Fr</li>
-          <li>Sa</li>
-          <li>Su</li>
-        </ul>
+        <tr className="weekdayNames">
+          <th>Mo</th>
+          <th>Tu</th>
+          <th>We</th>
+          <th>Th</th>
+          <th>Fr</th>
+          <th>Sa</th>
+          <th>Su</th>
+        </tr>
 
-        <ul>
+        <tr>
 
           {this.props.dateArray.map(this.renderDayBox)}
 
-        </ul>
+        </tr>
 
       </div>
     );

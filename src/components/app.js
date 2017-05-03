@@ -81,14 +81,20 @@ class App extends React.Component {
 
                         this.setState({ statusMsg: response["notices"] });
                         this.clearStatus();
-                        console.log("isLoggedIn after signUp should be false", this.state.isLoggedIn);
+                        console.log(
+                            "isLoggedIn after signUp should be false",
+                            this.state.isLoggedIn
+                        );
+                    } else {
+                        console.log("isLoggedIn is true");
+                        this.setState({
+                            isLoggedIn: response["isLoggedIn"]
+                        });
+                        console.log(
+                            "isLoggedIn after signUp should be true",
+                            this.state.isLoggedIn
+                        );
                     }
-                } else {
-                    console.log("isLoggedIn is true");
-                    this.setState.isLoggedIn({
-                        isLoggedIn: response["isLoggedIn"]
-                    });
-                    console.log("isLoggedIn after signUp should be true", this.state.isLoggedIn);
                 }
             }.bind(this)
         });

@@ -38,6 +38,7 @@ class Day(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    weekday = db.Column(db.Integer, nullable=False)
     day = db.Column(db.Integer, nullable=False)
     month = db.Column(db.Integer, nullable=False)
     year = db.Column(db.Integer, nullable=False)

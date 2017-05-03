@@ -19,22 +19,20 @@ class ColorSelect extends React.Component {
   }
 
   renderColorOptions(elem) {
-        const emotion = elem["emotion"];
-        // const colorHex = elem["colorHex"];
-        const id = elem["colorId"];
-        const colorName = elem["colorName"];
-        // const basic = elem["basic"];
-        const text = emotion.toUpperCase() + " - " + colorName.toUpperCase();
+    const emotion = elem["emotion"];
+    // const colorHex = elem["colorHex"];
+    const id = elem["colorId"];
+    const colorName = elem["colorName"];
+    // const basic = elem["basic"];
+    const text = emotion.toUpperCase() + " - " + colorName.toUpperCase();
 
-        return (
-          <option key={id} value={id}> {text} </option>
-        );
-    }
+    return <option key={id} value={id}> {text} </option>;
+  }
 
   render() {
     const dayDate = this.props.dayDate;
-    const colorArr=this.props.colorArr;
-    const colorId= this.props.dayContent[dayDate]["colorId"];
+    const colorArr = this.props.colorArr;
+    const colorId = this.props.dayContent[dayDate]["colorId"];
 
     return (
       <form
@@ -42,6 +40,7 @@ class ColorSelect extends React.Component {
           this.handleSubmit(event);
         }}
       >
+
         <select
           value={colorId}
           onChange={e => {
@@ -49,11 +48,10 @@ class ColorSelect extends React.Component {
           }}
         >
 
-        {colorArr.map(elem => {
-                    return this.renderColorOptions(elem);
-                })}
+          {colorArr.map(elem => {
+            return this.renderColorOptions(elem);
+          })}
 
-          
         </select>
       </form>
     );
