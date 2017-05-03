@@ -8,16 +8,14 @@ def check_matching(value1, value2):
     """ Check if two values match for email and password confirmation before accepting
         Return Boolean
     """
-    if value1 == value2:
-        return True
-    return False
+    return value1 == value2
 
 
 def email_valid(email):
     """ Regex check if email valid 
         Return Boolean
     """
-    return re.search("^[a-zA-Z][\w_\-\.]*@\w+\.\w{2,3}$", email)
+    return re.search("^[a-zA-Z0-9][\w_\-\.]*@\w+\.\w{2,3}$", email)
 
 
 def check_password(password):
