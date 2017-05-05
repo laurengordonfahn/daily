@@ -3,26 +3,39 @@ import Table from "./table";
 
 class Month extends React.Component {
   
+  constructor  (){
+      super();
+      this.translateMonthName = this.translateMonthName.bind(this);
+  }
+
+  translateMonthName (month){
+    let months = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"]
+    return months[month];
+
+  }
 
   render() {
 
+    const month =  this.props.month;
+
     return (
-      <div className="month">
+      <div className="monthBox">
 
         <div className="monthHeader">
 
-          {this.props.month} <br />
+          <h3 className="monthTitle"> {this.translateMonthName(month)} </h3> <br />
 
-          <span className="year">{this.props.year}</span>
+          <span className="year"><h3>{this.props.year}</h3></span>
 
         </div>
 
-        <Table      
-              dateArray={this.props.dateArray}
-              dayContent={this.props.dayContent}
-              updateAdj={this.props.updateAdj}
-              handleColorChange={this.props.handleColorChange}
-              colorArr={this.props.colorArr}
+        <Table   
+            today={this.props.today}   
+            dateArray={this.props.dateArray}
+            dayContent={this.props.dayContent}
+            updateAdj={this.props.updateAdj}
+            handleColorChange={this.props.handleColorChange}
+            colorArr={this.props.colorArr}
         />
 
       </div>

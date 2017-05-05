@@ -4,12 +4,32 @@ import AdjectiveForm from "./adjectiveForm";
 import ColorSelect from "./colorSelect";
 
 class DayBox extends React.Component {
+    constructor(){
+        super();
+        this.colorIdConverter = this.colorIdConverter.bind(this);
+    }
+
+    colorIdConverter(dayDate){
+        const colorId = (this.props.dayContent[dayDate]["colorId"] -1);
+        const colorArr = this.props.colorArr;
+        const colorHex = colorArr[colorId]["colorHex"];
+        console.log(colorArr);
+        console.log(colorHex);
+        console.log(colorId);
+        const colorStyle = {
+            backgroundColor: colorHex
+        }
+        return colorStyle
+    }
+
     render() {
         const dayDate = this.props.dayDate;
+        const day = this.props.dayContent[dayDate]["day"];
+        console.log("day", this.props.dayContent[dayDate]["day"]);
 
         return (
-            <div className="day">
-                <h3> {dayDate} </h3>
+            <div className="day" style={this.colorIdConverter(dayDate)} >
+                <h3 className="dayDate"> {day} </h3>
 
                 <AdjectiveForm
                     dayDate={dayDate}

@@ -26,9 +26,12 @@ class AdjectiveForm extends React.Component {
 
     render() {
         const dayDate = this.props.dayDate;
+        console.log({dayDate});
         const info = this.props.dayContent[dayDate];
+        console.log({info});
+        console.log("info Keyes", Object.keys(info));
         const adjectiveArray = Object.keys(info).filter(elem => {
-            return (elem !== "colorHex" && elem !=="colorEmot" && elem !=="colorHex" && elem !=="colorName" && elem !=="colorId") ;
+            return (elem ==="adj1" || elem === "adj2" || elem ==="adj3") ;
 
         });
         

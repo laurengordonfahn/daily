@@ -5,7 +5,7 @@ function Notices(props) {
     const msg = props.msg;
     if (msg) {
         return (
-            <div id"notices">
+            <div id="notices">
                {Object.keys(msg)
                     .filter(elem => {
                         return elem !== "status";

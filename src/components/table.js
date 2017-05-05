@@ -1,117 +1,133 @@
 import React from "react";
-import EmptyDay from "./emptyDay"
+import EmptyDay from "./emptyDay";
 import DayBox from "./dayBox";
 
 class Table extends React.Component {
-
-    constructor() {
+  constructor() {
     super();
     this.renderDayBox = this.renderDayBox.bind(this);
     this.fillTable = this.fillTable.bind(this);
   }
 
-
-  renderDayBox(dayDate) {
+  renderDayBox(elem) {
     // const colorHex = this.props.dayContent[dayDate]['color'];
-    return (
-      <DayBox
-        key={dayDate}
-        dayDate={dayDate}
-        dayContent={this.props.dayContent}
-        updateAdj={this.props.updateAdj}
-        handleColorChange={this.props.handleColorChange}
-        colorArr={this.props.colorArr}
-      />
-    );
+    // (a, b) => (
+    //       <div>
+    //       </div>
+    //       )
+    // (a, b) => {
+    //   return a + b
+    // }
+    // (a, b) => {
+    //   return a + b
+    // }
+
+
+    return elem.map((day, i) => {
+      if (day === null || !day) {
+        return (
+            <td key={i}>
+              <EmptyDay />
+            </td>
+          );
+      } else {
+        if (day === this.props.today) {
+          return (
+            <td key={i}>
+              <DayBox
+                className="today"
+                dayDate={day}
+                dayContent={this.props.dayContent}
+                updateAdj={this.props.updateAdj}
+                handleColorChange={this.props.handleColorChange}
+                colorArr={this.props.colorArr}
+              />
+            </td>
+          );
+        } else {
+          return (
+            <td key={i}>
+              <DayBox
+                dayDate={day}
+                dayContent={this.props.dayContent}
+                updateAdj={this.props.updateAdj}
+                handleColorChange={this.props.handleColorChange}
+                colorArr={this.props.colorArr}
+              />
+            </td>
+          );
+        }
+      }
+    });
   }
 
-  // for(let startDay=0; startDay<7; startDay++){
-        //     if(dateArray[0].weekday === startDay){ 
+  fillTable(dayContent, dateArray) {
+    console.log({ dayContent });
+    console.log({dateArray});
+    console.log(dateArray[0]);
+    const firstDay = dateArray[0];
+    console.log({ firstDay });
+    const startDay = dayContent[firstDay]["weekday"];
+    let calendarFill = [];
+    let dayMonth = 0;
+    for (let i = 0; i < 5; i++) {
+      let emptyDay = 0;
+      let row = [];
 
-        //         for(elem in dateArray){
-
-        //         }
-
-        //         calendarRow=[]
-        //         for(let emptyDay=0; emptyDay < startDay; emptyDay++){
-        //             calendarRow.push(Null); 
-        //         }
-        //         for (let dayLeft=0; dayLeft< (7-startDay); dayLeft++){
-        //             for (elem)
-
-        //         }
-
-  fillTable(dayContent){
-    const dateArray= Object.keys(dayContent);
-    const startDay = dateArray[0].weekday;
-    let calendarFill = []
-    for(i=0; i < 35 ; i ++){
-        let emptyDay = 0
-        for(j=0; j<7 ; j++){
-            let row=[];
-
-            if (emptyDay < startDay && i < 7 ){
-                row.push(null);
-                emptyDay ++
-            }
-            else if (i > dateArray.length && i < 31){
-                row.push(null);
-            } else {
-                row.push(dateArray[i]);
-            }
+      for (let j = 0; j < 7; j++) {
+        
+        if (emptyDay < startDay && i < 1) {
+          row.push(null);
+          emptyDay++;
+        } else {
+          row.push(dateArray[dayMonth]);
+          dayMonth ++;
         }
-        calendarFill.push(row);
-
+        
+      }
+      calendarFill.push(row);
     }
 
-    
-
-        
-                    <tr>
-                        <td> </td>
-                        {this.props.dateArray.map(this.renderDayBox)}
-                    </tr>
-                }
-            }
-        }
+    console.log({calendarFill})
+    return calendarFill.map(elem => (
+      <tr key={calendarFill.indexOf(elem)}>
+        {this.renderDayBox(elem)}
+      </tr>
+    ));
   }
 
-    render() {
-        const dateArray=this.props.dateArray;
-        const dayContent=this.props.dayContent;
-        const updateAdj=this.props.updateAdj;
-        const handleColorChange=this.props.handleColorChange;
-        const colorArr=this.props.colorArr;
+  render() {
+    console.log('in table render', this.props.dayContent)
+    if (!Object.keys(this.props.dayContent).length) return <div />;
+    console.log(1);
+    const dateArray = this.props.dateArray;
+    const dayContent = this.props.dayContent;
+    const updateAdj = this.props.updateAdj;
+    const handleColorChange = this.props.handleColorChange;
+    const colorArr = this.props.colorArr;
 
     return (
-      
-        <table>
-            <thead>
-                <tr className="weekdayNames">
-                  <th>Mo</th>
-                  <th>Tu</th>
-                  <th>We</th>
-                  <th>Th</th>
-                  <th>Fr</th>
-                  <th>Sa</th>
-                  <th>Su</th>
-                </tr>
-            </thead>
+      <table>
+        <thead>
+          <tr className="weekdayNames">
+            <th>Mo</th>
+            <th>Tu</th>
+            <th>We</th>
+            <th>Th</th>
+            <th>Fr</th>
+            <th>Sa</th>
+            <th>Su</th>
+          </tr>
+        </thead>
 
-            <tbody>
-                <tr>
+        <tbody>
 
-                  {this.fillTable(dayContent)}
+          {this.fillTable(dayContent, dateArray)}
 
-                </tr>
-            </tbody>
-        </table>
-
-      
+        </tbody>
+      </table>
     );
   }
 }
-
-
 
 export default Table;

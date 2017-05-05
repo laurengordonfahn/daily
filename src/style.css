@@ -6,8 +6,8 @@ button {
     margin: 5px;
     padding: 3px;
     border-radius: 2px;
-    border-color: black;
-    background-color: #778899;
+    border: solid black 1px;
+    background-color: #123456;
     color: white;
 }
 
@@ -20,9 +20,14 @@ input {
 /*Homepage*/
 
 #homepageHeader {
-    background-color: #778899;
+    background-color: #123456;
     color: white;
     border-bottom: black;
+}
+
+#explaination {
+    border: solid black 1px;
+    margin: 10px;
 }
 
 /*Notices */
@@ -30,7 +35,47 @@ input {
 #notices {
     width: 98%;
     margin: 10px;
-    background-color: #db7093 ;
-    
+    background-color: #b12720;
+}
 
+/*Month*/
+.monthBox {
+    border: solid black 3px;
+}
+
+.monthHeader {
+    background-color: #0c155f;
+    display: block;
+    height: 35px;
+
+}
+
+.monthTitle {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.year {
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.weekdayNames{
+    display: block;
+}
+
+.weekdayNames th {
+    display: inline-block;
+    padding: 3px;
+    margin: 5px;
+}
+
+/*DayBox */
+
+.day {
+    border: solid black 1px;
+}
+.today {
+    border: solid #b12720 3px;
 }

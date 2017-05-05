@@ -52,7 +52,7 @@ class Calendar extends React.Component {
     ////// componentWillMount ///////
     setIntialDate() {
         // debug zone
-        console.log("setIntial date is running and I am making a promise!");
+        console.log("setIntial date is running 3");
         ///
         const today = new Date();
         const month = today.getMonth() + 1;
@@ -62,7 +62,7 @@ class Calendar extends React.Component {
 
         this.setState(
             { today, month, year, dateRange, view: [month, year] },
-            newState => {
+            () => {
                 this.renderDateContent(this.state.month, this.state.year);
                 this.fillDateArray(this.state.month, this.state.year);
             }
@@ -239,6 +239,7 @@ class Calendar extends React.Component {
                     onDateSelection={this.handleDateSelection}
                 />
                 <Month
+                    today={this.state.today}
                     month={this.state.month}
                     year={this.state.year}
                     dateArray={this.state.dateArray}

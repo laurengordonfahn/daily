@@ -61,12 +61,6 @@ def establish_month(month, year, user_id):
 def gather_all_month_content(month, year, user_id):
     """ Return all information form a particular Month """
     
-    # return Day.query.filter_by(user_id=user_id, month=month, year=year).order_by(Day.day).all()
-    #d.weekday, d.day, d.month, d.year, d.adj1, d.adj2, d.adj3, d.colorset_id, c.user, c.emotion, c.colorHex, c.colorName
-    # sql = db.session.execute("SELECT * FROM days AS d JOIN colorsets AS c ON d.user_id=user_id OR c.user=user_id OR c.user= Null").fetchall()
-    # db.session.commit()
-
-    # sql = db.session.query(Day, Colorset).filter(Day.user_id == Colorset.basic || Day.user).filter(Day.user_id == user_id).order_by(Day.day).all()
 
     print ("SQL gather_all_month_content", Day.query.order_by(Day.day).all())
 
@@ -93,7 +87,8 @@ def format_date_content_dict(obj):
     content["adj1"] = obj.adj1
     content["adj2"] = obj.adj2
     content["adj3"] = obj.adj3
-    content["weekeday"] = obj.weekday
+    content["day"] = obj.day
+    content["weekday"] = obj.weekday
     content["colorId"] = obj.colorset_id
 
     print ("content from format_date_content_dict", content)

@@ -3,7 +3,7 @@ import React from 'react';
 function Welcome(props) {
 
     return(
-        <div>
+        <div id="explaination">
 
             <h1> The Steps: </h1>
             <h2> 1) Sign Up using just your email </h2>
