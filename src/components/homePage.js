@@ -9,7 +9,10 @@ class Homepage extends React.Component {
     render() {
         return (
             <div>
-                <SignIn onSignIn={this.props.onSignIn} />
+                <div>
+                    <h1> Daily </h1>
+                    <SignIn onSignIn={this.props.onSignIn} />
+                </div>
                 <Notices
                     msg={this.props.msg}
                     clearStatus={this.props.clearStatus}

@@ -51,7 +51,7 @@ class Colorset(db.Model):
     __tablename__ = "colorsets"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    basic = db.Column(db.Integer, nullable=False)
+    user = db.Column(db.Integer, nullable=False)
     emotion = db.Column(db.String(50), nullable=False)
     colorHex = db.Column(db.String(7), nullable=False)
     colorName = db.Column(db.String(50), nullable=False)

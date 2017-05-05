@@ -60,7 +60,3 @@ def signup_db_session(email, password, app):
     session.setdefault('current_user', user_id)
 
     return 
-
-
-
-

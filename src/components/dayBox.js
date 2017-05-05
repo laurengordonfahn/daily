@@ -8,7 +8,7 @@ class DayBox extends React.Component {
         const dayDate = this.props.dayDate;
 
         return (
-            <div>
+            <div className="day">
                 <h3> {dayDate} </h3>
 
                 <AdjectiveForm

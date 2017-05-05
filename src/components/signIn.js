@@ -17,6 +17,7 @@ class SignIn extends React.Component {
     render() {
         return (
             <div>
+                
                 <h3> SignIn: </h3>
                 <form id="signInForm">
                     <input
@@ -41,6 +42,7 @@ class SignIn extends React.Component {
                         }}
                     />
                 </form>
+
             </div>
         );
     }

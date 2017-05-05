@@ -1,4 +1,5 @@
 from flask import (Flask, request, render_template, redirect, flash, session, jsonify)
+# from flask.errorhandler import ErrorHandler
 
 #To be deleted
 # import requests
@@ -51,6 +52,34 @@ user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 #####################################################
 
+# class NoticesException(Exception):
+#     def __init__(self,notices):
+#         Exception.__init__(self)
+#         self.notices = notices
+
+#     def to_dict(self):
+#         return {
+#             status: 'ok',
+#             notices: self.notices,
+#             isLoggedIn: False,
+#         }
+
+
+# @app.errorHandler(NoticesException)
+# def handle_notices_exception(exception):
+#     return jsonify(exception)
+
+# @app.errorHandler(Exception)
+# def handle_base_exception(exception):
+#     response = {
+#         status: "error",
+#         error: {
+#             message: str(exception),
+#             code: 500,
+#         }
+#     }
+#     return jsonify(response)
+
 @app.route('/')
 def index():
     """ Render index.html"""
@@ -82,25 +111,26 @@ def signUp():
         "isLoggedIn" : None
     }
 
+    notices = {}
+
     if not check_matching(email1, email2):
-        response["notices"]["email match"] = "Your emails do not match"
+        notices["email match"] = "Your emails do not match"
     if not check_matching(password1, password2):
-        response["notices"]["password match"] = "Your passwords do not match"
+        notices["password match"] = "Your passwords do not match"
     if not email_valid(email1):
-        response["notices"]["email invalid"] = "Your email is not valid" 
+        notices["email invalid"] = "Your email is not valid" 
     if email_in_db(email1):
-        response["notices"]["email unavailable"] = "Please try a differnt email"
+        notices["email unavailable"] = "Please try a differnt email"
     if check_password(password1):
-        response["notices"]["password invalid"] = check_password(password1)
+        notices["password invalid"] = check_password(password1)
+
+    # if len(notices) > 0:
+    #     raise NoticesException(notices)
         
-    if not response["notices"]:
-        signup_db_session(email1, password1, app)
-        response["status"] = "ok"
-        response["isLoggedIn"] = True
-    else:
-        response["status"] = "ok"
-        response["isLoggedIn"] = False
-    print ("response signUp", response)
+    signup_db_session(email1, password1, app)
+    response["status"] = "ok"
+    response["isLoggedIn"] = True
+
     return jsonify(response)
 
 

@@ -243,7 +243,6 @@ class Calendar extends React.Component {
                     year={this.state.year}
                     dateArray={this.state.dateArray}
                     dayContent={this.state.dayContent}
-                    colorArr={this.state.colorArr}
                     updateAdj={this.updateAdj}
                     handleColorChange={this.handleColorChange}
                     colorArr={this.state.colorArr}

@@ -1,0 +1,36 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+button {
+    margin: 5px;
+    padding: 3px;
+    border-radius: 2px;
+    border-color: black;
+    background-color: #778899;
+    color: white;
+}
+
+input {
+    margin: 5px;
+    border-radius: 2px;
+    border-color: gray;
+}
+
+/*Homepage*/
+
+#homepageHeader {
+    background-color: #778899;
+    color: white;
+    border-bottom: black;
+}
+
+/*Notices */
+
+#notices {
+    width: 98%;
+    margin: 10px;
+    background-color: #db7093 ;
+    
+
+}

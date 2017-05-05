@@ -36,7 +36,7 @@ def parse_weekday(date):
         Return integer representing day of week 0-6
     """
     print ("date", date, type(date))
-    return datetime.datetime.strptime(date, '%d-%m-%Y').strftime('%w')
+    return datetime.strptime(date, '%d-%m-%Y').strftime('%w')
 
 def establish_month(month, year, user_id):
     """ Create Blank New Month if Month not in DB
@@ -62,49 +62,54 @@ def gather_all_month_content(month, year, user_id):
     """ Return all information form a particular Month """
     
     # return Day.query.filter_by(user_id=user_id, month=month, year=year).order_by(Day.day).all()
-    # sql = db.session.execute("SELECT d.day, d.month, d.year, d.adj1, d.adj2, d.adj3, d.colorset_id, c.emotion, c.color FROM days AS d LEFT JOIN colorsets as c ON d.colorset_id=c.id").fetchall()
+    #d.weekday, d.day, d.month, d.year, d.adj1, d.adj2, d.adj3, d.colorset_id, c.user, c.emotion, c.colorHex, c.colorName
+    # sql = db.session.execute("SELECT * FROM days AS d JOIN colorsets AS c ON d.user_id=user_id OR c.user=user_id OR c.user= Null").fetchall()
+    # db.session.commit()
 
-    sql = db.session.query(Day, Colorset).filter(Day.colorset_id == Colorset.id).filter(Day.user_id == user_id).order_by(Day.day).all()
+    # sql = db.session.query(Day, Colorset).filter(Day.user_id == Colorset.basic || Day.user).filter(Day.user_id == user_id).order_by(Day.day).all()
 
-    print ("SQL gather_all_month_content", sql)
+    print ("SQL gather_all_month_content", Day.query.order_by(Day.day).all())
 
-    return sql
+    return Day.query.order_by(Day.day).all()
 
-def format_date_string(tup):
+    
+    # return sql
+
+# "colorHex": "#hex", "colorEmot": "emotion", "colorName": "color",
+#"colorHex": "#hex","colorEmot": "emotion","colorName": "color",
+
+def format_date_string(obj):
     """ Take in a db tup of Day and Colorset obj form Day/Colorset Join table 
         Return date string "dd-mm-yyyy"
     """
 
-    return str(tup[0].day) + "-" + str(tup[0].month) + "-" + str(tup[0].year) 
+    return str(obj.day) + "-" + str(obj.month) + "-" + str(obj.year) 
 
-def format_date_content_dict(tup):
+def format_date_content_dict(obj):
     """ Take in a db obj from Day table
-        Return day content dict  {"adj1": "adj", "adj2": "adj", "adj3": "adj", "colorHex": "#hex", "colorEmot": "emotion", "colorName": "color", "colorset_id" : "id"}
+        Return day content dict  {"adj1": "adj", "adj2": "adj", "adj3": "adj", "colorIdd" : "id"}
     """
     content = {}
-    content["adj1"] = tup[0].adj1
-    content["adj2"] = tup[0].adj2
-    content["adj3"] = tup[0].adj3
-    content["weekeday"] = tup[0].weekday
-    content["colorHex"] = tup[1].colorHex
-    content["colorName"] = tup[1].colorName
-    content["colorEmot"] = tup[1].emotion
-    content["colorId"] = tup[1].id
+    content["adj1"] = obj.adj1
+    content["adj2"] = obj.adj2
+    content["adj3"] = obj.adj3
+    content["weekeday"] = obj.weekday
+    content["colorId"] = obj.colorset_id
 
     print ("content from format_date_content_dict", content)
     return content
 
 def format_dayContent(month, year, user_id):
     """ Return formated month content in state formated
-        {"day-month-year": {"adj1": "adj", "adj2": "adj", "adj3": "adj", "colorHex": "#hex","colorEmot": "emotion","colorName": "color", "colorset_id" : "id"}, etc..}
+        {"day-month-year": {"adj1": "adj", "adj2": "adj", "adj3": "adj",  "colorset_id" : "id"}, etc..}
     """
     dayContent = {}
 
     days_array = gather_all_month_content(month, year, user_id)
 
-    for tup in days_array:
-        date_string = format_date_string(tup)
-        dayContent[date_string] = format_date_content_dict(tup)
+    for obj in days_array:
+        date_string = format_date_string(obj)
+        dayContent[date_string] = format_date_content_dict(obj)
 
 
 

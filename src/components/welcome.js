@@ -4,8 +4,6 @@ function Welcome(props) {
 
     return(
         <div>
-            <h1> Welcome to Daily; the emotion tracking calendar! </h1>
-            <h2> This calendar application helps you to track your daily emotional well-being. Just by typing in three adjectives and chosing an associated color! </h2> 
 
             <h1> The Steps: </h1>
             <h2> 1) Sign Up using just your email </h2>
