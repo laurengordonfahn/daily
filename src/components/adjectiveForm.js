@@ -44,13 +44,11 @@ class AdjectiveForm extends React.Component {
                 }}
             >
 
-                <label> Add Your Daily Adjectives: </label>
-
                 {adjectiveArray.map(elem => {
                     return this.renderInputs(elem, dayDate);
                 })}
 
-                <button type="submit"> Add Adjectives </button>
+                <button type="submit"> Add + </button>
             </form>
         );
     }

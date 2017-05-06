@@ -4,7 +4,7 @@ body {
 
 button {
     margin: 5px;
-    padding: 3px;
+    padding: 7px, 10px, 7px, 10px;
     border-radius: 2px;
     border: solid black 1px;
     background-color: #123456;
@@ -39,34 +39,44 @@ input {
 }
 
 /*Month*/
-.monthBox {
-    border: solid black 3px;
-}
+/*.monthBox {
+    border: solid black 5px;
+    width: 100%;
+}*/
 
-.monthHeader {
+/*.monthHeader {
     background-color: #0c155f;
     display: block;
-    height: 35px;
+    padding: 70px 25px;
+    
 
-}
-
+}*/
+/*
 .monthTitle {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.year {
-    text-align: center;
+    display : inline-block;
+    color: white;
     vertical-align: middle;
 
-}
+    margin: 0 auto;
+    padding: 0;
+}*/
+
+/*.year {
+    display: inline-block;
+    color: white;
+    vertical-align: middle;
+     margin: 0;
+    padding: 0;
+
+}*/
+
 
 .weekdayNames{
-    display: block;
+    width: 100%;
 }
 
+
 .weekdayNames th {
-    display: inline-block;
     padding: 3px;
     margin: 5px;
 }
@@ -74,8 +84,28 @@ input {
 /*DayBox */
 
 .day {
-    border: solid black 1px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
 }
 .today {
     border: solid #b12720 3px;
 }
+
+
+select {
+    margin: 5px;
+    
+}
+
+input {
+    border: solid black 1px;
+    margin: 1px 1px 1px 5px;
+    width: 85%;
+}
+
+.dayDate {
+    text-align: right;
+    margin: 1px 5px 1px 1px;
+}
+
