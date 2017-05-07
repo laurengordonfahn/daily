@@ -234,6 +234,7 @@ class Calendar extends React.Component {
                 />
             
                 <Month
+                    onSignOut={this.props.onSignOut}
                     dateRange={this.state.dateRange}
                     onDateSelection={this.handleDateSelection}
                     today={this.state.today}

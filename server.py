@@ -1,14 +1,6 @@
 from flask import (Flask, request, render_template, redirect, flash, session, jsonify)
 # from flask.errorhandler import ErrorHandler
 
-#To be deleted
-# import requests
-# from sqlalchemy import (asc, desc)
-#for facebook sign in
-# import facebook
-# #for environmental variables for google/facebook API
-# import os
-
 import json
 
 from flask_debugtoolbar import DebugToolbarExtension
