@@ -35,7 +35,7 @@ class ColorSelect extends React.Component {
     const colorId = this.props.dayContent[dayDate]["colorId"];
 
     return (
-      <form
+      <form className="colorSelect"
         onSubmit={event => {
           this.handleSubmit(event);
         }}

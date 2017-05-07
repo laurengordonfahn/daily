@@ -7,9 +7,9 @@ class Profile extends React.Component {
     render(){
         return(
 
-            <div>
-                <h3> Profile </h3>
-            </div>
+            <button className="menu">
+                Profile 
+            </button>
             
         )
     }

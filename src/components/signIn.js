@@ -16,11 +16,12 @@ class SignIn extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="signInDiv">
                 
-                <h3> SignIn: </h3>
+                <h3 className="signInLable"> SignIn: </h3>
                 <form id="signInForm">
                     <input
+                        className="signInInput"
                         type="text"
                         ref={input => {
                             this.email = input;
@@ -28,13 +29,14 @@ class SignIn extends React.Component {
                         placeholder="email"
                     />
                     <input
+                        className="signInInput"
                         type="password"
                         ref={input => {
                             this.password = input;
                         }}
                         placeholder="password"
                     />
-                    <input
+                    <input id="signInButton"
                         type="submit"
                         value="SignIn"
                         onClick={e => {

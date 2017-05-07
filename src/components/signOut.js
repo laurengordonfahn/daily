@@ -4,7 +4,7 @@ class SignOut extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.props.onSignOut}> SignOut </button>
+                <button className="menu" onClick={this.props.onSignOut}> SignOut </button>
             </div>
         );
     }

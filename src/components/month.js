@@ -1,5 +1,8 @@
 import React from "react";
 import Table from "./table";
+import SelectView from "./selectview";
+import Profile from "./profile";
+import SignOut from "./signOut";
 
 class Month extends React.Component {
   
@@ -22,10 +25,19 @@ class Month extends React.Component {
       <div className="monthBox">
 
         <div className="monthHeader">
+          <div className="selectViewDiv">
+            <SignOut onSignOut={this.props.onSignOut} />
+            <Profile />
+            <SelectView
+                      dateOption={this.props.dateRange}
+                      onDateSelection={this.props.onDateSelection}
+            />
+          </div>
+          <div className="monthInfo">
+            <h3 className="monthTitle"> {this.translateMonthName(month)} </h3> 
 
-          <h3 className="monthTitle"> {this.translateMonthName(month)} </h3> <br />
-
-          <span className="year"><h3>{this.props.year}</h3></span>
+            <h3 className="year">{this.props.year}</h3>
+          </div>
 
         </div>
 

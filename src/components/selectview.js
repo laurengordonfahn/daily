@@ -17,9 +17,9 @@ class SelectView extends React.Component {
         console.log({ dateOptions });
 
         return (
-            <div>
-                <h3> Change Month View </h3>
-                <select
+            <div className="selectView">
+               
+                <select id="selectViewSelect"
                     onChange={e => {
                         this.handleDateSelection(e);
                     }}

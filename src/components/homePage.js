@@ -10,7 +10,7 @@ class Homepage extends React.Component {
         return (
             <div>
                 <div id="homepageHeader">
-                    <h1> Daily </h1>
+                    <h1 id="appName"> Daily </h1>
                     <SignIn onSignIn={this.props.onSignIn} />
                 </div>
                 <Notices

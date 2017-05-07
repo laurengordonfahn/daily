@@ -232,13 +232,10 @@ class Calendar extends React.Component {
                     msg={this.props.msg}
                     clearStatus={this.props.clearStatus}
                 />
-                <SignOut onSignOut={this.props.onSignOut} />
-                <Profile />
-                <SelectView
-                    dateOption={this.state.dateRange}
-                    onDateSelection={this.handleDateSelection}
-                />
+            
                 <Month
+                    dateRange={this.state.dateRange}
+                    onDateSelection={this.handleDateSelection}
                     today={this.state.today}
                     month={this.state.month}
                     year={this.state.year}

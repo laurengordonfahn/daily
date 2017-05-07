@@ -23,24 +23,24 @@ class SignUp extends React.Component {
     render(){
         return(
 
-            <div> 
-                <div id="intro">
-                    <h1> Welcome to Daily; the emotion tracking calendar! </h1>
-                    <h2> This calendar application helps you to track your daily emotional well-being. Just by typing in three adjectives and chosing an associated color! </h2> 
+            <div id="signUpDiv"> 
+                <div className="welcomeMsgDiv">
+                    <h1 className="welcomeMsg"> Welcome to Daily; <br/> The emotion tracking calendar! </h1>
+                    
                 </div>
-                
-                <form id="signUpForm"> 
-                    <h3> SignUp for Daily: </h3>
-                    <input type="text" ref={(input) =>{this.email1 = input; }} placeholder="email"/>
-                    <br/>
-                    <input type="text" ref={(input) =>{this.email2 = input; }} placeholder="retype your email"/>
-                    <br/>
-                    <input type="password" ref={(input) =>{this.password1 = input; }} placeholder="password"/>
-                    <br/>
-                    <input type="password" ref={(input) =>{this.password2 = input; }} placeholder="retype your password" />
-                    <br/>
-                    <input type="submit" value="SignUp" onClick={(e)=>{this.handleClick(e)}}/>  
-                </form>
+                <div id="signUpFormDiv">
+                    <h3 id="signUpLable"> SignUp for Daily: </h3>
+                    <form id="signUpForm"> 
+                        
+                        <input className="singUpInput" type="text" ref={(input) =>{this.email1 = input; }} placeholder="email"/>
+                        <input className="singUpInput" type="text" ref={(input) =>{this.email2 = input; }} placeholder="retype your email"/>
+                        <br/>
+                        <input className="singUpInput" type="password" ref={(input) =>{this.password1 = input; }} placeholder="password"/>
+                        <input className="singUpInput" type="password" ref={(input) =>{this.password2 = input; }} placeholder="retype your password" />
+                        <br/>
+                        <input type="submit" id="signUpButton" value="SignUp" onClick={(e)=>{this.handleClick(e)}}/>  
+                    </form>
+                </div>
             </div>
         )
     }
