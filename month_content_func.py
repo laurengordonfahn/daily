@@ -62,9 +62,9 @@ def gather_all_month_content(month, year, user_id):
     """ Return all information form a particular Month """
     
 
-    print ("SQL gather_all_month_content", Day.query.order_by(Day.day).all())
+    print ("SQL gather_all_month_content", Day.query.filter(Day.user_id==user_id).order_by(Day.day).all())
 
-    return Day.query.order_by(Day.day).all()
+    return Day.query.filter(Day.user_id==user_id).order_by(Day.day).all()
 
     
     # return sql
