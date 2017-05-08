@@ -1,6 +1,9 @@
 import unittest
-
+from server import app, bcrypt
 from signUp_func import *
+from flask.ext.bcrypt import Bcrypt
+
+
 
 class TestSignupFunc(unittest.TestCase):
     
@@ -25,7 +28,7 @@ class TestSignupFunc(unittest.TestCase):
             "-aaaaaa1",
         ]
         for x in good:
-            self.assertIsNone(check_password(x),x)
+            self.assertTrue(check_password(x),x)
 
         bad = [
             "",
@@ -34,7 +37,14 @@ class TestSignupFunc(unittest.TestCase):
             "123456",
         ]
         for x in bad:
-            self.assertIsNotNone(check_password(x),x)
+            self.assertIsFalse(check_password(x),x)
+
+
+    def test_hash_password(self):
+
+        self.assertTrue(bcrypt.check_password_hash(hash_password("b12345", app), "b12345"))
+    
+
 
 
 if __name__ == '__main__':
