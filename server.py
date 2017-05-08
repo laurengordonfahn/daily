@@ -45,29 +45,28 @@ users_schema = UserSchema(many=True)
 #####################################################
 
 # class NoticesException(Exception):
-#     def __init__(self,notices):
+#     def __init__(self, notices):
 #         Exception.__init__(self)
 #         self.notices = notices
 
 #     def to_dict(self):
 #         return {
-#             status: 'ok',
-#             notices: self.notices,
-#             isLoggedIn: False,
+#             "notices": self.notices,
+#             "isLoggedIn": False,
 #         }
 
 
-# @app.errorHandler(NoticesException)
+# @app.errorhandler(NoticesException)
 # def handle_notices_exception(exception):
-#     return jsonify(exception)
+#     return jsonify(exception.to_dict())
 
-# @app.errorHandler(Exception)
+# @app.errorhandler(Exception)
 # def handle_base_exception(exception):
 #     response = {
-#         status: "error",
-#         error: {
-#             message: str(exception),
-#             code: 500,
+#         "status": "error",
+#         "error": {
+#             "message": str(exception.to_dict()),
+#             "code": 500,
 #         }
 #     }
 #     return jsonify(response)
@@ -80,48 +79,36 @@ def index():
 
 @app.route('/signUp', methods=['POST'])
 def signUp():
-    """ Check if Email vaild 
-        Check if password vaild
-        Check if Email in DB
-        Add to session and DB or and/or send status to JS
-        Return {status: 'ok' or 'error',  
-               notices: {},
-               isLoggedIn: boolean }
+    """ Check Valid Input
+        Raise exception if invalid or
+        Add to session and DB 
+        Return {
+                    status: 'ok' or 'error',  
+                    notices: {},
+                    isLoggedIn: boolean 
+               }
     """
-
     clear_old_session()
-
+    
     email1 = request.form.get("email1")
     email2 = request.form.get("email2")
     password1 = request.form.get("password1")
     password2 = request.form.get("password2")
 
+    notices = check_signUp_info(email1, email2, password1, password2)
+
+
     d = collections.defaultdict(dict)
     response = {
-        "status" : None,
+        "status" : "ok",
         "notices" : d,
-        "isLoggedIn" : None
+        "isLoggedIn" : False
     }
-
-    notices = {}
-
-    if not check_matching(email1, email2):
-        notices["email match"] = "Your emails do not match"
-    if not check_matching(password1, password2):
-        notices["password match"] = "Your passwords do not match"
-    if not email_valid(email1):
-        notices["email invalid"] = "Your email is not valid" 
-    if email_in_db(email1):
-        notices["email unavailable"] = "Please try a differnt email"
-    if check_password(password1):
-        notices["password invalid"] = check_password(password1)
-
-    # if len(notices) > 0:
-    #     raise NoticesException(notices)
-        
-    signup_db_session(email1, password1, app)
-    response["status"] = "ok"
-    response["isLoggedIn"] = True
+    if len(notices) > 0 :
+        response["notices"] = notices
+    else:
+        signUp_db_session(email1, password1, app)
+        response["isLoggedIn"] = True
 
     return jsonify(response)
 
@@ -144,24 +131,18 @@ def signIn():
     
     d = collections.defaultdict(dict)
     response = {
-        "status" : None,
+        "status" : "ok",
         "notices" : d,
-        "isLoggedIn" : None
+        "isLoggedIn" : False
     }
 
     #TODO: Handle Error Messages status: "error" error: {code/msg}
-    if not email_in_db(email):
-        response["notices"]["email"] = "Your email does not match our records"
-    elif not confirm_password(email, password, app):
-        response["notices"]["password"] = "Your password does not match our records"
-    if response["notices"]: 
-        response["status"] = "ok"
-        response["isLoggedIn"] = False  
-        print (response["isLoggedIn"], "signIn sending")  
+    notices = confirm_signIn_info(email, password, app)
+    if len(notices) > 0: 
+        response["notices"] = notices   
         return jsonify(response)
 
     add_to_session(email)
-    response["status"] = "ok"
     response["notices"]["welcome"] = "Welcome to Daily!"
     response["isLoggedIn"] = True
 
@@ -190,7 +171,7 @@ def month_content():
         month = request.form.get("month")
         year = request.form.get("year")
         user_id = session['current_user']
-
+        print ("This is the is_month question", is_month(month, year, user_id))
         if not is_month(month, year, user_id):
             establish_month(month, year, user_id)
 

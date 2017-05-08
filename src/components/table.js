@@ -111,13 +111,14 @@ class Table extends React.Component {
       <table>
         <thead>
           <tr className="weekdayNames">
+            <th>Su</th>
             <th>Mo</th>
             <th>Tu</th>
             <th>We</th>
             <th>Th</th>
             <th>Fr</th>
             <th>Sa</th>
-            <th>Su</th>
+            
           </tr>
         </thead>
 

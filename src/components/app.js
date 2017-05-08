@@ -38,10 +38,10 @@ class App extends React.Component {
         }
     }
 
-    // // FOR LOCAL TESTING ONLY
-    componentDidMount() {
-        this.onSignIn("b@gmail.com", "b12345");
-    }
+    // // // FOR LOCAL TESTING ONLY
+    // componentDidMount() {
+    //     this.onSignIn("b@gmail.com", "b12345");
+    // }
 
     /// SignUp ////
 
@@ -63,41 +63,42 @@ class App extends React.Component {
                 ///
                 const status = response["status"];
                 console.log(status);
-                const notices = response.notices;
-                console.log(notices);
-                console.log(response["isLoggedIn"]);
-                if (status === "ok") {
-                    console.log("status is ok signUp");
-                    if (response["isLoggedIn"] === false) {
-                        console.log("isLoggedIn is false");
-                        let presentStatusMsg = { ...this.state.statusMsg };
-                        Object.keys(presentStatusMsg).forEach(elem => {
-                            return delete presentStatusMsg.elem;
-                        });
+                
 
-                        Object.keys(notices).forEach(notice => {
-                            return (presentStatusMsg[notice] = notices[notice]);
-                        });
+                const notices = response["notices"];
+                if (!response["isLoggedIn"]) {
+                    console.log("isLoggedIn is false");
+                    
+                    let presentStatusMsg = { ...this.state.statusMsg };
+                    Object.keys(presentStatusMsg).forEach(elem => {
+                        return delete presentStatusMsg.elem;
+                    });
 
-                        this.setState({ statusMsg: response["notices"] });
-                        this.clearStatus();
-                        console.log(
-                            "isLoggedIn after signUp should be false",
-                            this.state.isLoggedIn
-                        );
-                    } else {
-                        console.log("isLoggedIn is true");
-                        this.setState({
-                            isLoggedIn: response["isLoggedIn"]
-                        });
-                        console.log(
-                            "isLoggedIn after signUp should be true",
-                            this.state.isLoggedIn
-                        );
-                    }
+                    Object.keys(notices).forEach(notice => {
+                        return (presentStatusMsg[notice] = notices[notice]);
+                    });
+
+                    this.setState({ statusMsg: presentStatusMsg });
+                    this.clearStatus();
+                    console.log(
+                        "isLoggedIn after signUp should be false",
+                        this.state.isLoggedIn
+                    );
+                } else {
+                    console.log(notices);
+                    console.log("isLoggedIn is true");
+                    this.setState({
+                        isLoggedIn: response["isLoggedIn"]
+                    });
+                    console.log(
+                        "isLoggedIn after signUp should be true",
+                        this.state.isLoggedIn
+                    );
                 }
+                
             }.bind(this)
         });
+        
     }
 
     /// SignIn ////
