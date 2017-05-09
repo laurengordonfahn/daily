@@ -20,13 +20,11 @@ def confirm_signIn_info( email, password, app):
     notices = {}
 
     if not email_in_db(email):
-        response["email"] = "Your email does not match our records"
+        notices["email"] = "Your email does not match our records"
     elif not confirm_password(email, password, app):
-        response["password"] = "Your password does not match our records"
+        notices["password"] = "Your password does not match our records"
     
     return notices
-
-
 
 def add_to_session(email):
     """ Add user to session

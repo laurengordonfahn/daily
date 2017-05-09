@@ -140,25 +140,15 @@ def signIn():
     notices = confirm_signIn_info(email, password, app)
     if len(notices) > 0: 
         response["notices"] = notices   
-        return jsonify(response)
-
-    add_to_session(email)
-    response["notices"]["welcome"] = "Welcome to Daily!"
-    response["isLoggedIn"] = True
+    else: 
+        add_to_session(email)
+        response["isLoggedIn"] = True
 
     print (response["isLoggedIn"], "signIn sending")
     return jsonify(response)
 
 
-@app.route('/signOut', methods=["DELETE"])
-def signOut():
-    """ Clear Session
-        Return json of status: 'you have signed out' isLoggedIn: false
-    """
 
-    clear_old_session()
-
-    return jsonify({"status" : "ok"})
 
 @app.route('/month/content', methods=["POST", "GET"])
 def month_content():
@@ -175,16 +165,15 @@ def month_content():
         if not is_month(month, year, user_id):
             establish_month(month, year, user_id)
 
-        d = collections.defaultdict(dict)
+        dayContentDict = format_dayContent(month, year, user_id)
+
+         d = collections.defaultdict(dict)
         response = {
-            "status": None,
+            "status": "ok",
             "dayContent" : d
         }
-
-        dayContentDict=format_dayContent(month, year, user_id)
         
         if dayContentDict:
-            response["status"] = "ok"
             response["dayContent"] = dayContentDict
         
     return jsonify(response)
@@ -296,6 +285,16 @@ def month_color():
     if user_id:
         updateColor(user_id, dayDate, colorId)
         return jsonify({"status" : "ok"})
+
+@app.route('/signOut', methods=["DELETE"])
+def signOut():
+    """ Clear Session
+        Return json of status: 'you have signed out' isLoggedIn: false
+    """
+
+    clear_old_session()
+
+    return jsonify({"status" : "ok"})
 
 if __name__ == "__main__":
 
