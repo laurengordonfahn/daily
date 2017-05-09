@@ -66,8 +66,8 @@ def example_data():
     db.session.commit()
 
     c1 = Colorset(user=0, emotion="neutral", colorHex="#ffffff", colorName="white") 
-    c2 = Colorset(user=0, emotion="sad", colorHex="fd0000", colorName="blue")
-    c3 = Colorset(user=2, emotion="happy", colorHex="b04e00", colorName="yellow")
+    c2 = Colorset(user=0, emotion="sad", colorHex="#fd0000", colorName="blue")
+    c3 = Colorset(user=2, emotion="happy", colorHex="#b04e00", colorName="yellow")
 
     db.session.add_all([c1, c2, c3])
     db.session.commit()
