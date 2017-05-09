@@ -2,7 +2,7 @@ from flask import (Flask, request, render_template, flash, session, jsonify, abo
 from model import *
 
 def get_color_options(user_id):
-    """ Query all DB for user's colorset user=None or user=user_id
+    """ Query all DB for user's colorset user=0 or user=user_id
         Return array of obj rows 
     """
 
@@ -12,7 +12,7 @@ def get_color_options(user_id):
 
 def format_color_response(user_id):
     """ Format into dict colorset table
-        Return {id: id, emotion: emotion, color:color}
+        Return {colorId: id, user: 0 or user_id, colorHex: hex, colorName: name, emotion: emotion}
     """
 
     all_color_row = get_color_options(user_id)
