@@ -62,21 +62,23 @@ def example_data():
     u1 = User(email="b@gmail.com", password="$2b$12$Edbbjnze6056IfH2MhEA8OZma17nTej2yayG7M7ZU25NXL30vLDVC", start_at="2017-05-06 22:10:26.590767")
     u2 = User(email="c@gmail.com", password="$2b$12$///ykrQ6fIsw6lSlCPuUXOsU2MWeCCn53Fq8Bm1KowRniEzaLbShG", start_at="2017-05-06 22:10:26.590767")
     u3 = User(email="d@gmail.com", password="$2b$12$ozPFF5RgzpbQeVV9DyVufujU2Sm.4pGlQP.rJN3bD2.83f2ldt58q", start_at="2017-05-06 22:10:26.590767")
-
-    # d1 = Day(user_id=1, weekday=0, day=31, month=4, year=1986, adj1="happy", adj2="angry", adj3="sad", colorset_id=1)
-
-    # d2 = Day(user_id=2, weekday=1, day=12, month=9, year=1997, adj1="joyous", adj2="funky", adj3="crappy", colorset_id=2)
-
-    # d3 = Day(user_id=3, weekday=2, day=15, month=11, year=2016, adj1="lively", adj2="depressed", adj3="cramped", colorset_id=3)
-
+    db.session.add_all([u1, u2, u3])
+    db.session.commit()
 
     c1 = Colorset(user=0, emotion="neutral", colorHex="#ffffff", colorName="white") 
     c2 = Colorset(user=0, emotion="sad", colorHex="fd0000", colorName="blue")
-    # c3 = Colorset(user=2, emotion="happy", colorHex="b04e00", colorName="yellow")
+    c3 = Colorset(user=2, emotion="happy", colorHex="b04e00", colorName="yellow")
 
-    db.session.add_all([u1, u2, u3])
-    # db.session.add_all([c1, c2, c3])
-    # db.session.add_all([d1, d2, d3])
+    db.session.add_all([c1, c2, c3])
+    db.session.commit()
+
+    d1 = Day(user_id=1, weekday=0, day=31, month=4, year=1986, adj1="happy", adj2="angry", adj3="sad", colorset_id=1)
+
+    d2 = Day(user_id=2, weekday=1, day=1, month=5, year=2017, adj1="joyous", adj2="funky", adj3="crappy", colorset_id=2)
+
+    d3 = Day(user_id=3, weekday=2, day=15, month=11, year=2016, adj1="lively", adj2="depressed", adj3="cramped", colorset_id=3)
+
+    db.session.add_all([d1, d2, d3])
     db.session.commit()
 
 if __name__ == '_main_':

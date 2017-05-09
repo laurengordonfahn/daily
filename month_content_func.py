@@ -62,15 +62,10 @@ def gather_all_month_content(month, year, user_id):
     """ Return all information form a particular Month """
     
 
-    print ("SQL gather_all_month_content", Day.query.filter(Day.user_id==user_id).order_by(Day.day).all())
+    print ("SQL gather_all_month_content", Day.query.filter(Day.user_id==user_id, Day.month==month, Day.year==year).order_by(Day.day).all())
 
-    return Day.query.filter(Day.user_id==user_id).order_by(Day.day).all()
+    return Day.query.filter(Day.user_id==user_id, Day.month==month, Day.year==year).order_by(Day.day).all()
 
-    
-    # return sql
-
-# "colorHex": "#hex", "colorEmot": "emotion", "colorName": "color",
-#"colorHex": "#hex","colorEmot": "emotion","colorName": "color",
 
 def format_date_string(obj):
     """ Take in a db tup of Day and Colorset obj form Day/Colorset Join table 
@@ -94,7 +89,7 @@ def format_date_content_dict(obj):
     print ("content from format_date_content_dict", content)
     return content
 
-def format_dayContent(month, year, user_id):
+def format_day_content(month, year, user_id):
     """ Return formated month content in state formated
         {"day-month-year": {"adj1": "adj", "adj2": "adj", "adj3": "adj",  "colorset_id" : "id"}, etc..}
     """
@@ -106,6 +101,6 @@ def format_dayContent(month, year, user_id):
         date_string = format_date_string(obj)
         dayContent[date_string] = format_date_content_dict(obj)
 
-
+    print ("dayContent", dayContent)
 
     return dayContent
