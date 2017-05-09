@@ -148,8 +148,6 @@ def signIn():
     return jsonify(response)
 
 
-
-
 @app.route('/month/content', methods=["POST", "GET"])
 def month_content():
     """ Retrieve DB Info for today's month/year for intial load
@@ -165,9 +163,9 @@ def month_content():
         if not is_month(month, year, user_id):
             establish_month(month, year, user_id)
 
-        dayContentDict = format_dayContent(month, year, user_id)
+        dayContentDict = format_day_content(month, year, user_id)
 
-         d = collections.defaultdict(dict)
+        d = collections.defaultdict(dict)
         response = {
             "status": "ok",
             "dayContent" : d
