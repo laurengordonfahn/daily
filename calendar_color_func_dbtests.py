@@ -36,8 +36,6 @@ class DBSignUpTests(unittest.TestCase):
         self.assertEqual(format_color_response(2), [{'colorId': 1 , 'user': 0, 'emotion': "neutral" , 'colorHex':"#ffffff", 'colorName': "white"}, {'colorId': 2, 'user': 0, 'emotion': "sad", 'colorHex': "#fd0000", 'colorName':"blue" }, {'colorId': 3, 'user': 2, 'emotion': "happy", 'colorHex': "#b04e00", 'colorName': "yellow"}])
         self.assertEqual(format_color_response(1), [{'colorId': 1 , 'user': 0, 'emotion': "neutral" , 'colorHex':"#ffffff", 'colorName': "white"}, {'colorId': 2, 'user': 0, 'emotion': "sad", 'colorHex': "#fd0000", 'colorName':"blue" }])
         
-
-
-
+        
 if __name__ == '__main__':
     unittest.main()
