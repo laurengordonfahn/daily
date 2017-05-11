@@ -22,20 +22,14 @@ class App extends React.Component {
 
     clearStatus() {
         const statusMsgState = { ...this.state.statusMsg };
-        if (statusMsgState) {
-            this.props.setTimeout(
-                function() {
-                    //debug zone:
-                    console.log("clearStatus Running", { statusMsgState });
-                    ///
-                    Object.keys(statusMsgState).forEach(elem => {
-                        return delete statusMsgState.elem;
-                    });
-                    this.setState({ statusMsg: statusMsgState });
-                }.bind(this),
-                10000
-            );
-        }
+        
+        this.props.setTimeout(
+            function() {
+                this.setState({ statusMsg: {} });
+            }.bind(this),
+            10000
+        );
+   
     }
 
     // // // FOR LOCAL TESTING ONLY
