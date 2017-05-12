@@ -12,11 +12,13 @@ class ServerTestCase(unittest.TestCase):
         client = server.app.test_client()
 
         result = client.get('/')
-        self.assertIn('<div id="main"></div>', result.data)
+        self.assertIn('<div id=\'main\'></div>', result.data)
 
-    def test_signUp(self):
-        client = server.app.test_client()
+    # def test_signUp(self):
+    #     client = server.app.test_client()
 
-        result = client.post('/signUp')
-        self.assertEqual(result.status_code, 200)
+    #     result = client.post('/signUp')
+    #     self.assertEqual(result.status_code, 200)
 
+if __name__ == '__main__':
+    unittest.main()
