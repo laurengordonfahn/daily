@@ -1,18 +1,17 @@
 import React from "react";
 
-import $ from "jquery";
+// import $ from "jquery";
 
-import SignOut from "./signOut";
 import Month from "./month";
-import SelectView from "./selectview";
-import Profile from "./profile";
 import Notices from "./notices";
+
+import * as api from '../api'
 
 class Calendar extends React.Component {
     constructor() {
         super();
         this.setIntialDate = this.setIntialDate.bind(this);
-        this.renderDateContent = this.renderDateContent.bind(this);
+        this.fillDateContent = this.fillDateContent.bind(this);
         this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
         this.fillColorArr = this.fillColorArr.bind(this);
@@ -63,107 +62,101 @@ class Calendar extends React.Component {
         this.setState(
             { today, month, year, dateRange, view: [month, year] },
             () => {
-                this.renderDateContent(this.state.month, this.state.year);
+                this.fillDateContent(this.state.month, this.state.year);
                 this.fillDateArray(this.state.month, this.state.year);
             }
         );
     }
+    
+    fillDateContentSuccess(response) {
+        console.log("fillDateContentSuccess month, year", this.state.month, this.state.year);
 
-    renderDateContent(month, year) {
-        console.log("renderDateContent month, year", month, year);
+        if (response.status === "ok") {
+            //debug zone:
+            console.log("fillDateContent Response Running", {
+                response
+            });
+            ///
+            this.setState({ dayContent: response["dayContent"] });
+            console.log("dayContent after updated", this.state.dayContent);
+        }
+    
+    }
 
-        $.ajax({
-            url: "/month/content",
-            type: "post",
-            dataType: "json",
-            cache: false,
-            data: { month: month, year: year }
-        }).then(response => {
-            if (response.status === "ok") {
-                //debug zone:
-                console.log("renderDateContent Response Running", {
-                    response
-                });
-                ///
-                this.setState({ dayContent: response["dayContent"] });
-                console.log("dayContent after updated", this.state.dayContent);
+    fillDateContent(month, year) {
+        api.dateContent(month, year)
+            .then(response => this.fillDateContentSuccess(response))
+    }
+
+
+    fillDateRangeSuccess(response) {
+        console.log("fillDateRangeSuccess Response Running", { response });
+        ///
+        if (response["status"] === "ok") {
+            let dRange = this.state.dateRange.slice();
+            for (var i = 0; i < dRange.length; i++) {
+                dRange.pop();
             }
-        });
+            response["dateRange"].forEach(date => {
+                dRange.push(date);
+            });
+            console.log({ dRange });
+            this.setState({ dateRange: dRange });
+        }
     }
 
     fillDateRange() {
-        $.ajax({
-            url: "/calendar/options",
-            cache: false,
-            success: function(response) {
-                // TODO check what happens when no response content
-                //debug zone:
-                console.log("fillDateRange Response Running", { response });
-                ///
-                if (response["status"] === "ok") {
-                    let dRange = this.state.dateRange.slice();
-                    for (var i = 0; i < dRange.length; i++) {
-                        dRange.pop();
-                    }
-                    response["dateRange"].forEach(date => {
-                        dRange.push(date);
-                    });
-                    console.log({ dRange });
-                    this.setState({ dateRange: dRange });
-                }
-            }.bind(this)
-        });
+        api.dateRange()
+            .then(response => this.fillDateContentSuccess(response))
     }
 
-    fillDateArray(month, year) {
+    fillDateArraySuccess(response) {
         //debug zone:
-        console.log("renderDateContent month, year", month, year);
+        console.log("fillDateContentSuccess month, year", this.state.month, this.state.year);
         ///
-        $.ajax({
-            url: "/month/days",
-            dataType: "json",
-            data: { month: month, year: year },
-            cache: false,
-            success: function(response) {
-                // TODO check what happens when no response content
-                //debug zone:
-                console.log("fillDateArray Response Running", { response });
-                ///
-                if (response["status"] === "ok") {
-                    let days = this.state.dateArray.slice();
-                    for (var i = 0; i < days.length; i++) {
-                        days.pop();
-                    }
-                    response["dateArray"].forEach(date => {
-                        days.push(date);
-                    });
-                    console.log({ days });
-                    this.setState({ dateArray: days });
-                    console.log(
-                        " dateArray at end of fillDateArray ",
-                        this.state.dateArray
-                    );
-                }
-            }.bind(this)
-        });
+        
+        console.log("fillDateArray Response Running", { response });
+        ///
+        if (response["status"] === "ok") {
+            let days = this.state.dateArray.slice();
+            for (var i = 0; i < days.length; i++) {
+                days.pop();
+            }
+            response["dateArray"].forEach(date => {
+                days.push(date);
+            });
+            console.log({ days });
+            this.setState({ dateArray: days });
+            console.log(
+                " dateArray at end of fillDateArray ",
+                this.state.dateArray
+            );
+        }
+    
+    }
+
+    fillDateArray (month, year) {
+        api.dateArray(month, year)
+            .then(response => this.fillDateArraySuccess(response))
+    }
+
+    fillColorArrSuccess(response){
+       
+        if (response.status === "ok") {
+            //debug zone:
+            console.log("fillColorDict Response Running", {
+                response
+            });
+            ///
+            this.setState({ colorArr: response["colorResponse"] });
+            console.log("colorArr after updated", this.state.colorArr);
+        } 
+
     }
 
     fillColorArr(){
-        $.ajax({
-            url: "/calendar/color",
-            cache: false,
-        }).then(response => {
-            if (response.status === "ok") {
-                //debug zone:
-                console.log("fillColorDict Response Running", {
-                    response
-                });
-                ///
-                this.setState({ colorArr: response["colorResponse"] });
-                console.log("colorArr after updated", this.state.colorArr);
-            }
-        });
-
+        api.colorArr()
+            .then(response => this.fillColorArrSuccess(response))
     }
 
     /// SelectView ////
@@ -176,7 +169,7 @@ class Calendar extends React.Component {
         this.setState({ month: month });
         this.setState({ year: year });
 
-        this.renderDateContent(month, year);
+        this.fillDateContent(month, year);
         this.fillDateArray(month, year);
     }
 
@@ -196,33 +189,24 @@ class Calendar extends React.Component {
         dayState[dayDate][ElemName] = newVal;
 
         this.setState({ dayContent: dayState });
-        ///
-        $.ajax({
-            url: "/month/adj",
-            dataType: "json",
-            type: "post",
-            cache: false,
-            data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
-         });
+        
+        api.updateAdjDB( dayDate, newVal, ElemName )
+        
     }
+
     //IN midst of chanign colorEmot to colorId
-    handleColorChange(colorId, dayDate) {
+    handleColorChangeSuccess(response) {
+        console.log(response);
+    }
+
+    handleColorChange(colorId, dayDate){
         const dayState = { ...this.state.dayContent };
 
         dayState[dayDate]["colorId"] = colorId;
         this.setState({ dayContent: dayState });
 
-        $.ajax({
-            url: "/month/color",
-            dataType: "json",
-            type: "post",
-            cache: false,
-            data: { dayDate: dayDate, colorId: colorId },
-            success: function(response) {
-                console.log(response);
-                // TODO at some point handle if response status is "error"
-            }.bind(this)
-        });
+        api.handleColorChangeDB(colorId, dayDate)
+            .then(response => this.handleColorChangeSuccess(response))
     }
 
     render() {
