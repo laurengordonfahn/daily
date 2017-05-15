@@ -1,7 +1,7 @@
 import React from "react";
 import EmptyDay from "./emptyDay";
 import DayBox from "./dayBox";
-import SelectView from "./selectview";
+
 
 class Table extends React.Component {
   constructor() {

@@ -26,7 +26,7 @@ def check_password(password):
         Return Boolean string error message
     """
 
-    elem_check = re.search("^[0-9a-zA-Z]{6,}$", password)
+    elem_check = re.search("[a-zA-Z]", password)
     num_check = re.search("[\d]+", password)
     len_check = (len(password) >= 6)
 

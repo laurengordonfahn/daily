@@ -6,6 +6,7 @@
   "devDependencies": {
     "autoprefixer-stylus": "0.10.0",
     "concurrently": "3.0.0",
+    "jest": "^20.0.1",
     "react-scripts": "0.6.0",
     "stylus": "^0.54.5"
   },
@@ -17,7 +18,8 @@
     "react-addons-css-transition-group": "15.3.2",
     "react-dom": "15.3.2",
     "react-router": "4.0.0-alpha.3",
-    "react-timeout": "^1.0.0"
+    "react-timeout": "^1.0.0",
+    "styled-components": "^1.4.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -26,7 +28,8 @@
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
-    "deploy": "ns ./build --cmd 'list ./content -s'"
+    "deploy": "ns ./build --cmd 'list ./content -s'",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"

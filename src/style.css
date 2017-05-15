@@ -1,15 +1,15 @@
 body {
     font-family: 'Lato', sans-serif;
     display: flex;
-    /*width: 100%;*/
     background: #fdfae7;
+    min-width: min-content;
 }
 
-/*#main {
-    width: 100%;
-}*/
-/*
-div[data-reactroot] {
+#main {
+   min-width: 100vw;
+}
+
+/*div[data-reactroot] {
     width: 100%;
 }*/
 button {
@@ -259,7 +259,8 @@ table {
 }
 
 .adjInput {
-    background: #fdfae7;
+    /*background: #fdfae7;*/
+    background: white;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -269,6 +270,10 @@ table {
     margin: 1px 1px 1px 5px;
     width: 85%;
 }
+
+/*option {
+    color: gray;
+}*/
 
 .dayDate {
     text-align: right;

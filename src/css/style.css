@@ -1,0 +1,280 @@
+body {
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    background: #fdfae7;
+}
+
+/*#main {
+    width: 100%;
+}*/
+
+/*div[data-reactroot] {
+    width: 100%;
+}*/
+button {
+    margin: 5px;
+    padding: 7px, 10px, 7px, 10px;
+    border-radius: 2px;
+    border: solid black 1px;
+    background-color: #123456;
+    color: white;
+}
+
+/*Homepage*/
+
+#homepageHeader {
+    background-color: #123456;
+    color: white;
+    border-bottom: black;
+    display: block;
+    height: 125px;
+    width: 100%;
+}
+
+#appName {
+    display: inline-block;
+    position: relative;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+#explaination {
+    /*border: solid black 1px;*/
+    margin: 10px;
+}
+
+/*SignIn*/
+.signInDiv{
+    display: inline-block;
+    position: relative;
+    float: right;
+    margin-right: 10px;  
+    margin-top: 5px; 
+    width: 190px; 
+    padding: 0;
+}
+.signInLable {
+    margin: 5px;
+    display: inline-block;
+    float: right;
+    
+}
+
+#signInForm {
+    width: 100%;
+    padding-right: 5px;
+    position: relative;
+}
+.signInInput {
+     width: 180px;
+    margin: 0;
+    border: solid gray 1px;
+    letter-spacing: 2px;
+    padding: 2px;
+    margin: 1px 2px 1px 5px;
+    border-radius: 2px;
+    position: relative;
+
+}
+
+
+
+#signInButton{
+    margin: 5px 0px;
+    border-radius: 2px;
+    border: solid black 1px;
+    padding: 7px, 10px, 7px, 10px;
+    background-color: gray;
+    color: white;
+    width: 75px;
+    display: inline-block;
+    position: relative;
+    float: right;
+    letter-spacing: 2px;
+}
+
+
+/*Notices */
+
+.notices {
+    border-radius: 2px;
+    margin: 10px;
+    background-color: #b12720;
+    padding: 2px;
+    text-align: center;
+
+}
+
+/*SignUp*/
+#signUpDiv {
+    display: block;
+    position: relative;
+}
+.welcomeMsg {
+    text-align: center;
+}
+.intro{
+    margin: 5px;
+    clear: right;
+}
+#signUpFormDiv {
+    float: right;
+    margin-right: 20px;
+    text-align: right;
+    /*display: inline-block;*/
+    /*position: relative;*/
+    margin-right: 10px;  
+    margin-top: 5px; 
+    width: 50%; 
+    padding: 0;
+}
+
+#signUpForm {
+    width: 100%;
+    float: right;
+}
+
+#signUpLable {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+
+.singUpInput {
+    width: 180px;
+    margin: 0;
+    border: solid gray 1px;
+    letter-spacing: 2px;
+    padding: 2px;
+    margin: 1px 2px 1px 5px;
+    border-radius: 2px;
+    position: relative;
+
+
+}
+
+#signUpButton {
+    margin: 5px 0px;
+    border-radius: 2px;
+    border: solid black 1px;
+    padding: 7px, 10px, 7px, 10px;
+    background-color: gray;
+    color: white;
+    width: 75px;
+    display: inline-block;
+    position: relative;
+    float: right;
+    letter-spacing: 2px;
+
+}
+
+
+/*Month*/
+
+.monthBox{
+    display: block;
+    width: flex;
+    background:#fdfae7;
+
+}
+
+table {
+    width: 100%;
+    display: block;  
+}
+
+.monthHeader {
+    background-color: #eee; 
+    display: block;
+}
+
+
+.selectViewDiv {
+    margin: 20px 0px 0px 5px;
+    display: inline-block;
+    position: relative;
+    float: left; 
+
+}
+
+#selectViewSelect {
+    margin-left: 5px;
+    padding: 2px 15px 2px 15px;
+    width: 75px;
+}
+
+.monthInfo {
+   display: inline-block;
+   position: relative;
+   margin-top: 0;
+   left: 41%;
+   margin-bottom: 10px;
+}
+
+.monthTitle {
+   font-size: 25px;
+   letter-spacing: 5px;
+   vertical-align: middle;
+   text-align: center;
+}
+
+.year { 
+   font-size: 18px;
+   letter-spacing: 5px;
+   vertical-align: middle;
+   text-align: center;
+}
+
+.weekdayNames{
+    background-color: white;
+    width: 100vw;
+    border-bottom: solid 1px black;
+}
+
+.weekdayNames th {
+    padding: 3px;
+    margin: 5px;
+    width: 100vw;
+    background-color: #ddd;
+}
+
+/*DayBox */
+
+.day {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border-left: solid 1px gray;
+    border-top: solid 1px gray;
+}
+.today {
+    border: solid #b12720 3px;
+}
+
+
+.colorSelect {
+    margin: 5px;
+    letter-spacing: 2px;
+}
+
+
+.adjInput {
+    background: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid gray 1px;
+    letter-spacing: 1px;
+    padding: 2px;
+    margin: 1px 1px 1px 5px;
+    width: 85%;
+}
+
+
+.dayDate {
+    text-align: right;
+    margin: 1px 5px 1px 1px;
+}
+
+.menu {
+    width: 75px;
+}

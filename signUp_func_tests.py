@@ -37,7 +37,7 @@ class TestSignupFunc(unittest.TestCase):
             "123456",
         ]
         for x in bad:
-            self.assertIsFalse(check_password(x),x)
+            self.assertFalse(check_password(x),x)
 
 
     def test_hash_password(self):

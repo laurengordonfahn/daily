@@ -88,15 +88,15 @@ def signUp():
                     isLoggedIn: boolean 
                }
     """
-    clear_old_session()
     
+    clear_old_session()
+
     email1 = request.form.get("email1")
     email2 = request.form.get("email2")
     password1 = request.form.get("password1")
     password2 = request.form.get("password2")
 
     notices = check_signUp_info(email1, email2, password1, password2)
-
 
     d = collections.defaultdict(dict)
     response = {
@@ -176,29 +176,7 @@ def month_content():
         
     return jsonify(response)
 
-     # TODO: I need to be able to control isLoggedIn from here as well and return a notice message saying something went wrong!
-
-@app.route('/month/adj', methods=["POST"])
-def month_adj():
-    """ Update DB with new adjective """
-
-    user_id = session['current_user']
-    dayDate = request.form.get("dayDate")
-    newVal = request.form.get("newVal")
-    elemName = request.form.get("ElemName")
-
-    day = parse_day(dayDate)
-    month = parse_month(dayDate)
-    year = parse_year(dayDate)
-
-    commit_adj_to_db(user_id, day, month, year, newVal, elemName)
-
-    #TODO handle errors from commit_adj_to_db 
-    response = {"status" : "ok"}
-
-    return jsonify(response)
-
-
+    
 @app.route('/calendar/options')
 def calendar_options():
     """ Retrieve all date history from DB
@@ -223,25 +201,6 @@ def calendar_options():
         print ("response calendar", response)
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
-
-@app.route('/calendar/color')
-def calendar_color():
-    """ Retrieve all color info from DB
-        Return [{id: id, color:color, emoiton:emotion}, etc]
-    """
-
-    user_id = session['current_user']
-    response = {
-        "status" : None,
-        "colorResponse" : []  
-    }
-    if user_id:
-        arr = format_color_response(user_id)
-        if arr:
-            response["status"] = "ok"
-            response["colorResponse"] = arr
-
-    return jsonify(response)
 
 @app.route('/month/days')
 def month_days():
@@ -271,6 +230,49 @@ def month_days():
         print ("response month/day", response)
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
+
+    
+@app.route('/month/adj', methods=["POST"])
+def month_adj():
+    """ Update DB with new adjective """
+
+    user_id = session['current_user']
+    dayDate = request.form.get("dayDate")
+    newVal = request.form.get("newVal")
+    elemName = request.form.get("ElemName")
+
+    day = parse_day(dayDate)
+    month = parse_month(dayDate)
+    year = parse_year(dayDate)
+
+    commit_adj_to_db(user_id, day, month, year, newVal, elemName)
+
+    #TODO handle errors from commit_adj_to_db 
+    response = {"status" : "ok"}
+
+    return jsonify(response)
+
+
+@app.route('/calendar/color')
+def calendar_color():
+    """ Retrieve all color info from DB
+        Return [{id: id, color:color, emoiton:emotion}, etc]
+    """
+
+    user_id = session['current_user']
+    response = {
+        "status" : None,
+        "colorResponse" : []  
+    }
+    if user_id:
+        arr = format_color_response(user_id)
+        if arr:
+            response["status"] = "ok"
+            response["colorResponse"] = arr
+
+    return jsonify(response)
+
+
 
 @app.route('/month/color', methods=["POST"])
 def month_color():

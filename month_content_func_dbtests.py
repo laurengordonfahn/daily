@@ -50,7 +50,7 @@ class DBSignUpTests(unittest.TestCase):
         
     def test_gather_all_month_content(self):
         #TODO model object invalid syntax because memory storage location work on this. 
-        self.assertEqual(len(gather_all_month_content(5, 2017, 1)), 31)
+        self.assertEqual(len(gather_all_month_content(5, 2017, 2)), 1)
     #     # Is there anything else I should be testing for? 
 
     # TODO how do I write tests for these kind of functions? Or how should I have writen them to be testable?  
