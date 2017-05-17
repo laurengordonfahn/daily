@@ -3,7 +3,6 @@ import ReactTimeout from "react-timeout";
 
 // import $ from "jquery";
 
-import MainDiv from "./homepageStyle"
 import HomePage from "./homePage";
 import Calendar from "./calendar";
 
@@ -33,9 +32,9 @@ class App extends React.Component {
     }
 
     // // // FOR LOCAL TESTING ONLY
-    // componentDidMount() {
-    //     this.onSignInSuccess("b@gmail.com", "b12345");
-    // }
+    componentDidMount() {
+        this.onSignInSuccess("b@gmail.com", "b12345");
+    }
 
     /// SignUp ////
     onSignUpSuccess(response) {
@@ -155,6 +154,7 @@ class App extends React.Component {
 
         return (
             <Calendar
+                isLoggedIn={this.state.isLoggedIn}
                 msg={this.state.statusMsg}
                 clearStatus={this.clearStatus}
                 onSignOut={this.onSignOut}

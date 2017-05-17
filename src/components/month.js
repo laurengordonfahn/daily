@@ -27,7 +27,7 @@ class Month extends React.Component {
         <div className="monthHeader">
           <div className="selectViewDiv">
             <SignOut onSignOut={this.props.onSignOut} />
-            <Profile />
+            <Profile profile={this.props.profile} isLoggedIn={this.props.isLoggedIn} handleProfile={this.props.handleProfile} />
             <SelectView
                       dateOption={this.props.dateRange}
                       onDateSelection={this.props.onDateSelection}

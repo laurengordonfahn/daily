@@ -1,8 +1,7 @@
-import $ from 'jquery';
+import $ from "jquery";
 
 //export for others scripts to use
-window.$ = $;
-window.jQuery = $;
+// window.$ = $;
 
 export function signUp(email1, email2, password1, password2) {
     return $.ajax({
@@ -15,7 +14,7 @@ export function signUp(email1, email2, password1, password2) {
             email2: email2,
             password1: password1,
             password2: password2
-        },
+        }
     });
 }
 
@@ -27,8 +26,8 @@ export function signIn(email, password) {
         cache: false,
         data: {
             email: email,
-            password: password 
-        },
+            password: password
+        }
     });
 }
 
@@ -49,53 +48,59 @@ export function dateContent(month, year) {
         data: {
             month: month,
             year: year
-        },
+        }
     });
-
 }
 
 export function dateRange() {
     return $.ajax({
-            url: "/calendar/options",
-            cache: false
+        url: "/calendar/options",
+        cache: false
     });
 }
 
-export function dateArray(month, year){
+export function dateArray(month, year) {
     return $.ajax({
-            url: "/month/days",
-            dataType: "json",
-            data: { month: month, year: year },
-            cache: false
+        url: "/month/days",
+        dataType: "json",
+        data: { month: month, year: year },
+        cache: false
     });
 }
 
-
-export function colorArr(){
+export function colorArr() {
     return $.ajax({
-            url: "/calendar/color",
-            cache: false
+        url: "/calendar/color",
+        cache: false
     });
 }
 
-export function updateAdjDB(dayDate, newVal, ElemName){
+export function updateAdjDB(dayDate, newVal, ElemName) {
     return $.ajax({
-            url: "/month/adj",
-            dataType: "json",
-            type: "post",
-            cache: false,
-            data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
+        url: "/month/adj",
+        dataType: "json",
+        type: "post",
+        cache: false,
+        data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName }
     });
 }
 
 export function handleColorChangeDB(colorId, dayDate) {
     return $.ajax({
-            url: "/month/color",
-            dataType: "json",
-            type: "post",
-            cache: false,
-            data: { dayDate: dayDate, colorId: colorId }
+        url: "/month/color",
+        dataType: "json",
+        type: "post",
+        cache: false,
+        data: { dayDate: dayDate, colorId: colorId }
     });
-
 }
 
+
+export function colorChart(colorDict) {
+    return $.ajax({
+        url: "/calendar/chart",
+        dataType: "json",
+        cache:false,
+        datat: { colorDict: colorDict}
+    });
+}
