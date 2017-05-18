@@ -14,7 +14,7 @@ class ProfilePage extends React.Component {
                 <Profile profile={this.props.profile} isLoggedIn={this.props.isLoggedIn} handleProfile={this.props.handleProfile} />
                 <SignOut onSignOut={this.props.onSignOut} />
 
-                <Chart />
+                <Chart colorChart={this.props.colorChart} />
             </div>
 
 

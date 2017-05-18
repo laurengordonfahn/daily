@@ -4,40 +4,36 @@ import {Bar} from 'react-chartjs-2';
 class Chart extends React.Component {
     constructor(){
         super();
-
-    
+        this.renderGraphs = this.renderGraphs.bind(this);
     }
 
-    
+    renderGraphs(emotion, colorChart){
+        console.log("colorChart for render graph", {colorChart}, {emotion})
 
-    render(){
-        const data = {
-                labels: ["Trapped", "Sad"],
+        console.log(colorChart[emotion]["emotionArr"], colorChart[emotion]["after"], colorChart[emotion]["colorHexs"]);
+        const dataAfter = {
+                labels: colorChart[emotion]["emotionArr"],
                 datasets: [
                     {
-                        label: 'Anxious Before',
-                        data: [3, -2], 
-                        backgroundColor: [
-                            '#ffa024',
-                            '#962686'
-                        ],
-                        borderColor:[
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)'
-                        ],
+                        label: `${emotion} After`,
+                        data: colorChart[emotion]["after"], 
+                        backgroundColor: colorChart[emotion]["colorHexs"]
+                           ,
+                        borderColor:colorChart[emotion]["colorHexs"],
                         borderWidth: 1
 
-                    }, {
-                        label: 'Anxious After',
-                        data: [5, -3], 
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54,162, 235, 0.2)'
-                        ],
-                        borderColor:[
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)'
-                        ],
+                    }
+                ]
+        };
+        const dataBefore = {
+                labels: colorChart[emotion]["emoitonArr"],
+                datasets: [
+                    {
+                        label: `${emotion} Before`,
+                        data: colorChart[emotion]["after"], 
+                        backgroundColor: colorChart[emotion]["colorHexs"]
+                           ,
+                        borderColor:colorChart[emotion]["colorHexs"],
                         borderWidth: 1
 
                     }
@@ -52,14 +48,27 @@ class Chart extends React.Component {
                     }]
                 }
         };
-        
+
+        return(
+            <div key={emotion} >
+                <Bar data={dataAfter} options={options}  />
+                <Bar data={dataBefore} options={options} />
+            </div>
+        );
+
+    }
+
+    //colorChart[emotion] = {"after": response["after"], "before": response["before"],"colorHexs": colorHexs, "emotionArr" : emotionArr}
+
+    render(){
+        const colorChart = this.props.colorChart;
+        const emotionArray = Object.keys(colorChart);
         
         return (
             <div>
-                <div width="200px" height="200px">
-                    <Bar data={data} options={options}  />
-                </div>
-            
+                {emotionArray.map(emotion => {
+                    return this.renderGraphs(emotion, colorChart);
+                })} 
             </div>
                 
         );

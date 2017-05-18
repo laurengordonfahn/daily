@@ -17,6 +17,7 @@ from month_adj_func import *
 from month_days_func import *
 from month_color_func import *
 from calendar_color_func import *
+from calendar_chart_func import *
 
 #for searlizing sqlalchemy objects
 from flask_marshmallow import Marshmallow
@@ -273,7 +274,6 @@ def calendar_color():
     return jsonify(response)
 
 
-
 @app.route('/month/color', methods=["POST"])
 def month_color():
     """ Update the DB with a color choice for a given day"""
@@ -285,6 +285,19 @@ def month_color():
     if user_id:
         updateColor(user_id, dayDate, colorId)
         return jsonify({"status" : "ok"})
+
+
+@app.route('/calendar/chart')
+def calendar_chart():
+
+    user_id = session['current_user']
+    colorOrder = request.args.get("colorOrder")
+
+    print ("colorOrder", colorOrder)
+
+    if user_id:
+        return jsonify(create_emotion_count(user_id, [{1: "neutral"}, {2: "angry"}, {3: "happy"}, {4 :"joyful"}]))
+
 
 @app.route('/signOut', methods=["DELETE"])
 def signOut():

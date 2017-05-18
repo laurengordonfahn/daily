@@ -10,9 +10,11 @@ def commit_adj_to_db(user_id, day, month, year, newAdj, adjNum):
         Return None
     """
 
-    update_dict = {str(adjNum) : newAdj}
-    
-    Day.query.filter_by(user_id=user_id, day=day, month=month, year=year).update(update_dict)
+    user = Day.query.filter_by(user_id=user_id, day=day, month=month, year=year).first()
+
+    adjNum = str(adjNum)
+
+    user.adjNum = newAdj
     
     db.session.commit()
     

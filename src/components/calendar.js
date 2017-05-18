@@ -16,7 +16,7 @@ class Calendar extends React.Component {
         this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
         this.fillColorArr = this.fillColorArr.bind(this);
-        this.fillEmotionOrder = this.fillEmotionOrder.bind(this);
+        this.fillColorOrder = this.fillColorOrder.bind(this);
         //header month component
         this.handleDateSelection = this.handleDateSelection.bind(this);
         this.handleProfile = this.handleProfile.bind(this);
@@ -37,8 +37,8 @@ class Calendar extends React.Component {
         // [{id: int, colorHex: hex, colorName: color, emotion: emotion, basic: 0 or user_id }]
         colorArr: [],
 
-        // list of emotions
-        emotionOrder: [],
+        // list of {colorId : emotion} order
+        colorOrder: [],
 
         //{emotion: {emotions: [all other emotions], datab4: [], dataft:[], colorHexs:[]}, etc..}
         colorChart : {},
@@ -151,42 +151,43 @@ class Calendar extends React.Component {
             .then(response => this.fillDateArraySuccess(response))
     }
 
-    fillEmotionOrder(){
-        console.log("Running fillEmotionOrder");
+    fillColorOrder(){
+        console.log("Running fillColorOrder");
         const colorArr = this.state.colorArr;
-        let emotionOrder = [];
+        console.log({colorArr});
+        let colorOrder = [];
         colorArr.forEach(function(colorDict) {
-            const emotion = colorDict["emotion"];
+            let addDict = {}
+            // const colorId = colorDict["id"];
+            // const emotion = colorDict["emotion"];
+            addDict[colorDict["colorId"]] = colorDict["emotion"]
 
-            emotionOrder.push(emotion);
-
-            this.setState({ emotionOrder });
-
-            console.log("This is the Emotion Order", this.state.emotionOrder);
+            colorOrder.push(addDict);
 
         });
+        this.setState({ colorOrder: colorOrder },
+            () => {this.fillColorChart();}
+        );
 
         
     }
 
-    fillColorArrSuccess(response){
-       
+    fillColorArrSuccess(response) {
+       //TODO why won't the callback run? 
         if (response.status === "ok") {
-            //debug zone:
-            console.log("fillColorDict Response Running", {
-                response
-            });
-            ///
-            this.setState({ colorArr: response["colorResponse"]},
-                () => {this.fillEmotionOrder();}
+            console.log("running fillColorArrSuccess")
+            const colorArray = response["colorResponse"];
+            this.setState(
+                { colorArr : colorArray},
+                () => {
+                    this.fillColorOrder();
+                }
             );
-            console.log("colorArr after updated", this.state.colorArr);
-            
         } 
-
     }
 
-    fillColorArr(){
+
+    fillColorArr() {
         api.colorArr()
             .then(response => this.fillColorArrSuccess(response))
     }
@@ -210,7 +211,7 @@ class Calendar extends React.Component {
         const profile = this.state.profile;
         if (!profile && isLoggedIn ) {
             // false profile change to true shows profile
-            this.setState({ profile: !profile });
+            this.fillColorOrder();
         } 
         else if (profile && isLoggedIn ) {
             // true profile change to false shows calendar
@@ -218,50 +219,68 @@ class Calendar extends React.Component {
         }
 
     }
-
-    // [{id: int, colorHex: hex, colorName: color, emotion: emotion, basic: 0 or user_id }]
-        // colorArr: [],
-
-    
+ 
 
     fillColorChartSuccess(response){
+        const colorOrder = this.state.colorOrder;
+        console.log("fillColorChart success", {colorOrder});
         const colorArr = this.state.colorArr;
         let emotionInfo = {};
         colorArr.forEach(function(colorDict) {
             const emotion = colorDict["emotion"];
             const colorHex = colorDict["colorHex"];
-            const colorId = colorDict["id"];
+            const colorId = colorDict["colorId"];
 
-            emotionInfo[emotion] = {emotion, colorHex, colorId};
+            emotionInfo[colorDict["emotion"]] = {emotion, colorHex, colorId};
+
 
         });
 
-        //response = {emotion:{emotions:[all other emotions], datab4:[], dataft: []}}
-        Object.keys(response).forEach(function(emotion){
-            let colorHexs =[]
-            response[emotion]["emotions"].forEach(function(emot){
+        console.log({emotionInfo});
+        console.log({response});
+        //response = [emotion: {before:[- num], after: [+ num]}, etc]
+        let colorHexs =[];
+        
+        response.forEach(function(emotionDict){
+            const emotion = Object.keys(emotionDict)[0];
+            colorHexs.push(emotionInfo[emotion]["colorHex"]);
 
-                colorHexs.push(emotionInfo[emot]["colorHex"])
-            });
-            response[emotion]["colorHexs"] = colorHexs;
+            const colorId = emotionInfo[emotion]["colorId"];
+
+ 
         });
-        this.setState({colorChart: response});
+        console.log({colorHexs});
+
+        let emotionArr = [];
+
+        colorOrder.forEach(function(colorIdDict){
+    
+            emotionArr.push(Object.values(colorIdDict)[0]);
+ 
+        });
+
+        console.log({emotionArr});
+
+        let colorChart = {};
+        response.forEach(function(emotionDict){
+            console.log("this is the emotion dict", emotionDict);
+            const emotionName = Object.keys(emotionDict)[0];
+            colorChart[emotionName] = {"after": emotionDict[emotionName]["after"], "before": emotionDict[emotionName]["before"],"colorHexs": colorHexs, "emotionArr" : emotionArr}
+        });
+
+        this.setState({colorChart: colorChart});
+        console.log("fillColorChartSuccess", {colorChart});
+        let profile = this.state.profile;
+        this.setState({ profile: !profile });
     }
 
     fillColorChart() {
-        const emotionOrder = this.state.emotionOrder;
-        // {emotion: [all other emotions]}
-        let emotionDict = {}
-        emotionOrder.forEach(function(emotion){
-            emotionDict[emotion] = emotionOrder.filter(function(elem){
-                return elem !== emotion;
-            })
-        });
+        const colorOrder = this.state.colorOrder;
+        console.log("color order", colorOrder);
 
-        api.colorChart(emotionDict)
+        api.colorChart(this.state.colorOrder)
             .then(response => this.fillColorChartSuccess(response))
-
-        
+   
     }
 
     //Day functionality
@@ -334,6 +353,7 @@ class Calendar extends React.Component {
         return (
             <ProfilePage 
                 profile={profile}
+                colorChart={this.state.colorChart}
                 handleProfile={this.handleProfile}
                 isLoggedIn={this.props.isLoggedIn}
                 onSignOut={this.props.onSignOut}

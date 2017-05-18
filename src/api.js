@@ -96,11 +96,11 @@ export function handleColorChangeDB(colorId, dayDate) {
 }
 
 
-export function colorChart(colorDict) {
+export function colorChart(colorOrder) {
     return $.ajax({
         url: "/calendar/chart",
         dataType: "json",
-        cache:false,
-        datat: { colorDict: colorDict}
+        cache: false,
+        data: { colorOrder: colorOrder}
     });
 }

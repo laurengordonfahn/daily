@@ -11,10 +11,10 @@ def updateColor(user_id, dayDate, colorId):
     year = parse_year(dayDate)
 
     # color_id = query_colorset_table(colorId)
+    print("colorId", colorId)
 
-    update_dict = { "colorset_id" : str(colorId)}
-    
-    Day.query.filter_by(user_id=user_id, day=day, month=month, year=year).update(update_dict)
+    user = Day.query.filter_by(user_id=user_id, day=day, month=month, year=year).first()
+    user.colorset_id = int(colorId)
     
     db.session.commit()
     
