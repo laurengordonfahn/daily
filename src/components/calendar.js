@@ -16,7 +16,7 @@ class Calendar extends React.Component {
         this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
         this.fillColorArr = this.fillColorArr.bind(this);
-        this.fillColorOrder = this.fillColorOrder.bind(this);
+        // this.fillColorOrder = this.fillColorOrder.bind(this);
         //header month component
         this.handleDateSelection = this.handleDateSelection.bind(this);
         this.handleProfile = this.handleProfile.bind(this);
@@ -151,38 +151,46 @@ class Calendar extends React.Component {
             .then(response => this.fillDateArraySuccess(response))
     }
 
-    fillColorOrder(){
-        console.log("Running fillColorOrder");
-        const colorArr = this.state.colorArr;
-        console.log({colorArr});
-        let colorOrder = [];
-        colorArr.forEach(function(colorDict) {
-            let addDict = {}
-            // const colorId = colorDict["id"];
-            // const emotion = colorDict["emotion"];
-            addDict[colorDict["colorId"]] = colorDict["emotion"]
+    // fillColorOrder(){
+    //     console.log("Running fillColorOrder");
+    //     const colorArr = this.state.colorArr;
+    //     console.log({colorArr});
+    //     let colorOrder = [];
+    //     colorArr.forEach(function(colorDict) {
+    //         let addDict = {}
+    //         // const colorId = colorDict["id"];
+    //         // const emotion = colorDict["emotion"];
+    //         addDict[colorDict["colorId"]] = colorDict["emotion"]
 
-            colorOrder.push(addDict);
+    //         colorOrder.push(addDict);
 
-        });
-        this.setState({ colorOrder: colorOrder },
-            () => {this.fillColorChart();}
-        );
+    //     });
+    //     this.setState({ colorOrder: colorOrder },
+    //         () => {this.fillColorChart();}
+    //     );
 
         
-    }
+    // }
 
     fillColorArrSuccess(response) {
-       //TODO why won't the callback run? 
+       //TODO why  won't the callback run? 
+        
         if (response.status === "ok") {
             console.log("running fillColorArrSuccess")
+            console.log("response colorar", response)
             const colorArray = response["colorResponse"];
+            let colorOrder = [];
+            colorArray.forEach(function(colorDict) {
+                let addDict = {}
+                addDict[colorDict["colorId"]] = colorDict["emotion"]
+                colorOrder.push(addDict);
+                console.log("colorOrder in success", {colorOrder})
+            });
             this.setState(
-                { colorArr : colorArray},
-                () => {
-                    this.fillColorOrder();
-                }
+                { colorArr : colorArray}
             );
+
+            this.setState({ colorOrder : colorOrder });
         } 
     }
 
@@ -190,6 +198,7 @@ class Calendar extends React.Component {
     fillColorArr() {
         api.colorArr()
             .then(response => this.fillColorArrSuccess(response))
+    
     }
 
     /// SelectView ////
@@ -211,7 +220,7 @@ class Calendar extends React.Component {
         const profile = this.state.profile;
         if (!profile && isLoggedIn ) {
             // false profile change to true shows profile
-            this.fillColorOrder();
+            this.fillColorChart();
         } 
         else if (profile && isLoggedIn ) {
             // true profile change to false shows calendar
