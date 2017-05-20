@@ -145,7 +145,6 @@ def signIn():
         add_to_session(email)
         response["isLoggedIn"] = True
 
-    print (response["isLoggedIn"], "signIn sending")
     return jsonify(response)
 
 
@@ -154,13 +153,12 @@ def month_content():
     """ Retrieve DB Info for today's month/year for intial load
         Return json of date:{adj1: adj, adj2: adj, adj3: adj, color: hex}
     """
-    print ("Current user", session['current_user'])
     if session['current_user']:
 
         month = request.form.get("month")
         year = request.form.get("year")
         user_id = session['current_user']
-        print ("This is the is_month question", is_month(month, year, user_id))
+        
         if not is_month(month, year, user_id):
             establish_month(month, year, user_id)
 
@@ -199,7 +197,7 @@ def calendar_options():
         response["dateRange"] = format_dateRange(possibleDateArr)
         #Todo: Add dateArray infor to response
         response["status"] = "ok"
-        print ("response calendar", response)
+        
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
@@ -212,8 +210,6 @@ def month_days():
     month = request.args.get("month")
     year = request.args.get("year")
     
-    print("month/day running")
-    print (month, year)
     if user_id:
         
         response = {
@@ -228,7 +224,7 @@ def month_days():
         response["dateArray"] = possibleDateArr
         #Todo: Add dateArray infor to response
         response["status"] = "ok"
-        print ("response month/day", response)
+        
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
@@ -293,7 +289,7 @@ def calendar_chart():
     user_id = session['current_user']
 
     if user_id:
-        # [{1: "neutral"}, {2: "angry"}, {3: "happy"}, {4 :"joyful"}]
+        
         return jsonify(create_emotion_count(user_id))
 
 

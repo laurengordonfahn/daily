@@ -28,14 +28,12 @@ def create_days_month(month, year):
         dates.append(d.strftime('%d-%m-%Y'))
         d += day
     
-    print("dates, dates, dates, dates", dates)
     return dates
 
 def parse_weekday(date):
     """ Take in date '%d-%m-%Y'
         Return integer representing day of week 0-6
     """
-    print ("date", date, type(date))
     return datetime.strptime(date, '%d-%m-%Y').strftime('%w')
 
 def establish_month(month, year, user_id):
@@ -43,8 +41,6 @@ def establish_month(month, year, user_id):
         Returns None
     """
     dates = create_days_month(month, year)
-
-    print dates
 
     for date in dates:
 
@@ -60,9 +56,6 @@ def establish_month(month, year, user_id):
 
 def gather_all_month_content(month, year, user_id):
     """ Return all information form a particular Month """
-    
-
-    print ("SQL gather_all_month_content", Day.query.filter(Day.user_id==user_id, Day.month==month, Day.year==year).order_by(Day.day).all())
 
     return Day.query.filter(Day.user_id==user_id, Day.month==month, Day.year==year).order_by(Day.day).all()
 
@@ -86,7 +79,6 @@ def format_date_content_dict(obj):
     content["weekday"] = obj.weekday
     content["colorId"] = obj.colorset_id
 
-    print ("content from format_date_content_dict", content)
     return content
 
 def format_day_content(month, year, user_id):
@@ -100,7 +92,5 @@ def format_day_content(month, year, user_id):
     for obj in days_array:
         date_string = format_date_string(obj)
         dayContent[date_string] = format_date_content_dict(obj)
-
-    print ("dayContent", dayContent)
 
     return dayContent

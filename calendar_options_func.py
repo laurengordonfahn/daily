@@ -22,8 +22,6 @@ def query_month_year(user_id):
     cursor = db.session.execute(sql)
     dateRange = cursor.fetchall()
 
-    print ("dateRange", dateRange)
-
     return dateRange
     
 
@@ -36,7 +34,6 @@ def format_dateRange(tupArr):
         dateStr= str(tup[0]) + "/" + str(tup[1])
 
         dateArr.append(dateStr)
-    print ("dateArr", dateArr)
     
     return dateArr
 

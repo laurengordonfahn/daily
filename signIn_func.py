@@ -11,8 +11,6 @@ def confirm_password(email, password, app):
         Return Boolean
     """
     user = User.query.filter(User.email==email).first()
-
-    print("confrm_password signIn running", user)
     
     return Bcrypt(app).check_password_hash(user.password, password)
 

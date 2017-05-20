@@ -10,9 +10,6 @@ def updateColor(user_id, dayDate, colorId):
     month = parse_month(dayDate)
     year = parse_year(dayDate)
 
-    # color_id = query_colorset_table(colorId)
-    print("colorId", colorId)
-
     user = Day.query.filter_by(user_id=user_id, day=day, month=month, year=year).first()
     user.colorset_id = int(colorId)
     

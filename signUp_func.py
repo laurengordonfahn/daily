@@ -30,7 +30,6 @@ def check_password(password):
     num_check = re.search("[\d]+", password)
     len_check = (len(password) >= 6)
 
-    print("elem_check, num_check, len_check", elem_check, num_check, len_check)
     if elem_check and num_check and len_check:
         return True
 

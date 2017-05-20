@@ -5,8 +5,6 @@ def get_color_options(user_id):
     """ Query all DB for user's colorset user=0 or user=user_id
         Return array of obj rows 
     """
-
-    print ("get color options", db.session.query(Colorset).filter(Colorset.user.in_([0, user_id])).all())
     return db.session.query(Colorset).filter(Colorset.user.in_([0, user_id])).all()
 
 

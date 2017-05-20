@@ -19,8 +19,6 @@ def email_in_db(email):
     """
     checkEmail = User.query.filter_by(email=email).first() 
 
-    print("email_inn_db running from general func", checkEmail)
-
     if checkEmail:
         return True
     return False
