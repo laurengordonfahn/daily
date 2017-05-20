@@ -20,7 +20,12 @@ class Chart extends React.Component {
                         backgroundColor: colorChart[emotion]["colorHexs"]
                            ,
                         borderColor:colorChart[emotion]["colorHexs"],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        scaleStepWidth:1,
+                        barThickness: 50,
+                        fixedStepSize: 1,
+                        stepSize: 1,
+                        max: 5
 
                     }
                 ]
@@ -34,7 +39,12 @@ class Chart extends React.Component {
                         backgroundColor: colorChart[emotion]["colorHexs"]
                            ,
                         borderColor:colorChart[emotion]["colorHexs"],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        scaleStepWidth:1,
+                        barThickness: 50,
+                        fixedStepSize: 1,
+                        stepSize: 1,
+                        max: 5
 
                     }
                 ]
@@ -43,7 +53,24 @@ class Chart extends React.Component {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero:true
+                            beginAtZero:true,
+                            scaleStepWidth:1,
+                            // barThickness: 50,
+                            fixedStepSize: 1,
+                            stepSize: 1,
+                            // max: 5
+
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true,
+                            scaleStepWidth:1,
+                            // barThickness: 50,
+                            fixedStepSize: 1,
+                            stepSize: 1,
+                            // max: 5
+
                         }
                     }]
                 }

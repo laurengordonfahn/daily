@@ -176,8 +176,7 @@ class Calendar extends React.Component {
        //TODO why  won't the callback run? 
         
         if (response.status === "ok") {
-            console.log("running fillColorArrSuccess")
-            console.log("response colorar", response)
+            
             const colorArray = response["colorResponse"];
             let colorOrder = [];
             colorArray.forEach(function(colorDict) {
@@ -269,10 +268,8 @@ class Calendar extends React.Component {
     }
 
     fillColorChart() {
-        const colorOrder = this.state.colorOrder;
-        console.log("color order", colorOrder);
-
-        api.colorChart(colorOrder)
+    
+        api.colorChart()
             .then(response => this.fillColorChartSuccess(response))
    
     }
@@ -290,8 +287,6 @@ class Calendar extends React.Component {
         }
 
     }
- 
-
 
     //Day functionality
 
