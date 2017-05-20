@@ -14,7 +14,6 @@ class SelectView extends React.Component {
 
     render() {
         const dateOptions = this.props.dateOption;
-        console.log({ dateOptions });
 
         return (
             <div className="selectView">

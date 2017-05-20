@@ -13,9 +13,6 @@ class DayBox extends React.Component {
         const colorId = (this.props.dayContent[dayDate]["colorId"] -1);
         const colorArr = this.props.colorArr;
         const colorHex = colorArr[colorId]["colorHex"];
-        console.log(colorArr);
-        console.log(colorHex);
-        console.log(colorId);
         const colorStyle = {
             backgroundColor: colorHex
         }
@@ -25,8 +22,7 @@ class DayBox extends React.Component {
     render() {
         const dayDate = this.props.dayDate;
         const day = this.props.dayContent[dayDate]["day"];
-        console.log("day", this.props.dayContent[dayDate]["day"]);
-
+        
         return (
             <div className="day" style={this.colorIdConverter(dayDate)} >
                 <h3 className="dayDate"> {day} </h3>

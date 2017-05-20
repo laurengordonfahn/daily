@@ -8,17 +8,7 @@ class InputAdjective extends React.Component {
 
     handleChange(event, adjIndex) {
         const newAdj = event.target.value;
-        // debugger zone
-        console.log(
-            "handleChange of input running in inputAjd and the new Adje is...",
-            newAdj
-        );
-        console.log(
-            "this is the props.dayDate in handle Change",
-            this.props.dayDate
-        );
-        console.log({ adjIndex });
-        ///
+        
         this.props.updateAdj(newAdj, adjIndex, this.props.dayDate);
     }
 

@@ -283,3 +283,18 @@ table {
 .menu {
     width: 75px;
 }
+
+/* Profile/Charts.js Emotion Comparision Bar Graphs*/
+.barGraphsDiv{
+    height: 200px;
+    display: block;
+}
+.barGraphBefore {
+    display: inline-block;
+
+}
+.barGraphAfter {
+    display: inline-block;
+    float: right;
+
+}

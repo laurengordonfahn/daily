@@ -63,11 +63,7 @@ class Table extends React.Component {
   }
 
   fillTable(dayContent, dateArray) {
-    console.log({ dayContent });
-    console.log({dateArray});
-    console.log(dateArray[0]);
     const firstDay = dateArray[0];
-    console.log({ firstDay });
     const startDay = dayContent[firstDay]["weekday"];
     let calendarFill = [];
     let dayMonth = 0;
@@ -89,7 +85,6 @@ class Table extends React.Component {
       calendarFill.push(row);
     }
 
-    console.log({calendarFill})
     return calendarFill.map(elem => (
       <tr key={calendarFill.indexOf(elem)}>
         {this.renderDayBox(elem)}
@@ -98,9 +93,7 @@ class Table extends React.Component {
   }
 
   render() {
-    console.log('in table render', this.props.dayContent)
     if (!Object.keys(this.props.dayContent).length) return <div />;
-    console.log(1);
     const dateArray = this.props.dateArray;
     const dayContent = this.props.dayContent;
     const updateAdj = this.props.updateAdj;

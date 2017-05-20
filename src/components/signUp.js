@@ -14,7 +14,7 @@ class SignUp extends React.Component {
         const password1 = this.password1.value;
         const password2 = this.password2.value;
         document.getElementById('signUpForm').reset();
-        console.log(email1,password1);
+        
         this.props.onSignUp(email1, email2, password1, password2);
     }
 

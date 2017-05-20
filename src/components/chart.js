@@ -11,6 +11,7 @@ class Chart extends React.Component {
         console.log("colorChart for render graph", {colorChart}, {emotion})
 
         console.log(colorChart[emotion]["emotionArr"], colorChart[emotion]["after"], colorChart[emotion]["colorHexs"]);
+        
         const dataAfter = {
                 labels: colorChart[emotion]["emotionArr"],
                 datasets: [
@@ -25,7 +26,8 @@ class Chart extends React.Component {
                         barThickness: 50,
                         fixedStepSize: 1,
                         stepSize: 1,
-                        max: 5
+                        max: 5, 
+                        min: 5
 
                     }
                 ]
@@ -35,7 +37,7 @@ class Chart extends React.Component {
                 datasets: [
                     {
                         label: `${emotion} Before`,
-                        data: colorChart[emotion]["after"], 
+                        data: colorChart[emotion]["before"], 
                         backgroundColor: colorChart[emotion]["colorHexs"]
                            ,
                         borderColor:colorChart[emotion]["colorHexs"],
@@ -44,13 +46,15 @@ class Chart extends React.Component {
                         barThickness: 50,
                         fixedStepSize: 1,
                         stepSize: 1,
-                        max: 5
+                        max: 5,
+                        min: 5
 
                     }
                 ]
         };
         const options = {
                 scales: {
+                    // maintainAspectRatio: false,
                     yAxes: [{
                         ticks: {
                             beginAtZero:true,
@@ -77,15 +81,17 @@ class Chart extends React.Component {
         };
 
         return(
-            <div key={emotion} >
-                <Bar data={dataAfter} options={options}  />
-                <Bar data={dataBefore} options={options} />
+            <div className="barGraphsDiv" key={emotion} >
+                <div className="barGraphBefore">
+                    <Bar data={dataBefore} options={options} />
+                </div>
+                <div className="barGraphAfter">
+                    <Bar data={dataAfter} options={options} />
+                </div>
             </div>
         );
 
     }
-
-    //colorChart[emotion] = {"after": response["after"], "before": response["before"],"colorHexs": colorHexs, "emotionArr" : emotionArr}
 
     render(){
         const colorChart = this.props.colorChart;

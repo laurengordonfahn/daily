@@ -38,14 +38,9 @@ class App extends React.Component {
 
     /// SignUp ////
     onSignUpSuccess(response) {
-        console.log("onSignup Response Running", { response });
-        ///
-        const status = response["status"];
-        console.log(status);
 
         const notices = response["notices"];
         if (!response["isLoggedIn"]) {
-            console.log("isLoggedIn is false");
 
             let presentStatusMsg = { ...this.state.statusMsg };
             Object.keys(presentStatusMsg).forEach(elem => {
@@ -58,20 +53,12 @@ class App extends React.Component {
 
             this.setState({ statusMsg: presentStatusMsg });
             this.clearStatus();
-            console.log(
-                "isLoggedIn after signUp should be false",
-                this.state.isLoggedIn
-            );
+            
         } else {
-            console.log(notices);
-            console.log("isLoggedIn is true");
+            
             this.setState({
                 isLoggedIn: response["isLoggedIn"]
             });
-            console.log(
-                "isLoggedIn after signUp should be true",
-                this.state.isLoggedIn
-            );
         }
     }
 
@@ -85,10 +72,7 @@ class App extends React.Component {
     onSignInSuccess(response) {
         const status = response.status;
         const notices = response.notices;
-        //debug zone:
-        console.log("onSignIn Response Running", { response });
-        console.log({ notices });
-
+        
         if (status === "ok" && response["isLoggedIn"] === false) {
             let msgState = { ...this.state.statusMsg };
             Object.keys(msgState).forEach(elem => {
@@ -100,14 +84,10 @@ class App extends React.Component {
             });
 
             this.setState({ statusMsg: response["notices"] });
-            console.log(this.state.statusMsg);
             this.clearStatus();
         } else if (status === "ok" && response["isLoggedIn"] === true) {
             this.setState({ isLoggedIn: response["isLoggedIn"] });
-            console.log(
-                "Homepage is Running is logged in is",
-                this.state.isLoggedIn
-            );
+
         }
 
     }
@@ -121,8 +101,6 @@ class App extends React.Component {
 
     onSignOutSuccess(response) {
     
-        console.log("onSignOut Response Running", { response });
-        ///
         this.setState({ isLoggedIn: false });
            
         
@@ -135,9 +113,6 @@ class App extends React.Component {
 
     render() {
         const isLoggedIn = this.state.isLoggedIn;
-        //debug zone:
-        console.log("App.js running isLoggedIn is", this.state.isLoggedIn);
-        ///
 
         if (!isLoggedIn) {
             return (

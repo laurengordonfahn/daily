@@ -61,9 +61,6 @@ class Calendar extends React.Component {
 
     ////// componentWillMount ///////
     setIntialDate() {
-        // debug zone
-        console.log("setIntial date is running 3");
-        ///
         const today = new Date();
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
@@ -80,16 +77,11 @@ class Calendar extends React.Component {
     }
     
     fillDateContentSuccess(response) {
-        console.log("fillDateContentSuccess month, year", this.state.month, this.state.year);
 
         if (response.status === "ok") {
-            //debug zone:
-            console.log("fillDateContent Response Running", {
-                response
-            });
-            ///
+            
             this.setState({ dayContent: response["dayContent"] });
-            console.log("dayContent after updated", this.state.dayContent);
+            
         }
     
     }
@@ -101,8 +93,7 @@ class Calendar extends React.Component {
 
 
     fillDateRangeSuccess(response) {
-        console.log("fillDateRangeSuccess Response Running", { response });
-        ///
+        
         if (response["status"] === "ok") {
             let dRange = this.state.dateRange.slice();
             for (var i = 0; i < dRange.length; i++) {
@@ -111,7 +102,6 @@ class Calendar extends React.Component {
             response["dateRange"].forEach(date => {
                 dRange.push(date);
             });
-            console.log({ dRange });
             this.setState({ dateRange: dRange });
         }
     }
@@ -122,12 +112,7 @@ class Calendar extends React.Component {
     }
 
     fillDateArraySuccess(response) {
-        //debug zone:
-        console.log("fillDateContentSuccess month, year", this.state.month, this.state.year);
-        ///
-        
-        console.log("fillDateArray Response Running", { response });
-        ///
+
         if (response["status"] === "ok") {
             let days = this.state.dateArray.slice();
             for (var i = 0; i < days.length; i++) {
@@ -136,12 +121,7 @@ class Calendar extends React.Component {
             response["dateArray"].forEach(date => {
                 days.push(date);
             });
-            console.log({ days });
             this.setState({ dateArray: days });
-            console.log(
-                " dateArray at end of fillDateArray ",
-                this.state.dateArray
-            );
         }
     
     }
@@ -183,7 +163,6 @@ class Calendar extends React.Component {
                 let addDict = {}
                 addDict[colorDict["colorId"]] = colorDict["emotion"]
                 colorOrder.push(addDict);
-                console.log("colorOrder in success", {colorOrder})
             });
             this.setState(
                 { colorArr : colorArray, colorOrder : colorOrder}
@@ -216,7 +195,6 @@ class Calendar extends React.Component {
 
     fillColorChartSuccess(response){
         const colorOrder = this.state.colorOrder;
-        console.log("fillColorChart success", {colorOrder});
         const colorArr = this.state.colorArr;
         let emotionInfo = {};
         colorArr.forEach(function(colorDict) {
@@ -229,20 +207,13 @@ class Calendar extends React.Component {
 
         });
 
-        console.log({emotionInfo});
-        console.log({response});
-        //response = [emotion: {before:[- num], after: [+ num]}, etc]
         let colorHexs =[];
         
         response.forEach(function(emotionDict){
             const emotion = Object.keys(emotionDict)[0];
             colorHexs.push(emotionInfo[emotion]["colorHex"]);
 
-            const colorId = emotionInfo[emotion]["colorId"];
-
- 
         });
-        console.log({colorHexs});
 
         let emotionArr = [];
 
@@ -252,17 +223,14 @@ class Calendar extends React.Component {
  
         });
 
-        console.log({emotionArr});
 
         let colorChart = {};
         response.forEach(function(emotionDict){
-            console.log("this is the emotion dict", emotionDict);
             const emotionName = Object.keys(emotionDict)[0];
             colorChart[emotionName] = {"after": emotionDict[emotionName]["after"], "before": emotionDict[emotionName]["before"],"colorHexs": colorHexs, "emotionArr" : emotionArr}
         });
 
         this.setState({colorChart: colorChart});
-        console.log("fillColorChartSuccess", {colorChart});
         let profile = this.state.profile;
         this.setState({ profile: !profile });
     }
@@ -291,17 +259,8 @@ class Calendar extends React.Component {
     //Day functionality
 
     updateAdj(newVal, ElemName, dayDate) {
-        //debugger zone
-        console.log(
-            "updateAjd in calender.js",
-            { newVal },
-            { ElemName },
-            { dayDate }
-        );
 
         const dayState = { ...this.state.dayContent };
-
-        console.log("dayContent", this.state.dayContent);
 
         dayState[dayDate][ElemName] = newVal;
 
@@ -312,7 +271,7 @@ class Calendar extends React.Component {
     }
 
     handleColorChangeSuccess(response) {
-        console.log(response);
+        console.log("handleColorChange", response);
     }
 
     handleColorChange(colorId, dayDate){
