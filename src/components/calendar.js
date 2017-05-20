@@ -187,10 +187,9 @@ class Calendar extends React.Component {
                 console.log("colorOrder in success", {colorOrder})
             });
             this.setState(
-                { colorArr : colorArray}
+                { colorArr : colorArray, colorOrder : colorOrder}
             );
 
-            this.setState({ colorOrder : colorOrder });
         } 
     }
 
@@ -215,20 +214,6 @@ class Calendar extends React.Component {
         this.fillDateArray(month, year);
     }
 
-    // Profile //
-    handleProfile(isLoggedIn) {
-        const profile = this.state.profile;
-        if (!profile && isLoggedIn ) {
-            // false profile change to true shows profile
-            this.fillColorChart();
-        } 
-        else if (profile && isLoggedIn ) {
-            // true profile change to false shows calendar
-            this.setState({ profile : !profile });
-        }
-
-    }
- 
 
     fillColorChartSuccess(response){
         const colorOrder = this.state.colorOrder;
@@ -287,10 +272,26 @@ class Calendar extends React.Component {
         const colorOrder = this.state.colorOrder;
         console.log("color order", colorOrder);
 
-        api.colorChart(this.state.colorOrder)
+        api.colorChart(colorOrder)
             .then(response => this.fillColorChartSuccess(response))
    
     }
+
+    // Profile //
+    handleProfile(isLoggedIn) {
+        const profile = this.state.profile;
+        if (!profile && isLoggedIn ) {
+            // false profile change to true shows profile
+            this.fillColorChart();
+        } 
+        else if (profile && isLoggedIn ) {
+            // true profile change to false shows calendar
+            this.setState({ profile : !profile });
+        }
+
+    }
+ 
+
 
     //Day functionality
 

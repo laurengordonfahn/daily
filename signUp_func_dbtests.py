@@ -54,7 +54,15 @@ class DBSignUpTests(unittest.TestCase):
         # self.assertFalse
         pass
 
-
+    def prep_signUp(self, email1, email2, password1, password2):
+        return self.app.post('/signUp', data=dict(
+                email1=email1,
+                email2=email2,
+                password1=password1,
+                password2=password2))
+    def test_signUp(self):
+        rv = self.prep_signUp("a@gmail.com", "a@gmail.com", "ab12345", "a12345")
+        
 
 
 if __name__ == '__main__':

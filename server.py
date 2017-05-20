@@ -291,12 +291,11 @@ def month_color():
 def calendar_chart():
 
     user_id = session['current_user']
-    colorOrder = request.args.get("colorOrder")
-
-    print ("colorOrder", colorOrder)
 
     if user_id:
-        return jsonify(create_emotion_count(user_id, [{1: "neutral"}, {2: "angry"}, {3: "happy"}, {4 :"joyful"}]))
+        # [{1: "neutral"}, {2: "angry"}, {3: "happy"}, {4 :"joyful"}]
+        return jsonify(create_emotion_count(user_id))
+
 
 
 @app.route('/signOut', methods=["DELETE"])

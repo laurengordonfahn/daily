@@ -99,6 +99,7 @@ export function handleColorChangeDB(colorId, dayDate) {
 export function colorChart(colorOrder) {
     return $.ajax({
         url: "/calendar/chart",
+        type: "get",
         dataType: "json",
         cache: false,
         data: { colorOrder: colorOrder}
