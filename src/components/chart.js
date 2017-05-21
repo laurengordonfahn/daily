@@ -14,12 +14,14 @@ class Chart extends React.Component {
 
         const arrLen = colorChart[emotion]["emotionArr"].length
         const borderArr = Array.apply(null, Array(arrLen)).map(String.prototype.valueOf,"black")
+
+        const emotionName = emotion.charAt(0).toUpperCase() + emotion.slice(1);
         
         const dataAfter = {
                 labels: colorChart[emotion]["emotionArr"],
                 datasets: [
                     {
-                        label: `${emotion} After`,
+                        label: `${emotionName} After`,
                         data: colorChart[emotion]["after"], 
                         backgroundColor: colorChart[emotion]["colorHexs"],
                         borderColor: borderArr,
@@ -33,7 +35,7 @@ class Chart extends React.Component {
                 labels: colorChart[emotion]["emotionArr"],
                 datasets: [
                     {
-                        label: `${emotion} Before`,
+                        label: `${emotionName} Before`,
                         data: colorChart[emotion]["before"], 
                         backgroundColor: colorChart[emotion]["colorHexs"],
                         borderColor:borderArr,
@@ -44,6 +46,7 @@ class Chart extends React.Component {
                 ]
         };
         const options = {
+                legend: {labels:{fontColor:"black", fontSize: 18}},
                 scales: {
                     yAxes: [{
                         ticks: {
