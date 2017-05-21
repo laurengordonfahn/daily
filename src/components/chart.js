@@ -10,7 +10,10 @@ class Chart extends React.Component {
     renderGraphs(emotion, colorChart){
         console.log("colorChart for render graph", {colorChart}, {emotion})
 
-        console.log(colorChart[emotion]["emotionArr"], colorChart[emotion]["after"], colorChart[emotion]["colorHexs"]);
+        console.log(colorChart[emotion]["emotionArr"], colorChart[emotion]["after"], colorChart[emotion]["before"], colorChart[emotion]["colorHexs"]);
+
+        const arrLen = colorChart[emotion]["emotionArr"].length
+        const borderArr = Array.apply(null, Array(arrLen)).map(String.prototype.valueOf,"black")
         
         const dataAfter = {
                 labels: colorChart[emotion]["emotionArr"],
@@ -18,62 +21,44 @@ class Chart extends React.Component {
                     {
                         label: `${emotion} After`,
                         data: colorChart[emotion]["after"], 
-                        backgroundColor: colorChart[emotion]["colorHexs"]
-                           ,
-                        borderColor:colorChart[emotion]["colorHexs"],
-                        borderWidth: 1,
-                        scaleStepWidth:1,
-                        barThickness: 50,
-                        fixedStepSize: 1,
-                        stepSize: 1,
-                        max: 5, 
-                        min: 5
+                        backgroundColor: colorChart[emotion]["colorHexs"],
+                        borderColor: borderArr,
+                        borderWidth: 1
+                    
 
                     }
                 ]
         };
         const dataBefore = {
-                labels: colorChart[emotion]["emoitonArr"],
+                labels: colorChart[emotion]["emotionArr"],
                 datasets: [
                     {
                         label: `${emotion} Before`,
                         data: colorChart[emotion]["before"], 
-                        backgroundColor: colorChart[emotion]["colorHexs"]
-                           ,
-                        borderColor:colorChart[emotion]["colorHexs"],
+                        backgroundColor: colorChart[emotion]["colorHexs"],
+                        borderColor:borderArr,
                         borderWidth: 1,
-                        scaleStepWidth:1,
-                        barThickness: 50,
-                        fixedStepSize: 1,
-                        stepSize: 1,
-                        max: 5,
-                        min: 5
 
+                        
                     }
                 ]
         };
         const options = {
                 scales: {
-                    // maintainAspectRatio: false,
                     yAxes: [{
                         ticks: {
-                            beginAtZero:true,
-                            scaleStepWidth:1,
-                            // barThickness: 50,
-                            fixedStepSize: 1,
-                            stepSize: 1,
-                            // max: 5
-
+                            beginAtZero:true, 
+                            // scaleStepWidth:1,
+                            // fixedStepSize: 1,
+                            // stepSize: 1
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             beginAtZero:true,
                             scaleStepWidth:1,
-                            // barThickness: 50,
                             fixedStepSize: 1,
-                            stepSize: 1,
-                            // max: 5
+                            stepSize: 1
 
                         }
                     }]
@@ -105,8 +90,6 @@ class Chart extends React.Component {
             </div>
                 
         );
-
-
     }
 }
 
