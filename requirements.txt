@@ -9,6 +9,7 @@ click==6.6
 Flask==0.12
 Flask-Bcrypt==0.7.1
 Flask-DebugToolbar==0.10.0
+Flask-JWT==0.3.2
 flask-marshmallow==0.7.0
 Flask-SQLAlchemy==2.1
 glob2==0.5
@@ -23,6 +24,7 @@ ordereddict==1.1
 packaging==16.8
 psycopg2==2.6.2
 pycparser==2.17
+PyJWT==1.4.2
 pyparsing==2.2.0
 pytz==2016.10
 PyYAML==3.10

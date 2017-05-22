@@ -1,7 +1,6 @@
 from flask import (Flask, request, render_template, redirect, flash, session, jsonify)
 # from flask.errorhandler import ErrorHandler
-from flask_jwt import JWT, jtw_required, current_identity
-from werkzeug.security import safe_str_cmp
+from flask_jwt import JWT, jwt_required, current_identity
 import json
 
 from flask_debugtoolbar import DebugToolbarExtension
@@ -36,25 +35,16 @@ ma = Marshmallow(app)
 
 app.secret_key = "pouring monday"
 
-class User(object):
-    def __init__(self, id, username, password):
-        self.id = idself.username=username
-        self.password = password
+def authenticate(username, password):
+    user=User.query.filter_by(email=username).first()
+    if confirm_password(username, password, app):
+        return user
 
-    def __str__(self):
-        return "User(id='%s')" % self.id
+def identity(payload):
+    user_id = payload['identity']
+    return User.query.filter_by(username=username).first()
 
-    def authenticate(username, password):
-        user=User.query.filter_by(username=username, password=password).first()
-
-       if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
-            return user
-
-    def identity(payload):
-        user_id = payload['identity']
-        return User.query.filter_by(username=username, password=password).first().id
-
-jwt =JWT(app, authenticate, identity)
+jwt=JWT(app, authenticate, identity)
 
 ###################### class for Marshmellow #############################
 class UserSchema(ma.Schema):
@@ -92,7 +82,7 @@ users_schema = UserSchema(many=True)
 #         }
 #     }
 #     return jsonify(response)
-@app.route('protected')
+@app.route('/protected')
 @jwt_required()
 def protected():
     return '%s' % current_identity

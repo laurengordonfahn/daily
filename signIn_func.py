@@ -14,7 +14,7 @@ def confirm_password(email, password, app):
     
     return Bcrypt(app).check_password_hash(user.password, password)
 
-def confirm_signIn_info( email, password, app):
+def confirm_signIn_info(email, password, app):
     notices = {}
 
     if not email_in_db(email):
