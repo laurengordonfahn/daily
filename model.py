@@ -3,11 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 import pytz 
 #for onupdate
 import datetime
+import os
 
 db = SQLAlchemy()
 
 def connect_to_db(app, url = 'postgresql:///daily'):
     """ Connect the database to our Flask app. """
+
+    if 'DATABASE_URL' in os.environ:
+        url = os.environ['DATABASE_URL']
+
     app.config['SQLALCHEMY_DATABASE_URI'] = url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
