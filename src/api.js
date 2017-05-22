@@ -28,18 +28,22 @@ export function signIn(email, password) {
             email: email,
             password: password
         },
-        xhrFields: {
-            withCredentials: true
+        success: (response) => {
+            window.sessionStorage.setItem("accessToken", response["access_token"]);
         },
-        crossDomain: true,
     });
 }
 
 export function signOut() {
+    const accessToken = window.sessionStorage.getItem("accessToken")
+    window.sessionStorage.clear();
     return $.ajax({
         url: "/signOut",
         type: "DELETE",
-        cache: false
+        cache: false,
+        data: {
+            access_token: accessToken
+        }
     });
 }
 
@@ -80,11 +84,15 @@ export function colorArr() {
 }
 
 export function updateAdjDB(dayDate, newVal, ElemName) {
+    const accessToken = window.sessionStorage.getItem('accessToken');
     return $.ajax({
         url: "/month/adj",
         dataType: "json",
         type: "post",
         cache: false,
+        beforeSend(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken)
+        },
         data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName }
     });
 }

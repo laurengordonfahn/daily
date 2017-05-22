@@ -42,9 +42,11 @@ def authenticate(username, password):
 
 def identity(payload):
     user_id = payload['identity']
-    return User.query.filter_by(username=username).first()
+    return User.query.filter_by(id=user_id).first()
 
 jwt=JWT(app, authenticate, identity)
+
+
 
 ###################### class for Marshmellow #############################
 class UserSchema(ma.Schema):
@@ -130,6 +132,7 @@ def signUp():
 
 
 @app.route('/signIn', methods=["POST"])
+@jwt.auth_request_handler
 def signIn():
     
     """ Check if Email in DB
@@ -139,7 +142,6 @@ def signIn():
                         notices: 'email or password are not valid',
                         isLoggedIn: boolean }
     """
-
     clear_old_session()
 
     email = request.form.get("email")
@@ -154,11 +156,22 @@ def signIn():
 
     #TODO: Handle Error Messages status: "error" error: {code/msg}
     notices = confirm_signIn_info(email, password, app)
+
+    identity = jwt.authentication_callback(email, password)
+
+    if identity:
+        access_token = jwt.jwt_encode_callback(identity)
+        response["access_token"] = access_token
+    else:
+        notices['JWT Error'] = 'Invalid Credentials'
+
     if len(notices) > 0: 
         response["notices"] = notices   
     else: 
         add_to_session(email)
         response["isLoggedIn"] = True
+
+
 
     return jsonify(response)
 
@@ -243,12 +256,12 @@ def month_days():
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 
-    
 @app.route('/month/adj', methods=["POST"])
+@jwt_required()
 def month_adj():
     """ Update DB with new adjective """
 
-    user_id = session['current_user']
+    user_id = current_identity.id
     dayDate = request.form.get("dayDate")
     newVal = request.form.get("newVal")
     elemName = request.form.get("ElemName")

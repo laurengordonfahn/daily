@@ -11,16 +11,21 @@ import * as api from '../api'
 class App extends React.Component {
     constructor() {
         super();
+
+        const accessToken = window.sessionStorage.getItem("accessToken");
+        this.state = {
+            isLoggedIn: !!accessToken,
+            statusMsg: {}, 
+            accessToken: accessToken || null,
+        };
+
         this.clearStatus = this.clearStatus.bind(this);
         this.onSignUp = this.onSignUp.bind(this);
         this.onSignIn = this.onSignIn.bind(this);
         this.onSignOut = this.onSignOut.bind(this);
     }
 
-    state = {
-        isLoggedIn: false,
-        statusMsg: {}
-    };
+    
 
     clearStatus() {
         this.props.setTimeout(
@@ -84,21 +89,16 @@ class App extends React.Component {
 
             this.setState({ statusMsg: response["notices"] });
             this.clearStatus();
-        } else if (status === "ok" && response["isLoggedIn"] === true) {
-            this.setState({ isLoggedIn: response["isLoggedIn"] });
 
+        } else if (status === "ok" && response["isLoggedIn"] === true) {
+            this.setState({ isLoggedIn: response["isLoggedIn"], accessToken : response["access_token"] });
         }
 
     }
 
     onSignIn(email, password) {
         api.signIn(email, password)
-            .then((response, status, xhr) => { 
-                debugger;
-                const cookieHeader = xhr.getResponseHeader("set-cookie")
-                console.log({cookieHeader})
-                this.onSignInSuccess(response)
-            })
+            .then(response => this.onSignInSuccess(response))
     }
 
     /// SignOut ////
