@@ -3,17 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "proxy": "http://localhost:5000",
-  "devDependencies": {
-    "react-scripts": "^0.9.5",
-    "react-test-renderer": "^15.5.4"
-  },
+  "devDependencies": {},
   "dependencies": {
     "chart.js": "^2.5.0",
     "jquery": "^3.2.1",
     "react": "^15.5.4",
     "react-chartjs-2": "^2.1.0",
     "react-dom": "^15.5.4",
-    "react-timeout": "^1.0.0"
+    "react-timeout": "^1.0.0",
+    "react-scripts": "^0.9.5",
+    "react-test-renderer": "^15.5.4"
   },
   "scripts": {
     "start": "react-scripts start",
