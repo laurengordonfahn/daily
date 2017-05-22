@@ -27,7 +27,11 @@ export function signIn(email, password) {
         data: {
             email: email,
             password: password
-        }
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
     });
 }
 

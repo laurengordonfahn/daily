@@ -1,6 +1,7 @@
 from flask import (Flask, request, render_template, redirect, flash, session, jsonify)
 # from flask.errorhandler import ErrorHandler
-
+from flask_jwt import JWT, jtw_required, current_identity
+from werkzeug.security import safe_str_cmp
 import json
 
 from flask_debugtoolbar import DebugToolbarExtension

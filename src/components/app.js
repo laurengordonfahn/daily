@@ -33,12 +33,11 @@ class App extends React.Component {
 
     // // // FOR LOCAL TESTING ONLY
     componentDidMount() {
-        this.onSignInSuccess("b@gmail.com", "b12345");
+        // this.onSignInSuccess("b@gmail.com", "b12345");
     }
 
     /// SignUp ////
     onSignUpSuccess(response) {
-
         const notices = response["notices"];
         if (!response["isLoggedIn"]) {
 
@@ -94,7 +93,12 @@ class App extends React.Component {
 
     onSignIn(email, password) {
         api.signIn(email, password)
-            .then(response => this.onSignInSuccess(response))
+            .then((response, status, xhr) => { 
+                debugger;
+                const cookieHeader = xhr.getResponseHeader("set-cookie")
+                console.log({cookieHeader})
+                this.onSignInSuccess(response)
+            })
     }
 
     /// SignOut ////
@@ -109,7 +113,7 @@ class App extends React.Component {
     onSignOut() {
         api.signOut()
             .then(response => this.onSignOutSuccess(response))
-    }
+    } 
 
     render() {
         const isLoggedIn = this.state.isLoggedIn;
