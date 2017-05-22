@@ -305,6 +305,7 @@ def signOut():
     return jsonify({"status" : "ok"})
 
 if __name__ == "__main__":
+    import sys
 
     app.debug = True
 
@@ -312,4 +313,7 @@ if __name__ == "__main__":
 
     DebugToolbarExtension(app)
 
-    app.run(host="0.0.0.0", port=5000)
+    port='5000'
+    if len(sys.argv) > 0:
+        port = sys.argv[1]
+    app.run(host="0.0.0.0", port=int(port))
