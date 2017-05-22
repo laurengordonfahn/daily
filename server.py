@@ -307,13 +307,15 @@ def signOut():
 if __name__ == "__main__":
     import sys
 
-    app.debug = True
+    app.debug = True 
 
     connect_to_db(app)
 
     DebugToolbarExtension(app)
 
+    
+    DEBUG = "No_DEBUG" not in os.environ
     port='5000'
     if len(sys.argv) > 0:
         port = sys.argv[1]
-    app.run(host="0.0.0.0", port=int(port))
+    app.run(host="0.0.0.0", port=int(port), debug=DEBUG)
