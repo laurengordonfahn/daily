@@ -271,7 +271,7 @@ def month_days():
 @jwt_required()
 def month_adj():
     """ Update DB with new adjective """
-    
+
     user_id = current_identity.id
     print ("month ajd user_id", user_id)
     dayDate = request.form.get("dayDate")

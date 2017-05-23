@@ -94,10 +94,10 @@ export function updateAdjDB(dayDate, newVal, ElemName) {
         dataType: "json",
         type: "post",
         cache: false,
-        // beforeSend: function(xhr) {
-        //     xhr.setRequestHeader("Authorization", "JWT " + accessToken);
-        // },
-        headers: {"Authorization": "JWT " + accessToken},
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        },
+        // headers: {"Authorization": "JWT " + accessToken},
         data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
         success: (response) => {
             window.sessionStorage.setItem("accessToken", response["access_token"]);
