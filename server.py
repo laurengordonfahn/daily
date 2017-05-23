@@ -122,11 +122,23 @@ def signUp():
         "notices" : d,
         "isLoggedIn" : False
     }
+
     if len(notices) > 0 :
         response["notices"] = notices
     else:
-        signUp_db_session(email1, password1, app)
-        response["isLoggedIn"] = True
+        email = email1
+        password = password1
+        identity = jwt.authentication_callback(email, password)
+        print ("identity", identity)
+
+        if identity:
+            access_token = jwt.jwt_encode_callback(identity)
+            response["access_token"] = access_token
+            signUp_db_session(email1, password1, app)
+            response["isLoggedIn"] = True
+        else:
+            response['notices']['JWT Error'] = 'Invalid Credentials'
+       
 
     return jsonify(response)
 
@@ -170,8 +182,6 @@ def signIn():
     else: 
         add_to_session(email)
         response["isLoggedIn"] = True
-
-
 
     return jsonify(response)
 
