@@ -126,6 +126,8 @@ def signUp():
     if len(notices) > 0 :
         response["notices"] = notices
     else:
+        signUp_db_session(email1, password1, app)
+        response["isLoggedIn"] = True
         email = email1
         password = password1
         identity = jwt.authentication_callback(email, password)
@@ -134,8 +136,7 @@ def signUp():
         if identity:
             access_token = jwt.jwt_encode_callback(identity)
             response["access_token"] = access_token
-            signUp_db_session(email1, password1, app)
-            response["isLoggedIn"] = True
+            
         else:
             response['notices']['JWT Error'] = 'Invalid Credentials'
        
@@ -270,8 +271,9 @@ def month_days():
 @jwt_required()
 def month_adj():
     """ Update DB with new adjective """
-
+    
     user_id = current_identity.id
+    print ("month ajd user_id", user_id)
     dayDate = request.form.get("dayDate")
     newVal = request.form.get("newVal")
     elemName = request.form.get("ElemName")

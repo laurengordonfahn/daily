@@ -14,6 +14,9 @@ export function signUp(email1, email2, password1, password2) {
             email2: email2,
             password1: password1,
             password2: password2
+        },
+        success: (response) => {
+            window.sessionStorage.setItem("accessToken", response["access_token"]);
         }
     });
 }
@@ -30,7 +33,7 @@ export function signIn(email, password) {
         },
         success: (response) => {
             window.sessionStorage.setItem("accessToken", response["access_token"]);
-        },
+        }
     });
 }
 
@@ -85,15 +88,20 @@ export function colorArr() {
 
 export function updateAdjDB(dayDate, newVal, ElemName) {
     const accessToken = window.sessionStorage.getItem('accessToken');
+    console.log(accessToken)
     return $.ajax({
         url: "/month/adj",
         dataType: "json",
         type: "post",
         cache: false,
-        beforeSend(xhr) {
-            xhr.setRequestHeader("Authorization", "JWT " + accessToken)
-        },
-        data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName }
+        // beforeSend: function(xhr) {
+        //     xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        // },
+        headers: {"Authorization": "JWT " + accessToken},
+        data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
+        success: (response) => {
+            window.sessionStorage.setItem("accessToken", response["access_token"]);
+        }
     });
 }
 
