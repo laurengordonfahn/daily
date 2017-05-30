@@ -30,6 +30,9 @@ import datetime
 
 
 app = Flask(__name__, template_folder='./public/')
+
+app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(30)
+
 bcrypt = Bcrypt(app)
 #for marshmellow searliazer to work
 ma = Marshmallow(app)
