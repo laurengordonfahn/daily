@@ -34,7 +34,7 @@ class Month extends React.Component {
             />
           </div>
           <div className="monthInfo">
-            <h3 className="monthTitle"> {this.translateMonthName(month)} </h3> 
+            <h3 className="monthTitle"> {this.translateMonthName(month -1)} </h3>
 
             <h3 className="year">{this.props.year}</h3>
           </div>
