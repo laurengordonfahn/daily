@@ -2,6 +2,7 @@ from flask import (Flask, request, render_template, redirect, flash, session, js
 # from flask.errorhandler import ErrorHandler
 from flask_jwt import JWT, jwt_required, current_identity
 import json
+import pdb
 
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_bcrypt import Bcrypt
@@ -188,6 +189,7 @@ def signIn():
 
 
 @app.route('/month/content', methods=["POST", "GET"])
+@jwt_required()
 def month_content():
     """ Retrieve DB Info for today's month/year for intial load
         Return json of date:{adj1: adj, adj2: adj, adj3: adj, color: hex}
@@ -216,10 +218,14 @@ def month_content():
 
     
 @app.route('/calendar/options')
+@jwt_required()
 def calendar_options():
     """ Retrieve all date history from DB
         Return json of dateHistory:[month-year, month-year, etc]
     """
+
+    pdb.set_trace()
+
     user_id = session['current_user']
 
     if user_id:
@@ -241,6 +247,7 @@ def calendar_options():
     #TODO How handle if no user- id send to homepage but notices?
 
 @app.route('/month/days')
+@jwt_required()
 def month_days():
     """ Retrieve all dates of a given month/year
         Return json of dateArray:[day-month-year, day-month-year, etc]
@@ -291,6 +298,7 @@ def month_adj():
 
 
 @app.route('/calendar/color')
+@jwt_required()
 def calendar_color():
     """ Retrieve all color info from DB
         Return [{id: id, color:color, emoiton:emotion}, etc]
@@ -311,6 +319,7 @@ def calendar_color():
 
 
 @app.route('/month/color', methods=["POST"])
+@jwt_required()
 def month_color():
     """ Update the DB with a color choice for a given day"""
 
@@ -324,6 +333,7 @@ def month_color():
 
 
 @app.route('/calendar/chart')
+@jwt_required()
 def calendar_chart():
 
     user_id = session['current_user']
