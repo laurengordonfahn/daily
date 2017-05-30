@@ -97,6 +97,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/signUp', methods=['POST'])
+@jwt.auth_request_handler
 def signUp():
     """ Check Valid Input
         Raise exception if invalid or
@@ -221,7 +222,7 @@ def calendar_options():
         Return json of dateHistory:[month-year, month-year, etc]
     """
 
-    pdb.set_trace()
+    # pdb.set_trace()
 
     user_id = current_identity.id
 
