@@ -3,7 +3,7 @@ import React from 'react';
 function Welcome(props) {
 
     return(
-        <div id="explaination">
+        <div id="explanation">
 
             <div className="intro">  
                 <h2> The Steps: </h2>

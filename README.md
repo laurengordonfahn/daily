@@ -8,7 +8,7 @@ Daily makes tracking and understanding your emotional health easier.
 
 It is hard to keep a dairy, even harder to keep track of and understand your emotional health trends.
 
-With daily for each day chose an emotion with matching color to summerize the day's emotions. Add three adjectives to desribe your day quickly for your own personal reflection. 
+With daily for each day chose an emotion with matching color to summarize the day's emotions. Add three adjectives to describe your day quickly for your own personal reflection. 
 
 Daily's profile feature automatically offers informative charts to follow your emotional trends and patterns based on your historical input. 
 
@@ -27,7 +27,7 @@ Daily is a flask-python restful API with a node.js React frontend application.
 This means that you will need python, node, and create-react-app dependencies. 
 Python's dependencies are found in requirements.txt. You will need python's pip installer to run requirements.txt. Node and React's dependencies are found in package.json. You will need either node's npm or yarn installer to successfully download the libraries noted in packages.json.
 
-#Prerquisties Steps:
+#Prerequisites Steps:
 1) Download the project in a directory of its own. Navigate into the new directory and type in the following command.  
 
     $ git clone https://github.com/laurengordonfahn/daily.git
@@ -87,7 +87,7 @@ six==1.10.0
 SQLAlchemy==1.1.4
 Werkzeug==0.11.1
 ```
-6) Download package.json dependencies using yarn OR npm. The following command will source all dependencies in package.json. If you are not certain if you have yarn visit https://yarnpkg.com/lang/en/docs/install/.  Yarn will create yarn.lock which will show you all subdependencies utilized. Yarn also offeres 'yarn upgrade' a command that will help you keep dependency libraries uptodate. 
+6) Download package.json dependencies using yarn OR npm. The following command will source all dependencies in package.json. If you are not certain if you have yarn visit https://yarnpkg.com/lang/en/docs/install/.  Yarn will create yarn.lock which will show you all subdependencies utilized. Yarn also offers 'yarn upgrade' a command that will help you keep dependency libraries uptodate. 
 ```
     $ yarn install
 ```
@@ -126,11 +126,11 @@ If using npm :
 
 8) Note that package.json was first sourced off of create-react-app. If you want to read more: https://github.com/facebookincubator/create-react-app/blob/master/README.md.
 This project uses webpack to building all frontend files.
-In packages.json devDependencies is empty but before this project was deployed held the react-scripts requirement found now in dependencies. This change enabled deployement in build mode. 
+In packages.json devDependencies is empty but before this project was deployed held the react-scripts requirement found now in dependencies. This change enabled deployment in build mode. 
 
 ```
 ## Installing:
-1) create a database using postgres and source the database. To learn more about postgres: https://www.postgresql.org/download/. The seed.py file containes basic color options for your calendar and is essential. 
+1) create a database using postgres and source the database. To learn more about postgres: https://www.postgresql.org/download/. The seed.py file contains basic color options for your calendar and is essential. 
 ``` 
     $ createdb daily
     $ python model.py
@@ -166,7 +166,7 @@ If using npm
 * SqlAlchemy- Database Toolkit for python (ORM)
 * PostgreSQL- Object Relational Database System
 * Unittest- Python Testing Framework
-* Flask Unittest - Flask-Server Testing Framework (under construciton) 
+* Flask Unittest - Flask-Server Testing Framework (under construction) 
 * Javascript- Front end language
 * React - Front end Framework
 * JQuery- Javascript Library

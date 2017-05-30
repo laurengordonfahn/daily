@@ -16,9 +16,9 @@ def load_colorset():
     joyful = Colorset(user=0, emotion='joyful', colorHex='#ff9999', colorName="soft pink")
     calm = Colorset(user=0, emotion='calm', colorHex='#bae3f2', colorName="light blue")
     sad = Colorset(user=0, emotion='sad', colorHex='#336699', colorName="grey blue")
-    quite = Colorset(user=0, emotion='quite', colorHex='#c1f2ba', colorName="light green")
+    quite = Colorset(user=0, emotion='quiet', colorHex='#c1f2ba', colorName="light green")
     lonely = Colorset(user=0, emotion='lonely', colorHex='#d0d0e5', colorName="light purple")
-    confussed = Colorset(user=0, emotion='confussed', colorHex='#30c942', colorName="vibrant green")
+    confussed = Colorset(user=0, emotion='confused', colorHex='#30c942', colorName="vibrant green")
     anxious = Colorset(user=0, emotion='anxious', colorHex='#962686', colorName="magenta")
     trapped = Colorset(user=0, emotion='trapped', colorHex='#ffa024', colorName="orange")
     
