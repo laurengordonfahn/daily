@@ -51,11 +51,15 @@ export function signOut() {
 }
 
 export function dateContent(month, year) {
+    const accessToken = window.sessionStorage.getItem("accessToken")
     return $.ajax({
         url: "/month/content",
         type: "POST",
         dataType: "json",
         cache: false,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        },
         data: {
             month: month,
             year: year
@@ -64,25 +68,37 @@ export function dateContent(month, year) {
 }
 
 export function dateRange() {
+    const accessToken = window.sessionStorage.getItem('accessToken');
     return $.ajax({
         url: "/calendar/options",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        },
         cache: false
     });
 }
 
 export function dateArray(month, year) {
+    const accessToken = window.sessionStorage.getItem("accessToken")
     return $.ajax({
         url: "/month/days",
         dataType: "json",
         data: { month: month, year: year },
-        cache: false
+        cache: false,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        }
     });
 }
 
 export function colorArr() {
+    const accessToken = window.sessionStorage.getItem("accessToken")
     return $.ajax({
         url: "/calendar/color",
-        cache: false
+        cache: false,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        }
     });
 }
 
@@ -100,28 +116,36 @@ export function updateAdjDB(dayDate, newVal, ElemName) {
         // headers: {"Authorization": "JWT " + accessToken},
         data: { dayDate: dayDate, newVal: newVal, ElemName: ElemName },
         success: (response) => {
-            window.sessionStorage.setItem("accessToken", response["access_token"]);
+            //window.sessionStorage.setItem("accessToken", response["access_token"]);
         }
     });
 }
 
 export function handleColorChangeDB(colorId, dayDate) {
+    const accessToken = window.sessionStorage.getItem("accessToken") 
     return $.ajax({
         url: "/month/color",
         dataType: "json",
         type: "post",
         cache: false,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        },
         data: { dayDate: dayDate, colorId: colorId }
     });
 }
 
 
 export function colorChart(colorOrder) {
+    const accessToken = window.sessionStorage.getItem("accessToken")
     return $.ajax({
         url: "/calendar/chart",
         type: "get",
         dataType: "json",
         cache: false,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "JWT " + accessToken);
+        },
         data: { colorOrder: colorOrder}
     });
 }
