@@ -1,5 +1,6 @@
 import React from "react";
 import ReactTimeout from "react-timeout";
+import HttpsRedirect from 'react-https-redirect';
 
 // import $ from "jquery";
 
@@ -120,24 +121,26 @@ class App extends React.Component {
 
         if (!isLoggedIn) {
             return (
-                
-                <HomePage
-                    msg={this.state.statusMsg}
-                    clearStatus={this.clearStatus}
-                    onSignIn={this.onSignIn}
-                    onSignUp={this.onSignUp}
-                />
-               
+                <HttpsRedirect>   
+                    <HomePage
+                        msg={this.state.statusMsg}
+                        clearStatus={this.clearStatus}
+                        onSignIn={this.onSignIn}
+                        onSignUp={this.onSignUp}
+                    />
+                </HttpsRedirect>                
             );
         }
 
         return (
-            <Calendar
-                isLoggedIn={this.state.isLoggedIn}
-                msg={this.state.statusMsg}
-                clearStatus={this.clearStatus}
-                onSignOut={this.onSignOut}
-            />
+            <HttpsRedirect> 
+                <Calendar
+                    isLoggedIn={this.state.isLoggedIn}
+                    msg={this.state.statusMsg}
+                    clearStatus={this.clearStatus}
+                    onSignOut={this.onSignOut}
+                />
+            </HttpsRedirect> 
         );
     }
 }

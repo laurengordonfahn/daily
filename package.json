@@ -10,9 +10,10 @@
     "react": "^15.5.4",
     "react-chartjs-2": "^2.1.0",
     "react-dom": "^15.5.4",
-    "react-timeout": "^1.0.0",
+    "react-https-redirect": "^1.0.9",
     "react-scripts": "^0.9.5",
-    "react-test-renderer": "^15.5.4"
+    "react-test-renderer": "^15.5.4",
+    "react-timeout": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
