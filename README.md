@@ -10,13 +10,13 @@ It is hard to keep a dairy, even harder to keep track of and understand your emo
 
 With daily for each day chose an emotion with matching color to summerize the day's emotions. Add three adjectives to desribe your day quickly for your own personal reflection. 
 
-Daily's profile feature automatically offers informative charts to follow your emotional trends and patterns based on your input. 
+Daily's profile feature automatically offers informative charts to follow your emotional trends and patterns based on your historical input. 
 
 ##Features:
-1) Personal monthly calendar that keeps track of your day's through breif description and choice of emotional trend word. Colorized for at a glance reflection.
+1) Personal monthly calendar that keeps track of your emotional health through brief description and choice of emotional trend word. Colorized for at a glance reflection.
 2) Drop down menu access to previous months inputs.
 3) Profile feature offers graphical reflections of all of your previous input.
-4) Easy and secure signUp/SignIn/LogOut
+4) Easy and secure signUp/SignIn/SignOut
 
 ## Getting Started:
 
@@ -87,7 +87,7 @@ six==1.10.0
 SQLAlchemy==1.1.4
 Werkzeug==0.11.1
 ```
-6) Download package.json dependencies using yarn OR npm. If you are not certain if you have yarn visit https://yarnpkg.com/lang/en/docs/install/. The following command will source all dependencies in package.json. Yarn will create yarn.lock which will show you all subdependencies utilized. Yarn also offeres Yarn upgrade a command that will help you keep dependency libraries uptodate. 
+6) Download package.json dependencies using yarn OR npm. The following command will source all dependencies in package.json. If you are not certain if you have yarn visit https://yarnpkg.com/lang/en/docs/install/.  Yarn will create yarn.lock which will show you all subdependencies utilized. Yarn also offeres 'yarn upgrade' a command that will help you keep dependency libraries uptodate. 
 ```
     $ yarn install
 ```
