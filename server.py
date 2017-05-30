@@ -108,8 +108,6 @@ def signUp():
                }
     """
     
-    clear_old_session()
-
     email1 = request.form.get("email1")
     email2 = request.form.get("email2")
     password1 = request.form.get("password1")
@@ -156,7 +154,6 @@ def signIn():
                         notices: 'email or password are not valid',
                         isLoggedIn: boolean }
     """
-    clear_old_session()
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -194,26 +191,26 @@ def month_content():
     """ Retrieve DB Info for today's month/year for intial load
         Return json of date:{adj1: adj, adj2: adj, adj3: adj, color: hex}
     """
-    if session['current_user']:
+    
+    user_id = current_identity.id
+    month = request.form.get("month")
+    year = request.form.get("year")
+    
+    
+    if not is_month(month, year, user_id):
+        establish_month(month, year, user_id)
 
-        month = request.form.get("month")
-        year = request.form.get("year")
-        user_id = session['current_user']
-        
-        if not is_month(month, year, user_id):
-            establish_month(month, year, user_id)
+    dayContentDict = format_day_content(month, year, user_id)
 
-        dayContentDict = format_day_content(month, year, user_id)
-
-        d = collections.defaultdict(dict)
-        response = {
-            "status": "ok",
-            "dayContent" : d
-        }
-        
-        if dayContentDict:
-            response["dayContent"] = dayContentDict
-        
+    d = collections.defaultdict(dict)
+    response = {
+        "status": "ok",
+        "dayContent" : d
+    }
+    
+    if dayContentDict:
+        response["dayContent"] = dayContentDict
+    
     return jsonify(response)
 
     
@@ -226,7 +223,7 @@ def calendar_options():
 
     pdb.set_trace()
 
-    user_id = session['current_user']
+    user_id = current_identity.id
 
     if user_id:
         response = {
@@ -252,7 +249,7 @@ def month_days():
     """ Retrieve all dates of a given month/year
         Return json of dateArray:[day-month-year, day-month-year, etc]
     """
-    user_id = session['current_user']
+    user_id = current_identity.id
     month = request.args.get("month")
     year = request.args.get("year")
     
@@ -304,7 +301,7 @@ def calendar_color():
         Return [{id: id, color:color, emoiton:emotion}, etc]
     """
 
-    user_id = session['current_user']
+    user_id = current_identity.id
     response = {
         "status" : None,
         "colorResponse" : []  
@@ -323,7 +320,7 @@ def calendar_color():
 def month_color():
     """ Update the DB with a color choice for a given day"""
 
-    user_id = session['current_user']
+    user_id = current_identity.id
     colorId = request.form.get("colorId")
     dayDate = request.form.get("dayDate")
 
@@ -336,7 +333,7 @@ def month_color():
 @jwt_required()
 def calendar_chart():
 
-    user_id = session['current_user']
+    user_id = current_identity.id
 
     if user_id:
         
@@ -349,7 +346,7 @@ def signOut():
     """ Clear Session
         Return json of status: 'you have signed out' isLoggedIn: false
     """
-
+    #TODO how do I clear the jwt since i don't have a session anymore
     clear_old_session()
 
     return jsonify({"status" : "ok"})
