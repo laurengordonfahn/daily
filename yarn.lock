@@ -4231,6 +4231,12 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
+react-https-redirect@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-https-redirect/-/react-https-redirect-1.0.9.tgz#2a77440253e7354b65d1e284642c6fd2f3628d78"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-scripts@^0.9.5:
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-0.9.5.tgz#e9f05c8427e27131662a9b9d7a9786d1ff16bb3f"
