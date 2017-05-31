@@ -16,7 +16,6 @@ class Calendar extends React.Component {
         this.fillDateRange = this.fillDateRange.bind(this);
         this.fillDateArray = this.fillDateArray.bind(this);
         this.fillColorArr = this.fillColorArr.bind(this);
-        // this.fillColorOrder = this.fillColorOrder.bind(this);
         //header month component
         this.handleDateSelection = this.handleDateSelection.bind(this);
         this.handleProfile = this.handleProfile.bind(this);
@@ -131,26 +130,6 @@ class Calendar extends React.Component {
             .then(response => this.fillDateArraySuccess(response))
     }
 
-    // fillColorOrder(){
-    //     console.log("Running fillColorOrder");
-    //     const colorArr = this.state.colorArr;
-    //     console.log({colorArr});
-    //     let colorOrder = [];
-    //     colorArr.forEach(function(colorDict) {
-    //         let addDict = {}
-    //         // const colorId = colorDict["id"];
-    //         // const emotion = colorDict["emotion"];
-    //         addDict[colorDict["colorId"]] = colorDict["emotion"]
-
-    //         colorOrder.push(addDict);
-
-    //     });
-    //     this.setState({ colorOrder: colorOrder },
-    //         () => {this.fillColorChart();}
-    //     );
-
-        
-    // }
 
     fillColorArrSuccess(response) {
        //TODO why  won't the callback run? 
@@ -302,7 +281,6 @@ class Calendar extends React.Component {
                         profile={profile}
                         dateRange={this.state.dateRange}
                         onDateSelection={this.handleDateSelection}
-                        today={this.state.today}
                         month={this.state.month}
                         year={this.state.year}
                         dateArray={this.state.dateArray}

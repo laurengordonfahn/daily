@@ -41,8 +41,7 @@ class Month extends React.Component {
 
         </div>
 
-        <Table   
-            today={this.props.today}   
+        <Table    
             dateArray={this.props.dateArray}
             dayContent={this.props.dayContent}
             updateAdj={this.props.updateAdj}

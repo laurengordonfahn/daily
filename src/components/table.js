@@ -23,7 +23,6 @@ class Table extends React.Component {
             </td>
           );
       } else {
-          console.log("today and day", todayDay, day)
           return (
             <td key={i}>
               <DayBox
@@ -74,10 +73,6 @@ class Table extends React.Component {
     if (!Object.keys(this.props.dayContent).length) return <div />;
     const dateArray = this.props.dateArray;
     const dayContent = this.props.dayContent;
-    const updateAdj = this.props.updateAdj;
-    const handleColorChange = this.props.handleColorChange;
-    const colorArr = this.props.colorArr;
-
     return (
       <table>
         <thead>

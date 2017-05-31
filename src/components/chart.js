@@ -8,9 +8,6 @@ class Chart extends React.Component {
     }
 
     renderGraphs(emotion, colorChart){
-        console.log("colorChart for render graph", {colorChart}, {emotion})
-
-        console.log(colorChart[emotion]["emotionArr"], colorChart[emotion]["after"], colorChart[emotion]["before"], colorChart[emotion]["colorHexs"]);
 
         const arrLen = colorChart[emotion]["emotionArr"].length
         const borderArr = Array.apply(null, Array(arrLen)).map(String.prototype.valueOf,"black")
@@ -51,9 +48,6 @@ class Chart extends React.Component {
                     yAxes: [{
                         ticks: {
                             beginAtZero:true, 
-                            // scaleStepWidth:1,
-                            // fixedStepSize: 1,
-                            // stepSize: 1
                         }
                     }],
                     xAxes: [{
