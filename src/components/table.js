@@ -11,20 +11,11 @@ class Table extends React.Component {
   }
 
   renderDayBox(elem) {
-    // const colorHex = this.props.dayContent[dayDate]['color'];
-    // (a, b) => (
-    //       <div>
-    //       </div>
-    //       )
-    // (a, b) => {
-    //   return a + b
-    // }
-    // (a, b) => {
-    //   return a + b
-    // }
-
 
     return elem.map((day, i) => {
+      const today = new Date();
+      const todayDay = today.getDate() + "-" + (today.getMonth()+1) + "-" + today.getFullYear();
+
       if (day === null || !day) {
         return (
             <td key={i}>
@@ -32,11 +23,11 @@ class Table extends React.Component {
             </td>
           );
       } else {
-        if (day === this.props.today) {
+          console.log("today and day", todayDay, day)
           return (
             <td key={i}>
               <DayBox
-                className="today"
+                isToday={todayDay === day}
                 dayDate={day}
                 dayContent={this.props.dayContent}
                 updateAdj={this.props.updateAdj}
@@ -45,20 +36,7 @@ class Table extends React.Component {
               />
             </td>
           );
-        } else {
-          return (
-            <td key={i}>
-              <DayBox
-                dayDate={day}
-                dayContent={this.props.dayContent}
-                updateAdj={this.props.updateAdj}
-                handleColorChange={this.props.handleColorChange}
-                colorArr={this.props.colorArr}
-              />
-            </td>
-          );
-        }
-      }
+        } 
     });
   }
 
