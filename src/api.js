@@ -104,7 +104,6 @@ export function colorArr() {
 
 export function updateAdjDB(dayDate, newVal, ElemName) {
     const accessToken = window.sessionStorage.getItem('accessToken');
-    console.log(accessToken)
     return $.ajax({
         url: "/month/adj",
         dataType: "json",
