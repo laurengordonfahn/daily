@@ -61,16 +61,12 @@ def create_emotion_count(user_id):
 
     all_days = create_emotion_chronology(user_id)["all_days"]
     colorOrd = colorOrder(user_id)
-    print ("colorOrder", colorOrd)
-    
-    print ("all_days", all_days)
+
     emotionsCounts = []
     
     for colorDict1 in colorOrd:
         colorId1 = colorDict1.keys()[0]
         emotion1 = colorDict1[colorId1]
-
-        print ("color/emotion1", colorId1, emotion1)
 
         counter2 = 0
         before = [0] * len(colorOrd)
@@ -88,22 +84,17 @@ def create_emotion_count(user_id):
 
             
             while i < (len(all_days) - 1):
-                # print("all_days[i]", i, all_days[i], emotion2, j, all_days[j], emotion1)
-                print all_days[i], all_days[j]
+                
                 if ((all_days[i] == colorId2) and (all_days[j] == colorId1)):
-                    print("running before")
                     emotionCount["before"][counter2] = (emotionCount["before"][counter2] + 1)
 
                 if ((counter2 != 0) and (all_days[i] == colorId1) and (all_days[j] == colorId2)):
-                    print("running after")
                     emotionCount["after"][counter2] = (emotionCount["after"][counter2] + 1)
                 i += 1
                 j += 1
             counter2 += 1
         emotionsCounts.append({ emotion1 : emotionCount }) 
-                
             
-    print ("emotions counts" , emotionsCounts)
     return emotionsCounts
 
 

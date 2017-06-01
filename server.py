@@ -32,13 +32,11 @@ import datetime
 app = Flask(__name__, template_folder='./public/')
 
 app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(30)
-
 bcrypt = Bcrypt(app)
-#for marshmellow searliazer to work
-ma = Marshmallow(app)
 
 app.secret_key = "pouring monday"
 
+########################## Jwt ###########################################
 def authenticate(username, password):
     user=User.query.filter_by(email=username).first()
     if confirm_password(username, password, app):
@@ -50,48 +48,11 @@ def identity(payload):
 
 jwt=JWT(app, authenticate, identity)
 
-
-
-###################### class for Marshmellow #############################
-class UserSchema(ma.Schema):
-    class Meta:
-        # Fields to expose
-        fields = ('month', 'year')
-
-user_schema = UserSchema()
-users_schema = UserSchema(many=True)
-#####################################################
-
-# class NoticesException(Exception):
-#     def __init__(self, notices):
-#         Exception.__init__(self)
-#         self.notices = notices
-
-#     def to_dict(self):
-#         return {
-#             "notices": self.notices,
-#             "isLoggedIn": False,
-#         }
-
-
-# @app.errorhandler(NoticesException)
-# def handle_notices_exception(exception):
-#     return jsonify(exception.to_dict())
-
-# @app.errorhandler(Exception)
-# def handle_base_exception(exception):
-#     response = {
-#         "status": "error",
-#         "error": {
-#             "message": str(exception.to_dict()),
-#             "code": 500,
-#         }
-#     }
-#     return jsonify(response)
 @app.route('/protected')
 @jwt_required()
 def protected():
     return '%s' % current_identity
+#########################################################################
 
 @app.route('/')
 def index():
@@ -224,9 +185,6 @@ def calendar_options():
     """ Retrieve all date history from DB
         Return json of dateHistory:[month-year, month-year, etc]
     """
-
-    # pdb.set_trace()
-
     user_id = current_identity.id
 
     if user_id:
@@ -269,11 +227,11 @@ def month_days():
             return jsonify({"status" : "error"})
 
         response["dateArray"] = possibleDateArr
-        #Todo: Add dateArray infor to response
+        
         response["status"] = "ok"
         
         return jsonify(response)
-    #TODO How handle if no user- id send to homepage but notices?
+    
 
 @app.route('/month/adj', methods=["POST"])
 @jwt_required()
@@ -281,7 +239,6 @@ def month_adj():
     """ Update DB with new adjective """
 
     user_id = current_identity.id
-    print ("month ajd user_id", user_id)
     dayDate = request.form.get("dayDate")
     newVal = request.form.get("newVal")
     elemName = request.form.get("ElemName")
@@ -292,7 +249,6 @@ def month_adj():
 
     commit_adj_to_db(user_id, day, month, year, newVal, elemName)
 
-    #TODO handle errors from commit_adj_to_db 
     response = {"status" : "ok"}
 
     return jsonify(response)
