@@ -70,7 +70,6 @@ class Chart extends React.Component {
                 <div className="barGraphAfter">
                     <Bar data={dataAfter} options={options} />
                 </div>
-                <br/>
             </div>
         );
 

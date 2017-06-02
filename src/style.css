@@ -286,18 +286,15 @@ table {
 
 /* Profile/Charts.js Emotion Comparision Bar Graphs*/
 .barGraphsDiv{
-    /*height: 300px;*/
     display: block;
 }
 .barGraphBefore {
     display: inline-block;
     width: 50%;
-    height: 400px;
 
 }
 .barGraphAfter {
     display: inline-block;
     float: right;
     width: 50%;
-    height: 400px;
 }
