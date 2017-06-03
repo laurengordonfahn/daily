@@ -41,6 +41,7 @@ class Table extends React.Component {
 
   fillTable(dayContent, dateArray) {
     const firstDay = dateArray[0];
+    if (!dayContent[firstDay]) return null;
     const startDay = dayContent[firstDay]["weekday"];
     let calendarFill = [];
     let dayMonth = 0;

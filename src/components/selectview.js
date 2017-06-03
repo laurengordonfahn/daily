@@ -9,7 +9,7 @@ class SelectView extends React.Component {
 
     handleDateSelection(event) {
         const dateChosen = event.target.value;
-        this.props.handleDateSelection(dateChosen);
+        this.props.onDateSelection(dateChosen);
     }
 
     render() {

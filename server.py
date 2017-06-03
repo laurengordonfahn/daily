@@ -95,7 +95,6 @@ def signUp():
         email = email1
         password = password1
         identity = jwt.authentication_callback(email, password)
-        print ("identity", identity)
 
         if identity:
             access_token = jwt.jwt_encode_callback(identity)
@@ -161,7 +160,6 @@ def month_content():
     month = request.form.get("month")
     year = request.form.get("year")
     
-    
     if not is_month(month, year, user_id):
         establish_month(month, year, user_id)
 
@@ -201,7 +199,6 @@ def calendar_options():
         response["dateRange"] = format_dateRange(possibleDateArr)
         #Todo: Add dateArray infor to response
         response["status"] = "ok"
-        
         return jsonify(response)
     #TODO How handle if no user- id send to homepage but notices?
 

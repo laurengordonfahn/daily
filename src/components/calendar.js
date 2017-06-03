@@ -76,11 +76,10 @@ class Calendar extends React.Component {
     }
     
     fillDateContentSuccess(response) {
-
         if (response.status === "ok") {
-            
-            this.setState({ dayContent: response["dayContent"] });
-            
+            const presentDayContent = {...this.state.dayContent};
+            const newState = response["dayContent"]
+            this.setState({ dayContent: newState });            
         }
     
     }
@@ -92,7 +91,6 @@ class Calendar extends React.Component {
 
 
     fillDateRangeSuccess(response) {
-        
         if (response["status"] === "ok") {
             let dRange = this.state.dateRange.slice();
             for (var i = 0; i < dRange.length; i++) {
@@ -107,20 +105,13 @@ class Calendar extends React.Component {
 
     fillDateRange() {
         api.dateRange()
-            .then(response => this.fillDateContentSuccess(response))
+            .then(response => this.fillDateRangeSuccess(response))
     }
 
     fillDateArraySuccess(response) {
 
         if (response["status"] === "ok") {
-            let days = this.state.dateArray.slice();
-            for (var i = 0; i < days.length; i++) {
-                days.pop();
-            }
-            response["dateArray"].forEach(date => {
-                days.push(date);
-            });
-            this.setState({ dateArray: days });
+            this.setState({ dateArray: response["dateArray"] });
         }
     
     }
@@ -132,8 +123,6 @@ class Calendar extends React.Component {
 
 
     fillColorArrSuccess(response) {
-       //TODO why  won't the callback run? 
-        
         if (response.status === "ok") {
             
             const colorArray = response["colorResponse"];
@@ -160,9 +149,10 @@ class Calendar extends React.Component {
     /// SelectView ////
 
     handleDateSelection(dateChosen) {
-        const month = dateChosen.split("-")[0];
-        const year = dateChosen.split("-")[1];
-
+        
+        const month = dateChosen.split("/")[0];
+        const year = dateChosen.split("/")[1];
+        
         this.setState({ view: [month, year] });
         this.setState({ month: month });
         this.setState({ year: year });
