@@ -24,12 +24,22 @@ button {
 /*Homepage*/
 
 #homepageHeader {
-    background-color: #123456;
-    color: white;
+    background-color: #eee;
+    color: black;
     border-bottom: black;
     display: block;
     height: 125px;
     width: 100%;
+}
+
+#emptyDiv1 {
+
+    height: 3px;
+}
+#emptyDiv2 {
+    background-color: #ddd;
+    height: 10px;
+    margin-bottom: 15px;
 }
 
 #appName {
@@ -107,6 +117,7 @@ button {
 
 /*SignUp*/
 #signUpDiv {
+    margin-top: 40px;
     display: block;
     position: relative;
 }

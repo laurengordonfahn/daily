@@ -13,6 +13,8 @@ class Homepage extends React.Component {
                     <h1 id="appName"> Daily </h1>
                     <SignIn onSignIn={this.props.onSignIn} />
                 </div>
+                <div id="emptyDiv1"/>
+                <div id="emptyDiv2"/>
                 <Notices
                     msg={this.props.msg}
                     clearStatus={this.props.clearStatus}

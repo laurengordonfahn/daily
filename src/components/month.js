@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Table from "./table";
 import SelectView from "./selectview";
 import Profile from "./profile";
@@ -9,6 +10,16 @@ class Month extends React.Component {
   constructor  (){
       super();
       this.translateMonthName = this.translateMonthName.bind(this);
+  }
+
+  static propTypes = {
+    // all dates in the database "d/m/y": {adj1:adj, adj2:adj, adj3:adj, colorSet:hex}
+    dayContent: PropTypes.objectOf(PropTypes.shape({
+      adj1: PropTypes.string.isRequired,
+      adj2: PropTypes.string.isRequired,
+      adj3: PropTypes.string.isRequired,
+      colorSet: PropTypes.string,
+    })),
   }
 
   translateMonthName (month){

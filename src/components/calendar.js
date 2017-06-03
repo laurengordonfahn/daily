@@ -108,15 +108,13 @@ class Calendar extends React.Component {
             .then(response => this.fillDateRangeSuccess(response))
     }
 
-    fillDateArraySuccess(response) {
-
-        if (response["status"] === "ok") {
-            this.setState({ dateArray: response["dateArray"] });
+    fillDateArraySuccess({ status, dateArray }) {
+        if (status === "ok") {
+            this.setState({ dateArray });
         }
-    
     }
 
-    fillDateArray (month, year) {
+    fillDateArray(month, year) {
         api.dateArray(month, year)
             .then(response => this.fillDateArraySuccess(response))
     }
