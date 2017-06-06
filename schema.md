@@ -1,0 +1,21 @@
+<App>
+    <HomePage>
+        <Notices>
+        <SignUp>
+        <Welcome>
+    <Calendar>
+        <Notices>
+        <Month>
+            <SignOut>
+            <Profile>
+            <SelectView>
+            <Table>
+                <EmptyDay>
+                <DayBox>
+                    <AdjectiveForm>
+                        <InputAdjective>
+                    <ColorSelect>
+        <ProfilePage>
+            <Profile>
+            <SignOut>
+            <Chart>
