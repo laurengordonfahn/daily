@@ -26,6 +26,7 @@ Daily's profile feature automatically offers informative charts to follow your e
 Daily is a flask-python restful API with a node.js React frontend application.
 This means that you will need python, node, and create-react-app dependencies. 
 Python's dependencies are found in requirements.txt. You will need python's pip installer to run requirements.txt. Node and React's dependencies are found in package.json. You will need either node's npm or yarn installer to successfully download the libraries noted in packages.json.
+The file schema.md contains a layout overview of the components order.
 
 #Prerequisites Steps:
 1) Download the project in a directory of its own. Navigate into the new directory and type in the following command.  
