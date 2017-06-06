@@ -1,6 +1,5 @@
 import React from "react";
-
-// import $ from "jquery";
+import PropTypes from 'prop-types';
 
 import Month from "./month";
 import Notices from "./notices";
@@ -77,7 +76,6 @@ class Calendar extends React.Component {
     
     fillDateContentSuccess(response) {
         if (response.status === "ok") {
-            const presentDayContent = {...this.state.dayContent};
             const newState = response["dayContent"]
             this.setState({ dayContent: newState });            
         }
@@ -292,5 +290,11 @@ class Calendar extends React.Component {
         );
     }
 }
+
+Calendar.propTypes = {
+    onSingOut: PropTypes.func,
+    isLoggedIn: PropTypes.bool.isRequired,
+    msg: PropTypes.objectOf(PropTypes.string)
+};
 
 export default Calendar;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class SignOut extends React.Component {
     render() {
@@ -9,5 +10,9 @@ class SignOut extends React.Component {
         );
     }
 }
+ 
+SignOut.propTypes = {
+    onSignOut: PropTypes.func
+};
 
 export default SignOut;

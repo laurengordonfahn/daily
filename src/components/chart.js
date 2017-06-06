@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Bar} from 'react-chartjs-2';
 
 class Chart extends React.Component {
@@ -89,5 +90,10 @@ class Chart extends React.Component {
         );
     }
 }
+
+Chart.propTyes = {
+    colorChart : PropTypes.shape({
+        emotion: PropTypes.object})
+};
 
 export default Chart;

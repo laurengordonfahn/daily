@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class SelectView extends React.Component {
     constructor() {
@@ -33,5 +34,10 @@ class SelectView extends React.Component {
         );
     }
 }
+
+SelectView.propTypes = {
+    onDateSelection: PropTypes.func,
+    dateOptions: PropTypes.arrayOf(PropTypes.string)
+};
 
 export default SelectView;

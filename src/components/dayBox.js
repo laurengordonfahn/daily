@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import AdjectiveForm from "./adjectiveForm";
 import ColorSelect from "./colorSelect";
@@ -43,4 +44,12 @@ class DayBox extends React.Component {
     }
 }
 
+DayBox.propTypes = {
+    dayContent: PropTypes.objectOf(PropTypes.object),
+    colorArr: PropTypes.arrayOf(PropTypes.object),
+    dayDate: PropTypes.string,
+    isToday: PropTypes.bool.isRequired,
+    updateAdj: PropTypes.func,
+    handleColorChange: PropTypes.func
+};
 export default DayBox;

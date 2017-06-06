@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class InputAdjective extends React.Component {
     constructor() {
@@ -43,5 +44,11 @@ class InputAdjective extends React.Component {
         }
     }
 }
+
+InputAdjective.propTypes = {
+    dayDate: PropTypes.string,
+    value: PropTypes.string,
+    name: PropTypes.string
+};
 
 export default InputAdjective;

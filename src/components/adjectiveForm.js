@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import InputAdjective from "./inputAdjective";
 
 class AdjectiveForm extends React.Component {
@@ -50,5 +52,11 @@ class AdjectiveForm extends React.Component {
         );
     }
 }
+
+AdjectiveForm.propTypes = {
+    dayContent: PropTypes.objectOf(PropTypes.object),
+    updateAdj: PropTypes.func,
+    dayDate: PropTypes.string
+};
 
 export default AdjectiveForm;

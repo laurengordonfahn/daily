@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import EmptyDay from "./emptyDay";
 import DayBox from "./dayBox";
 
@@ -98,5 +100,14 @@ class Table extends React.Component {
     );
   }
 }
+
+Table.propTypes = {
+  dayContent: PropTypes.objectOf(PropTypes.object),
+  updateAdj: PropTypes.func,
+  handleColorChange: PropTypes.func,
+  colorArr: PropTypes.arrayOf(PropTypes.object),
+  dateArray: PropTypes.arrayOf(PropTypes.string)
+};
+
 
 export default Table;

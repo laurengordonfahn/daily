@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Profile extends React.Component {
     
@@ -29,4 +30,10 @@ class Profile extends React.Component {
     }
 }
 
+Profile.propTypes = {
+    isLoggedIn: PropTypes.bool,
+    profile: PropTypes.bool,
+    handleProfile: PropTypes.func
+
+};
 export default Profile;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class SignUp extends React.Component {
     
@@ -46,4 +47,7 @@ class SignUp extends React.Component {
     }
 }
 
+SignUp.propTypes = {
+    onSignUp: PropTypes.func
+};
 export default SignUp;

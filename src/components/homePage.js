@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import SignIn from "./signIn";
 import SignUp from "./signUp";
@@ -26,5 +27,12 @@ class Homepage extends React.Component {
         );
     }
 }
+
+Homepage.propTypes = {
+    onSignIn: PropTypes.func,
+    msg: PropTypes.objectOf(PropTypes.string),
+    clearStatus: PropTypes.func,
+    onSignUp: PropTypes.func
+};
 
 export default Homepage;

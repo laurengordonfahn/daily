@@ -65,4 +65,20 @@ class Month extends React.Component {
   }
 }
 
+Month.propTypes ={
+  month: PropTypes.number,
+  onSingOut: PropTypes.func,
+  profile: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  handleProfile: PropTypes.func,
+  dateRange: PropTypes.arrayOf(PropTypes.string),
+  onDateSelection: PropTypes.func,
+  year: PropTypes.number,
+  dateArray: PropTypes.arrayOf(PropTypes.string),
+  dayContent: PropTypes.objectOf(PropTypes.object),
+  updateAdj: PropTypes.func,
+  handleColorChange: PropTypes.func,
+  colorArr: PropTypes.arrayOf(PropTypes.object)
+};
+
 export default Month;

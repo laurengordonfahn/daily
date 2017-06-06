@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 
 function Notices(props) {
@@ -24,5 +25,9 @@ function Notices(props) {
         );
     }
 }
+
+Notices.propTypes = {
+    msg: PropTypes.objectOf(PropTypes.string)
+};
 
 export default Notices;

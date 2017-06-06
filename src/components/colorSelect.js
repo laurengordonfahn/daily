@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class ColorSelect extends React.Component {
   constructor() {
@@ -58,5 +59,10 @@ class ColorSelect extends React.Component {
     );
   }
 }
+
+ColorSelect.propTypes = {
+  dayDate: PropTypes.string,
+  colorArr: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default ColorSelect;
