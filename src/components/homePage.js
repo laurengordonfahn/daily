@@ -6,7 +6,7 @@ import SignUp from "./signUp";
 import Notices from "./notices";
 import Welcome from "./welcome";
 
-class Homepage extends React.Component {
+class HomePage extends React.Component {
     render() {
         return (
             <div>
@@ -28,11 +28,11 @@ class Homepage extends React.Component {
     }
 }
 
-Homepage.propTypes = {
+HomePage.propTypes = {
     onSignIn: PropTypes.func,
     msg: PropTypes.objectOf(PropTypes.string),
     clearStatus: PropTypes.func,
     onSignUp: PropTypes.func
 };
 
-export default Homepage;
+export default HomePage;
