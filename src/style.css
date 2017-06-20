@@ -343,7 +343,7 @@ table {
 }
 .barGraphsDiv{
     display: block;
-    ;
+    margin: 10px;
 }
 .barGraphBefore {
     display: inline-block;
