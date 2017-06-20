@@ -11,7 +11,7 @@ class HomePage extends React.Component {
         return (
             <div>
                 <div id="homepageHeader">
-                    <h1 id="appName"> Daily </h1>
+                    <div id="appName"> Daily </div>
                     <SignIn onSignIn={this.props.onSignIn} />
                 </div>
                 <div id="emptyDiv1"/>

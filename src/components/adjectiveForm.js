@@ -47,7 +47,6 @@ class AdjectiveForm extends React.Component {
                     return this.renderInputs(elem, dayDate);
                 })}
 
-                <button type="submit"> Add + </button>
             </form>
         );
     }

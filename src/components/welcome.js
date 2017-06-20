@@ -6,10 +6,10 @@ function Welcome(props) {
         <div id="explanation">
 
             <div className="intro">  
-                <h2> The Steps: </h2>
-                <h3> 1) Sign Up using just your email </h3>
-                <h3> 2) Your personal private calendar will appear </h3>
-                <h3> 3) Start by adding three adjectives and a color for the day </h3>
+                <div className="introHeader"> The Steps: </div>
+                <div className="introLine"> <span className="introNum">1) </span> Sign Up using just your email </div>
+                <div className="introLine"> <span className="introNum">2) </span> Your personal private calendar will appear </div>
+                <div className="introLine"> <span className="introNum">3) </span> Start by adding three adjectives and a color for the day </div>
             </div>
 
         </div>

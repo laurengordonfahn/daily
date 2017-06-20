@@ -26,7 +26,7 @@ class DayBox extends React.Component {
         
         return (
             <div className={this.props.isToday ? "today day" : "day"} style={this.colorIdConverter(dayDate)} >
-                <h3 className="dayDate"> {day} </h3>
+                <div className="dayDate"> {day} </div>
 
                 <AdjectiveForm
                     dayDate={dayDate}

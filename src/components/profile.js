@@ -10,19 +10,21 @@ class Profile extends React.Component {
 
         if (!profile){
             return(
-
-                <button className="menu" onClick={() => this.props.handleProfile(isLoggedIn)}>
-                    Profile 
-                </button>
+                <div className="selectViewButtonDiv">
+                    <button className="menu" onClick={() => this.props.handleProfile(isLoggedIn)}>
+                        Profile 
+                    </button>
+                </div>
                 
             );
         }
 
         return(
-
-            <button className="menu" onClick={() => this.props.handleProfile(isLoggedIn)}>
-                Calendar
-            </button>
+            <div className="selectViewButtonDiv">
+                <button className="menu" onClick={() => this.props.handleProfile(isLoggedIn)}>
+                    Calendar
+                </button>
+            </div>
                 
         );
 

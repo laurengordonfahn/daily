@@ -3,6 +3,7 @@ body {
     display: flex;
     background: #fdfae7;
     min-width: min-content;
+    margin: 0px;
 }
 
 #main {
@@ -17,6 +18,7 @@ button {
     padding: 7px, 10px, 7px, 10px;
     border-radius: 2px;
     border: solid black 1px;
+    /*background-color: gray;*/
     background-color: #123456;
     color: white;
 }
@@ -28,8 +30,11 @@ button {
     color: black;
     border-bottom: black;
     display: block;
-    height: 125px;
     width: 100%;
+    font-weight: lighter;
+    font-size: 45px;
+    padding: 10px;
+    overflow:hidden;
 }
 
 #emptyDiv1 {
@@ -44,25 +49,45 @@ button {
 
 #appName {
     display: inline-block;
-    position: relative;
-    margin-top: 5px;
-    margin-left: 10px;
+    margin-top: 10px;
+    margin-left: 10%;
 }
 #explanation {
-    /*border: solid black 1px;*/
-    margin: 10px;
+    display: block;
+    font-weight: lighter;
+    font-size: 35px;
+    margin-left: 10%;
+    margin-top: 7%;
+
+}
+
+.introHeader{
+    margin-bottom: 10px;
+}
+
+.introNum{
+    font-size: 20px;
+}
+
+.introLine{
+    height: 1%;
+    font-size: 25px
 }
 
 /*SignIn*/
 .signInDiv{
     display: inline-block;
-    position: relative;
     float: right;
-    margin-right: 10px;  
-    margin-top: 5px; 
+    margin-right: 10%;  
+    margin-top: 10px; 
     width: 190px; 
     padding: 0;
+    font-size: 20px;
+    font-weight: lighter;
+    /*so header div contains form*/
+    /*clear: both;*/
 }
+
 .signInLable {
     margin: 5px;
     display: inline-block;
@@ -73,21 +98,16 @@ button {
 #signInForm {
     width: 100%;
     padding-right: 5px;
-    position: relative;
 }
 .signInInput {
-     width: 180px;
+    width: 180px;
     margin: 0;
     border: solid gray 1px;
-    letter-spacing: 2px;
     padding: 2px;
     margin: 1px 2px 1px 5px;
     border-radius: 2px;
-    position: relative;
 
 }
-
-
 
 #signInButton{
     margin: 5px 0px;
@@ -98,9 +118,9 @@ button {
     color: white;
     width: 75px;
     display: inline-block;
-    position: relative;
     float: right;
-    letter-spacing: 2px;
+    font-weight: lighter;
+    letter-spacing: 1px;
 }
 
 
@@ -108,64 +128,58 @@ button {
 
 .notices {
     border-radius: 2px;
-    margin: 10px;
-    background-color: #b12720;
-    padding: 2px;
+    background-color: #E75235;
+    padding: 3px;
     text-align: center;
-
+    font-style: 18px;
+    font-weight: lighter;
 }
 
 /*SignUp*/
 #signUpDiv {
     margin-top: 40px;
     display: block;
-    position: relative;
+    overflow:hidden;
 }
-.welcomeMsg {
-    text-align: center;
-}
-.intro{
-    margin: 5px;
-    clear: right;
-}
-#signUpFormDiv {
-    float: right;
-    margin-right: 20px;
-    text-align: right;
-    /*display: inline-block;*/
-    /*position: relative;*/
-    margin-right: 10px;  
-    margin-top: 5px; 
-    width: 50%; 
-    padding: 0;
+.welcomeMsgDiv {
+    display: inline-block;
+    margin-left: 10%;
+    font-weight: lighter;
+    font-size: 35px;
+    margin-top: 7%;
+
 }
 
-#signUpForm {
-    width: 100%;
+#signUpFormDiv {
+    display: inline-block;
     float: right;
+    margin-right: 10%;
+    text-align: right;  
+    margin-top: 5%; 
+    padding: 0;
+    font-weight: lighter;
+    font-size: 20px;
 }
+
 
 #signUpLable {
+    margin-right: 5px;
     margin-top: 10px;
     margin-bottom: 2px;
+    font-weight: 20px;
+    font-style: lighter;
 }
-
 
 .singUpInput {
     width: 180px;
-    margin: 0;
     border: solid gray 1px;
-    letter-spacing: 2px;
     padding: 2px;
     margin: 1px 2px 1px 5px;
     border-radius: 2px;
     position: relative;
-
-
 }
 
 #signUpButton {
-    margin: 5px 0px;
     border-radius: 2px;
     border: solid black 1px;
     padding: 7px, 10px, 7px, 10px;
@@ -175,8 +189,10 @@ button {
     display: inline-block;
     position: relative;
     float: right;
-    letter-spacing: 2px;
-
+    font-weight: lighter;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    margin-right: 3px;
 }
 
 
@@ -203,15 +219,26 @@ table {
 .selectViewDiv {
     margin: 20px 0px 0px 5px;
     display: inline-block;
-    position: relative;
     float: left; 
+   /* position: relative;*/
+    width: 6%;
+
+}
+.selectView {
+    margin: 0px;
+    padding: 0px;
+}
+.menu {
+    width: 100%;
+    /*width: 75px;*/
 
 }
 
 #selectViewSelect {
     margin-left: 5px;
     padding: 2px 15px 2px 15px;
-    width: 75px;
+    width: 100%;
+    
 }
 
 .monthInfo {
@@ -223,10 +250,11 @@ table {
 }
 
 .monthTitle {
-   font-size: 25px;
+   font-size: 30px;
    letter-spacing: 5px;
    vertical-align: middle;
    text-align: center;
+   font-weight: lighter;
 }
 
 .year { 
@@ -247,6 +275,7 @@ table {
     margin: 5px;
     width: 100vw;
     background-color: #ddd;
+    font-weight: lighter;
 }
 
 /*DayBox */
@@ -255,6 +284,7 @@ table {
     display: inline-block;
     margin: 0;
     padding: 0;
+    height: 150px;
     border-left: solid 1px gray;
     border-top: solid 1px gray;
 }
@@ -264,9 +294,16 @@ table {
 
 
 .colorSelect {
-    margin: 5px;
-    letter-spacing: 2px;
+
+    margin: 13px 13px 15px 5px;
     color: #fdfae7;
+    font-weight: lighter;
+}
+
+
+.adjectiveForm {
+    margin-top: 7px;
+    color: black;
 }
 
 .adjInput {
@@ -276,28 +313,37 @@ table {
     border-left: none;
     border-right: none;
     border-bottom: solid gray 1px;
-    letter-spacing: 2px;
     padding: 2px;
     margin: 1px 1px 1px 5px;
-    width: 85%;
+    width: 88%;
+    color: black;
 }
 
-/*option {
-    color: gray;
-}*/
 
 .dayDate {
     text-align: right;
     margin: 1px 5px 1px 1px;
+    font-weight: lighter;
 }
 
-.menu {
-    width: 75px;
-}
+
 
 /* Profile/Charts.js Emotion Comparision Bar Graphs*/
+.profileButtons {
+    width: 85px;
+    margin: 10px;
+}
+.explainationBarChart {
+    display: block;
+    text-align: center;
+    font-weight: lighter;
+    font-size: 20px;
+    background-color:#eee; 
+
+}
 .barGraphsDiv{
     display: block;
+    ;
 }
 .barGraphBefore {
     display: inline-block;
@@ -308,4 +354,8 @@ table {
     display: inline-block;
     float: right;
     width: 50%;
+}
+
+input {
+    font-weight: lighter;
 }

@@ -80,13 +80,13 @@ class Table extends React.Component {
       <table>
         <thead>
           <tr className="weekdayNames">
-            <th>Su</th>
-            <th>Mo</th>
-            <th>Tu</th>
-            <th>We</th>
-            <th>Th</th>
-            <th>Fr</th>
-            <th>Sa</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saterday</th>
             
           </tr>
         </thead>

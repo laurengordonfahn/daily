@@ -26,11 +26,11 @@ class SignUp extends React.Component {
 
             <div id="signUpDiv"> 
                 <div className="welcomeMsgDiv">
-                    <h1 className="welcomeMsg"> Welcome to Daily; <br/> The emotion tracking calendar! </h1>
+                    <div className="welcomeMsg"> Welcome to Daily; <br/> The emotion tracking calendar! </div>
                     
                 </div>
                 <div id="signUpFormDiv">
-                    <h3 id="signUpLable"> SignUp for Daily: </h3>
+                    <div id="signUpLable"> SignUp for Daily: </div>
                     <form id="signUpForm"> 
                         
                         <input className="singUpInput" type="text" ref={(input) =>{this.email1 = input; }} placeholder="email"/>

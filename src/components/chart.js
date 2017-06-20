@@ -65,7 +65,13 @@ class Chart extends React.Component {
 
         return(
             <div className="barGraphsDiv" key={emotion} >
+            <div className="explainationBarChart">
+                <p>     
+                    Frequency of a(n) {emotion} day occuring a day 'Before'  or a day 'After' a given emotion.
+                </p>
+            </div>
                 <div className="barGraphBefore">
+                    
                     <Bar data={dataBefore} options={options} />
                 </div>
                 <div className="barGraphAfter">

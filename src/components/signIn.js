@@ -18,7 +18,7 @@ class SignIn extends React.Component {
         return (
             <div className="signInDiv">
                 
-                <h3 className="signInLable"> SignIn: </h3>
+                <div className="signInLable"> SignIn: </div>
                 <form id="signInForm">
                     <input
                         className="signInInput"
