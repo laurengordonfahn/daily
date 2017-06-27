@@ -37,15 +37,16 @@ button {
     overflow:hidden;
 }
 
-#emptyDiv1 {
-
+/*#emptyDiv1 {
     height: 3px;
 }
 #emptyDiv2 {
     background-color: #ddd;
     height: 10px;
+    width: 100vw;
     margin-bottom: 15px;
-}
+
+}*/
 
 #appName {
     display: inline-block;
