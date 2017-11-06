@@ -7,7 +7,7 @@ import HttpsRedirect from 'react-https-redirect';
 import HomePage from "./homePage";
 import Calendar from "./calendar";
 
-import * as api from '../api'
+import * as api from '../api';
 
 class App extends React.Component {
     constructor() {

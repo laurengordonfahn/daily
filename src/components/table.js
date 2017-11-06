@@ -86,7 +86,7 @@ class Table extends React.Component {
             <th>Wednesday</th>
             <th>Thursday</th>
             <th>Friday</th>
-            <th>Saterday</th>
+            <th>Saturday</th>
             
           </tr>
         </thead>
